@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Polityka prywatności i cookies | ECO-TOO" description="Zasady przetwarzania danych osobowych i plików cookies na stronie ECO-TOO." noindex>
+  <div class="page-hero"><div class="wrap"><h1>Polityka prywatności</h1></div></div>
+  <section class="block"><div class="wrap" style="max-width:820px">
+    <p class="note"><strong>Wzór do weryfikacji.</strong> Przed publikacją uzupełnij dane administratora (pełna nazwa firmy, NIP) i zweryfikuj treść z prawnikiem lub IOD.</p>
+    <h2 style="font-size:1.8rem">1. Administrator danych</h2>
+    <p>Administratorem danych osobowych jest ECO-TOO, {site.postal} {site.city}, {site.street}, e-mail: <a href={`mailto:${site.email}`}>{site.email}</a>, tel. {site.phone}.</p>
+    <h2 style="font-size:1.8rem">2. Cel i podstawa przetwarzania</h2>
+    <p>Dane z formularza kontaktowego (imię i nazwisko, telefon, e-mail, miejscowość i parametry inwestycji, treść wiadomości) przetwarzamy w celu udzielenia odpowiedzi na zapytanie i przygotowania oferty – na podstawie Twojej zgody oraz naszego prawnie uzasadnionego interesu (art. 6 ust. 1 lit. a i f RODO).</p>
+    <h2 style="font-size:1.8rem">3. Odbiorcy i okres przechowywania</h2>
+    <p>Dane mogą być powierzane dostawcom usług hostingu, poczty i wysyłki wiadomości (m.in. Cloudflare, lh.pl). Przechowujemy je przez czas potrzebny do obsługi zapytania i ewentualnej współpracy, nie dłużej niż do upływu terminów przedawnienia roszczeń.</p>
+    <h2 style="font-size:1.8rem">4. Twoje prawa</h2>
+    <p>Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia, sprzeciwu oraz cofnięcia zgody w dowolnym momencie, a także wniesienia skargi do Prezesa UODO.</p>
+    <h2 style="font-size:1.8rem">5. Pliki cookies</h2>
+    <p>Strona nie używa plików cookies reklamowych ani analitycznych. Jeżeli w przyszłości zostaną dodane narzędzia analityczne, polityka zostanie zaktualizowana, a zgoda zbierana zgodnie z przepisami.</p>
+  </div></section>
+</Base>

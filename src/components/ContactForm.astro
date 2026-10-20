@@ -1,0 +1,58 @@
+---
+---
+<form class="f" id="contact-form" method="post" action="/api/contact" novalidate>
+  <label class="fl">Imię i nazwisko<input name="name" required autocomplete="name" /></label>
+  <label class="fl">Numer telefonu<input name="phone" type="tel" required autocomplete="tel" /></label>
+  <label class="fl">Adres e-mail<input name="email" type="email" required autocomplete="email" /></label>
+  <label class="fl">Miejscowość inwestycji<input name="city" required /></label>
+  <label class="fl">Rodzaj obiektu
+    <select name="object" required>
+      <option value="">— wybierz —</option>
+      <option>Dom jednorodzinny</option><option>Mieszkanie</option><option>Domek letniskowy</option>
+      <option>Biuro / gabinet</option><option>Lokal usługowy</option><option>Inny</option>
+    </select>
+  </label>
+  <label class="fl">Powierzchnia do ogrzania (m²)<input name="area" inputmode="decimal" /></label>
+  <label class="fl">Etap inwestycji
+    <select name="stage">
+      <option value="">— wybierz —</option>
+      <option>Planowanie / projekt</option><option>Budowa</option><option>Remont</option><option>Gotowy budynek</option>
+    </select>
+  </label>
+  <label class="fl">Planowane wykończenie podłogi
+    <select name="floor">
+      <option value="">— wybierz —</option>
+      <option>Panele laminowane</option><option>Panele winylowe</option><option>Deski warstwowe</option>
+      <option>Płytki ceramiczne</option><option>Inne / jeszcze nie wiem</option>
+    </select>
+  </label>
+  <label class="fl full">Wiadomość <span class="opt">(opcjonalnie)</span><textarea name="message"></textarea></label>
+  <p class="full note" style="margin:0">Rzut lub projekt (PDF, zdjęcie) możesz dosłać odpowiadając na naszą wiadomość lub wysyłając go na <a href="mailto:biuro@eco-too.opole.pl">biuro@eco-too.opole.pl</a>.</p>
+  <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <label class="consent full"><input type="checkbox" name="consent" required />
+    <span>Wyrażam zgodę na przetwarzanie moich danych w celu odpowiedzi na zapytanie, zgodnie z <a href="/polityka-prywatnosci">polityką prywatności</a>.</span></label>
+  <div class="full"><button class="btn" type="submit">Poproś o kontakt</button></div>
+  <div class="full form-msg" id="form-msg" role="status" aria-live="polite"></div>
+</form>
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const msg = document.getElementById('form-msg')!;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.className = 'full form-msg';
+    if (!form.reportValidity()) return;
+    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Wysyłanie…';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || 'error');
+      form.reset();
+      msg.className = 'full form-msg ok';
+      msg.textContent = 'Dziękujemy! Wiadomość została wysłana. Odezwiemy się w godzinach pracy (Pn–Pt 9:00–17:00).';
+    } catch {
+      msg.className = 'full form-msg err';
+      msg.innerHTML = 'Nie udało się wysłać formularza. Napisz na <a href="mailto:biuro@eco-too.opole.pl">biuro@eco-too.opole.pl</a> lub zadzwoń: <a href="tel:+48668173872">+48 668 173 872</a>.';
+    } finally { btn.disabled = false; btn.textContent = 'Poproś o kontakt'; }
+  });
+</script>

@@ -1,0 +1,13 @@
+---
+import { photos } from '../data/site';
+import Img from './Img.astro';
+const { ids } = Astro.props;
+const gid = 'g' + Math.random().toString(36).slice(2, 7);
+---
+<div class="gallery" data-gallery>
+  {ids.map((id: string) => (
+    <button type="button" data-full={`/img/${photos[id].slug}-1600.webp`} data-alt={photos[id].alt} aria-label={`Powiększ: ${photos[id].alt}`}>
+      <Img id={id} sizes="(min-width: 900px) 33vw, 50vw" />
+    </button>
+  ))}
+</div>

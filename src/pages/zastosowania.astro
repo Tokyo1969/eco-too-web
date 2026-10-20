@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+const items = [
+  ['Domy jednorodzinne', 'System może stanowić ogrzewanie podstawowe w odpowiednio przygotowanym energetycznie budynku lub ogrzewanie wybranych pomieszczeń. Szczególne znaczenie mają izolacja, zapotrzebowanie na ciepło i prawidłowo dobrana moc.'],
+  ['Mieszkania', 'Folia grzewcza pozwala zrezygnować z widocznych grzejników i sterować temperaturą niezależnie w poszczególnych pokojach. Przed montażem sprawdzamy możliwości techniczne oraz moc przyłączeniową.'],
+  ['Remontowane wnętrza', 'Niewielka grubość elementów systemu może ułatwiać jego zastosowanie podczas modernizacji. Ostateczny układ warstw zawsze dobieramy do istniejącej konstrukcji.'],
+  ['Domki letniskowe i obiekty użytkowane okresowo', 'Programowalne lub zdalne sterowanie umożliwia utrzymywanie temperatury minimalnej i ogrzanie wnętrza przed przyjazdem.'],
+  ['Biura i lokale usługowe', 'Podział instalacji na strefy pozwala dopasować temperaturę do godzin pracy i sposobu wykorzystania poszczególnych pomieszczeń.'],
+];
+---
+<Base
+  title="Zastosowania folii grzewczych – domy, mieszkania, biura | ECO-TOO"
+  description="Gdzie sprawdza się ogrzewanie na podczerwień: domy jednorodzinne, mieszkania, remonty, domki letniskowe, biura i lokale usługowe w Opolskiem."
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Zastosowania</span>
+    <h1>Gdzie sprawdza się ogrzewanie folią</h1>
+    <p>Każdy system projektujemy indywidualnie – od mieszkania po lokal usługowy.</p>
+  </div></div>
+  <section class="block"><div class="wrap grid g2">
+    {items.map(([t, d]) => <div class="card"><h3>{t}</h3><p>{d}</p></div>)}
+  </div></section>
+  <CTA />
+</Base>

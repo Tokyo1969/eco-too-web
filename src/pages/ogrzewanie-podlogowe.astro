@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import CTA from '../components/CTA.astro';
+const pros = ['równomierne rozprowadzanie ciepła','możliwość niezależnego sterowania pomieszczeniami','brak widocznych grzejników','szybka reakcja systemu sterowanego termostatem','cicha praca','brak konieczności budowy kotłowni','możliwość integracji z rozwiązaniami smart home'];
+const floors = ['panelami laminowanymi','panelami winylowymi','deskami warstwowymi','innymi materiałami dopuszczonymi do współpracy z ogrzewaniem podłogowym'];
+---
+<Base
+  title="Ogrzewanie podłogowe folią grzewczą – Opole i okolice | ECO-TOO"
+  description="Elektryczne ogrzewanie podłogowe na podczerwień z folii grzewczej. Dobór systemu do podłogi, montaż i sterowanie. Opole i województwo opolskie."
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Oferta</span>
+    <h1>Folia grzewcza pod podłogą</h1>
+    <p>Równomierne ciepło na dużej powierzchni, niewidoczne w aranżacji wnętrza.</p>
+  </div></div>
+  <section class="block"><div class="wrap split">
+    <div>
+      <p>Ogrzewanie podłogowe z wykorzystaniem folii grzewczej pozwala równomiernie oddawać ciepło na dużej powierzchni. System pozostaje niewidoczny i nie zajmuje miejsca na ścianach, dzięki czemu ułatwia aranżację wnętrza.</p>
+      <p>Rozwiązanie może być stosowane zarówno w nowych budynkach, jak i podczas wybranych remontów. Możliwość montażu zależy od konstrukcji podłogi, jej izolacji oraz rodzaju planowanej okładziny.</p>
+      <h2 style="font-size:1.9rem;margin-top:1.6rem">Najważniejsze zalety</h2>
+      <ul class="checks">{pros.map((p) => <li>{p}</li>)}</ul>
+    </div>
+    <Img id="drogoszow-4" sizes="(min-width: 900px) 40vw, 90vw" />
+  </div></section>
+  <section class="block alt"><div class="wrap">
+    <h2>Pod jaką podłogą można zastosować folię?</h2>
+    <p class="intro">System dobieramy do konkretnego rodzaju wykończenia. Przed montażem sprawdzamy zalecenia producenta podłogi oraz dopuszczalną temperaturę jej pracy.</p>
+    <p style="margin-top:1.2rem">Folie grzewcze mogą być stosowane pod wybranymi:</p>
+    <ul class="checks">{floors.map((p) => <li>{p}</li>)}</ul>
+    <p class="note" style="margin-top:1.5rem">W przypadku płytek ceramicznych sposób wykonania instalacji wymaga zastosowania odpowiedniego kompletnego systemu. Każdy taki projekt oceniamy indywidualnie.</p>
+  </div></section>
+  <section class="block"><div class="wrap">
+    <h2>Bezpieczeństwo i sterowanie</h2>
+    <p class="intro">Instalacja powinna zostać właściwie dobrana, zabezpieczona i podłączona przez osobę posiadającą odpowiednie kwalifikacje. Czujniki temperatury podłogi i termostaty pomagają kontrolować pracę systemu oraz chronić materiały wykończeniowe przed przegrzaniem.</p>
+    <div class="btn-row"><a class="btn" href="/kontakt">Zapytaj o ogrzewanie podłogowe</a><a class="btn ghost" style="color:var(--ink)" href="/realizacje">Zobacz realizacje</a></div>
+  </div></section>
+  <CTA />
+</Base>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://eco-too.opole.pl/sitemap-index.xml

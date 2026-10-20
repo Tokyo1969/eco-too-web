@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+const need = ['lokalizację inwestycji','rzut pomieszczeń z wymiarami','informację, czy jest to nowy budynek, czy remont','rodzaj i grubość izolacji','planowany materiał wykończeniowy podłogi','wskazanie stałej zabudowy i ciężkich mebli','informację o dostępnej instalacji elektrycznej','oczekiwany sposób sterowania'];
+const scope = ['konsultację','dobór systemu','projekt rozmieszczenia elementów grzewczych','dostawę materiałów','montaż folii','montaż czujników i regulatorów','wykonanie pomiarów','konfigurację sterowania','instruktaż użytkownika','dokumentację powykonawczą w uzgodnionym zakresie'];
+---
+<Base
+  title="Jak wygląda realizacja ogrzewania folią – etapy i wycena | ECO-TOO"
+  description="Co jest potrzebne do wyceny ogrzewania na podczerwień i jaki jest zakres usługi: od konsultacji i projektu po montaż, uruchomienie i instruktaż."
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Jak pracujemy</span>
+    <h1>Jak wygląda realizacja</h1>
+    <p>Od pierwszej rozmowy do uruchomionej instalacji – bez niespodzianek.</p>
+  </div></div>
+  <section class="block"><div class="wrap grid g2">
+    <div class="card">
+      <h2 style="font-size:1.9rem">Co jest potrzebne do przygotowania wyceny?</h2>
+      <p>Aby opracować wstępną propozycję, poprosimy o:</p>
+      <ul class="checks">{need.map((n) => <li>{n}</li>)}</ul>
+      <p style="margin-top:1rem">Jeśli nie posiadasz wszystkich danych, skontaktuj się z nami. Pomożemy ustalić, jakie informacje będą potrzebne na kolejnym etapie.</p>
+    </div>
+    <div class="card">
+      <h2 style="font-size:1.9rem">Zakres usługi</h2>
+      <p>W zależności od wybranego wariantu możemy zapewnić:</p>
+      <ul class="checks">{scope.map((n) => <li>{n}</li>)}</ul>
+    </div>
+  </div></section>
+  <CTA btn="Prześlij projekt" title="Masz rzut lub projekt?" text="Wyślij nam podstawowe informacje o inwestycji – ocenimy możliwości techniczne i wrócimy z propozycją." />
+</Base>

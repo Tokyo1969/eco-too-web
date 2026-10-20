@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import CTA from '../components/CTA.astro';
+const when = ['nie planujesz wymiany podłogi','rodzaj podłogi utrudnia montaż ogrzewania podłogowego','potrzebujesz dodatkowego źródła ciepła','zależy Ci na zachowaniu pełnej swobody aranżacji','modernizujesz tylko wybraną część budynku'];
+---
+<Base
+  title="Ogrzewanie sufitowe i ścienne na podczerwień – Opole | ECO-TOO"
+  description="Folia grzewcza w suficie i ścianie – ogrzewanie podstawowe lub uzupełniające. Projekt i montaż w Opolu i województwie opolskim."
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Oferta</span>
+    <h1>Ogrzewanie ukryte w suficie lub ścianie</h1>
+    <p>Gdy podłoga nie wchodzi w grę albo potrzebujesz dodatkowego źródła ciepła.</p>
+  </div></div>
+  <section class="block"><div class="wrap split">
+    <div>
+      <p>Folia grzewcza nie musi być instalowana wyłącznie pod podłogą. W odpowiednio zaprojektowanym systemie może zostać umieszczona w suficie albo w wybranych powierzchniach ścian.</p>
+      <h2 id="sciany" style="font-size:1.9rem">Takie rozwiązanie warto rozważyć, gdy:</h2>
+      <ul class="checks">{when.map((w) => <li>{w}</li>)}</ul>
+      <p style="margin-top:1.2rem">O możliwości zastosowania systemu decydują warunki techniczne, konstrukcja przegród oraz planowane materiały wykończeniowe.</p>
+      <div class="btn-row"><a class="btn" href="/kontakt">Umów konsultację techniczną</a></div>
+    </div>
+    <Img id="folia-05m" sizes="(min-width: 900px) 40vw, 80vw" />
+  </div></section>
+  <CTA title="Nie wiesz, które rozwiązanie wybrać?" text="Opisz nam budynek i plany wykończeniowe. Doradzimy, czy lepszy będzie system podłogowy, sufitowy czy ścienny." btn="Poproś o wycenę" />
+</Base>

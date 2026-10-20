@@ -1,0 +1,15 @@
+---
+import { site } from '../data/site';
+const { title = 'Planujesz ogrzewanie domu lub mieszkania?', text = 'Opowiedz nam o swoim projekcie. Sprawdzimy, czy folia grzewcza będzie odpowiednim rozwiązaniem, i przygotujemy wstępną propozycję instalacji.', btn = 'Poproś o wycenę' } = Astro.props;
+---
+<section class="cta">
+  <div class="wrap">
+    <h2>{title}</h2>
+    <p>{text}</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn" href="/kontakt">{btn}</a>
+      <a class="btn ghost" href={site.phoneHref}>Zadzwoń: {site.phone}</a>
+    </div>
+    <p class="contact-line">{site.email}</p>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+---
+import { pricing } from '../data/site';
+---
+<div class="calc" id="calc" data-foil={pricing.foilPerM2} data-cov={pricing.coverage} data-ctrl={pricing.controllerPerRoom}>
+  <form class="f" onsubmit="return false">
+    <label class="fl">Powierzchnia do ogrzania (m²)<input id="c-m2" type="number" min="0" step="0.1" placeholder="np. 100" inputmode="decimal" /></label>
+    <label class="fl">Liczba pomieszczeń<input id="c-rooms" type="number" min="0" step="1" placeholder="np. 5" inputmode="numeric" /></label>
+  </form>
+  <div class="res" aria-live="polite">
+    <div class="row"><div>Folia grzewcza<small>Przewidywany koszt folii, ok. ±10%</small></div><strong id="c-foil">0 zł</strong></div>
+    <div class="row"><div>Sterowniki<small>Jeden sterownik na jedno pomieszczenie</small></div><strong id="c-ctrl">0 zł</strong></div>
+    <div class="row total"><div>Orientacyjny koszt instalacji<small>Wraz ze sterownikami, „na gotowo”</small></div><strong id="c-total">0 zł</strong></div>
+  </div>
+  <p class="note" style="margin-top:1.4rem;font-size:.95rem">Kalkulator podaje wyłącznie wartość orientacyjną. Ostateczną ofertę przygotowujemy po analizie budynku, podłoża, wykończenia podłogi i sposobu sterowania.</p>
+</div>
+<script>
+  const el = document.getElementById('calc')!;
+  const foil = +el.dataset.foil!, cov = +el.dataset.cov!, ctrl = +el.dataset.ctrl!;
+  const fmt = (n: number) => new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 0 }).format(Math.round(n)) + ' zł';
+  const m2 = document.getElementById('c-m2') as HTMLInputElement, rooms = document.getElementById('c-rooms') as HTMLInputElement;
+  const run = () => {
+    const f = Math.max(0, parseFloat(m2.value) || 0) * cov * foil;
+    const c = Math.max(0, parseFloat(rooms.value) || 0) * ctrl;
+    document.getElementById('c-foil')!.textContent = fmt(f);
+    document.getElementById('c-ctrl')!.textContent = fmt(c);
+    document.getElementById('c-total')!.textContent = fmt(f + c);
+  };
+  m2.addEventListener('input', run); rooms.addEventListener('input', run); run();
+</script>

@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Calculator from '../components/Calculator.astro';
+import CTA from '../components/CTA.astro';
+---
+<Base
+  title="Kalkulator kosztów ogrzewania folią grzewczą | ECO-TOO"
+  description="Orientacyjny kalkulator kosztu instalacji folii grzewczej na podczerwień wraz ze sterownikami. Podaj metraż i liczbę pomieszczeń."
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Kalkulator</span>
+    <h1>Orientacyjny koszt instalacji</h1>
+    <p>Oblicz przybliżony koszt folii grzewczej na podczerwień wraz ze sterownikami.</p>
+  </div></div>
+  <section class="block"><div class="wrap" style="max-width:760px"><Calculator /></div></section>
+  <CTA btn="Poproś o dokładną wycenę" title="Chcesz dokładną ofertę?" text="Wynik kalkulatora to wartość orientacyjna. Prześlij dane o budynku, a przygotujemy ofertę dopasowaną do inwestycji." />
+</Base>

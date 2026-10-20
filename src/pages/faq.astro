@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { faq } from '../data/site';
+const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
+---
+<Base
+  title="FAQ – najczęstsze pytania o folie grzewcze | ECO-TOO"
+  description="Odpowiedzi na pytania o ogrzewanie folią grzewczą: koszty, remont, sterowanie przez telefon, fotowoltaika, montaż, podłoże i gwarancja."
+  schema={schema}
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">FAQ</span>
+    <h1>Najczęstsze pytania</h1>
+    <p>Krótkie odpowiedzi na to, o co pytają klienci przed decyzją o ogrzewaniu na podczerwień.</p>
+  </div></div>
+  <section class="block"><div class="wrap" style="max-width:860px">
+    {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+  </div></section>
+  <CTA title="Nie znalazłeś odpowiedzi?" text="Zadaj pytanie – odpowiemy w godzinach pracy." btn="Napisz do nas" />
+</Base>

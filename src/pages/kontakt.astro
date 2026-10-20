@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../data/site';
+---
+<Base
+  title="Kontakt i wycena – ECO-TOO Opole | ogrzewanie na podczerwień"
+  description="Skontaktuj się z ECO-TOO: tel. +48 668 173 872, biuro@eco-too.opole.pl, Opole ul. Łangowskiego 4A. Poproś o wycenę ogrzewania folią grzewczą."
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Kontakt</span>
+    <h1>Porozmawiajmy o Twoim ogrzewaniu</h1>
+    <p>Budujesz dom, remontujesz mieszkanie lub szukasz ogrzewania do lokalu użytkowego? Prześlij nam podstawowe informacje. Ocenimy możliwości techniczne i skontaktujemy się w sprawie kolejnych kroków.</p>
+  </div></div>
+  <section class="block"><div class="wrap split" style="align-items:start;grid-template-columns:1fr 1.6fr">
+    <div class="card">
+      <h2 style="font-size:2rem">ECO-TOO</h2>
+      <ul class="checks" style="gap:.8rem">
+        <li><strong>Telefon:</strong> <a href={site.phoneHref}>{site.phone}</a></li>
+        <li><strong>E-mail:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><strong>Adres:</strong> {site.postal} {site.city}, {site.street}</li>
+        <li><strong>Godziny kontaktu:</strong> {site.hours}</li>
+      </ul>
+      <p style="margin-top:1.2rem;color:var(--muted)">Obsługiwany obszar: Opole i województwo opolskie.</p>
+    </div>
+    <div id="formularz">
+      <h2 style="font-size:2rem">Formularz kontaktowy</h2>
+      <ContactForm />
+    </div>
+  </div></section>
+</Base>

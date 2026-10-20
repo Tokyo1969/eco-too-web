@@ -1,0 +1,115 @@
+---
+import '../styles/global.css';
+import { site, nav } from '../data/site';
+const { title, description, path = Astro.url.pathname, noindex = false, ogImage = '/img/drogoszow-1-1600.webp', schema = null } = Astro.props;
+const canonical = new URL(path === '/' ? '/' : path.replace(/\/$/, ''), site.url).href;
+const local = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  '@id': `${site.url}/#business`,
+  name: site.name,
+  description: 'Projektowanie i montaż ogrzewania na podczerwień – folie grzewcze: podłogowe, sufitowe i ścienne.',
+  url: site.url,
+  telephone: site.phone,
+  email: site.email,
+  image: `${site.url}/logo.png`,
+  logo: `${site.url}/logo.png`,
+  address: { '@type': 'PostalAddress', streetAddress: 'ul. Jana Łangowskiego 4A', postalCode: site.postal, addressLocality: site.city, addressCountry: 'PL' },
+  areaServed: { '@type': 'AdministrativeArea', name: 'Województwo opolskie' },
+  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '09:00', closes: '17:00' }],
+};
+const ld = [local, ...(schema ? [schema] : [])];
+---
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta name="theme-color" content="#16181b" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL(ogImage, site.url).href} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</head>
+<body>
+  <a class="skip" href="#main">Przejdź do treści</a>
+  <div class="topbar"><div class="wrap">
+    <span>Opole i województwo opolskie · {site.hours}</span>
+    <span><a href={site.phoneHref}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a></span>
+  </div></div>
+  <header class="site"><div class="wrap">
+    <a class="brand" href="/" aria-label="ECO-TOO – strona główna"><img src="/logo.webp" width="132" height="54" alt="ECO-TOO – systemy ogrzewania na podczerwień" /></a>
+    <button class="burger" aria-expanded="false" aria-controls="nav" id="burger">☰ Menu</button>
+    <nav class="main" id="nav" aria-label="Główna nawigacja">
+      <ul>
+        {nav.map((n) => <li><a href={n.href} aria-current={Astro.url.pathname.startsWith(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+        <li><a class="btn" style="padding:.55rem 1.2rem;color:#fff;border-bottom:2px solid var(--red)" href="/kontakt">Wycena</a></li>
+      </ul>
+    </nav>
+  </div></header>
+  <main id="main"><slot /></main>
+  <footer class="site"><div class="wrap">
+    <div class="grid g3">
+      <div>
+        <div class="logo-box"><img src="/logo.webp" width="113" height="46" alt="ECO-TOO" loading="lazy" /></div>
+        <p>Projektujemy i montujemy ogrzewanie na podczerwień w Opolu i województwie opolskim.</p>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <ul>
+          <li>{site.street}, {site.postal} {site.city}</li>
+          <li><a href={site.phoneHref}>{site.phone}</a></li>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li>{site.hours}</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Na skróty</h3>
+        <ul>
+          {nav.slice(0, 4).map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href="/kalkulator">Kalkulator kosztów</a></li>
+          <li><a href="/kontakt">Kontakt i wycena</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© {new Date().getFullYear()} ECO-TOO. Wszelkie prawa zastrzeżone.</span>
+      <a href="/polityka-prywatnosci">Polityka prywatności i cookies</a>
+    </div>
+  </div></footer>
+  <a class="mobile-call" href={site.phoneHref}>📞 Zadzwoń: {site.phone}</a>
+  <dialog class="lb" id="lb" aria-label="Podgląd zdjęcia">
+    <figure style="margin:0"><img id="lb-img" alt="" /><figcaption id="lb-cap"></figcaption></figure>
+    <button class="x" aria-label="Zamknij" id="lb-x">×</button>
+    <button class="nav prev" aria-label="Poprzednie" id="lb-p">‹</button>
+    <button class="nav next" aria-label="Następne" id="lb-n">›</button>
+  </dialog>
+  <script>
+    const b = document.getElementById('burger')!, n = document.getElementById('nav')!;
+    b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', String(o)); });
+    const lb = document.getElementById('lb') as HTMLDialogElement;
+    const li = document.getElementById('lb-img') as HTMLImageElement, lc = document.getElementById('lb-cap')!;
+    let list: HTMLButtonElement[] = [], idx = 0;
+    const show = (i: number) => { idx = (i + list.length) % list.length; li.src = list[idx].dataset.full!; li.alt = lc.textContent = list[idx].dataset.alt!; };
+    document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((g) => {
+      const items = Array.from(g.querySelectorAll<HTMLButtonElement>('button'));
+      items.forEach((it, i) => it.addEventListener('click', () => { list = items; show(i); lb.showModal(); }));
+    });
+    document.getElementById('lb-x')!.onclick = () => lb.close();
+    document.getElementById('lb-p')!.onclick = () => show(idx - 1);
+    document.getElementById('lb-n')!.onclick = () => show(idx + 1);
+    lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+    lb.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(idx - 1); if (e.key === 'ArrowRight') show(idx + 1); });
+  </script>
+</body>
+</html>

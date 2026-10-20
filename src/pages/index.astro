@@ -1,0 +1,139 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import CTA from '../components/CTA.astro';
+import Gallery from '../components/Gallery.astro';
+import { cities } from '../data/site';
+const benefits = [
+  ['🔥', 'Komfort cieplny', 'Ciepło rozprowadzane jest na dużej powierzchni, bez konieczności instalowania tradycyjnych grzejników.'],
+  ['⬜', 'Więcej miejsca we wnętrzu', 'Instalacja może zostać ukryta pod podłogą, w suficie lub w ścianie. Dzięki temu nie ogranicza możliwości aranżacji pomieszczeń.'],
+  ['🎛️', 'Sterowanie temperaturą', 'Każda strefa może być wyposażona w osobny termostat. Pozwala to ustawić temperaturę odpowiednią dla danego pomieszczenia i sposobu jego użytkowania.'],
+  ['🔇', 'Cicha praca', 'System nie wykorzystuje wentylatorów ani elementów mechanicznych, dlatego pracuje bezgłośnie.'],
+  ['🏠', 'Brak kotłowni i spalin', 'Ogrzewanie elektryczne nie wymaga składowania opału, komina ani wydzielania osobnego pomieszczenia na kocioł.'],
+  ['☀️', 'Współpraca z fotowoltaiką', 'Folia grzewcza może być elementem instalacji wykorzystującej energię elektryczną produkowaną przez panele fotowoltaiczne.'],
+];
+const offer = [
+  ['/ogrzewanie-podlogowe', 'Ogrzewanie podłogowe', 'Folie grzewcze montowane pod odpowiednio dobraną warstwą wykończeniową zapewniają przyjemnie ciepłą podłogę i równomierne ogrzewanie wnętrza.', 'Dowiedz się więcej'],
+  ['/ogrzewanie-sufitowe-i-scienne', 'Ogrzewanie sufitowe', 'Rozwiązanie odpowiednie między innymi tam, gdzie konstrukcja lub planowane wykończenie podłogi utrudnia wykonanie ogrzewania podłogowego.', 'Poznaj możliwości'],
+  ['/ogrzewanie-sufitowe-i-scienne#sciany', 'Ogrzewanie ścienne', 'System może być zamontowany w wybranych fragmentach ścian. Sprawdza się jako ogrzewanie podstawowe lub uzupełniające, zależnie od parametrów budynku.', 'Zapytaj o rozwiązanie'],
+];
+const process = [
+  ['Rozmowa i analiza potrzeb', 'Poznajemy budynek, planowane wykończenie oraz oczekiwania dotyczące komfortu i sterowania.'],
+  ['Dobór systemu', 'Określamy odpowiedni sposób montażu, rozmieszczenie folii, moc instalacji i podział na strefy.'],
+  ['Przejrzysta wycena', 'Przedstawiamy zakres prac oraz koszt realizacji. Wyjaśniamy, jakie przygotowanie będzie potrzebne przed montażem.'],
+  ['Profesjonalny montaż', 'Instalujemy system zgodnie z przygotowanym projektem i wymaganiami technicznymi.'],
+  ['Sprawdzenie i uruchomienie', 'Kontrolujemy instalację, konfigurujemy sterowanie oraz przekazujemy wskazówki dotyczące użytkowania.'],
+];
+const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach letniskowych', 'biurach', 'gabinetach', 'lokalach usługowych', 'obiektach przeznaczonych na wynajem', 'wybranych obiektach komercyjnych'];
+---
+<Base
+  title="Folie grzewcze Opole – montaż ogrzewania | ECO-TOO"
+  description="Projektujemy i montujemy folie grzewcze na podczerwień w Opolu i województwie opolskim. Ogrzewanie podłogowe, sufitowe i ścienne. Zapytaj o wycenę."
+>
+  <section class="hero">
+    <Img id="drogoszow-1" class="bg" sizes="100vw" eager />
+    <div class="wrap">
+      <span class="kicker">ECO-TOO · Opole i województwo opolskie</span>
+      <h1>Folie grzewcze na podczerwień w województwie opolskim</h1>
+      <p class="lead">Nowoczesne i wygodne ogrzewanie elektryczne do domów, mieszkań, biur oraz lokali użytkowych.</p>
+      <p style="max-width:40rem;color:#d6d2cb">Projektujemy i montujemy systemy ogrzewania podłogowego, sufitowego i ściennego oparte na foliach grzewczych. Zapewniamy kompleksową obsługę — od doboru rozwiązania i przygotowania wyceny aż po profesjonalny montaż i uruchomienie instalacji.</p>
+      <div class="btn-row">
+        <a class="btn" href="/kontakt">Umów bezpłatną konsultację</a>
+        <a class="btn ghost" href="/kontakt#formularz">Poproś o wycenę</a>
+      </div>
+      <small>Obsługujemy klientów z Opola oraz całego województwa opolskiego.</small>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <span class="kicker">Dlaczego folia grzewcza</span>
+      <h2>Komfortowe ciepło dopasowane do Twojego wnętrza</h2>
+      <p class="intro">Folia grzewcza zamienia energię elektryczną w ciepło przekazywane przez promieniowanie podczerwone. Ogrzewa powierzchnie znajdujące się w pomieszczeniu, a następnie pomaga utrzymać przyjemną i równomierną temperaturę.</p>
+      <h3 style="margin-top:2rem">Dlaczego warto rozważyć ogrzewanie folią grzewczą?</h3>
+      <div class="grid g3">
+        {benefits.map(([i, t, d]) => <div class="card"><div class="ico" aria-hidden="true">{i}</div><h3>{t}</h3><p>{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <span class="kicker">Oferta</span>
+      <h2>Dobieramy ogrzewanie do budynku i potrzeb użytkowników</h2>
+      <p class="intro">Nie ma jednego rozwiązania odpowiedniego dla każdego obiektu. Przed przygotowaniem oferty analizujemy między innymi powierzchnię pomieszczeń, standard izolacji, rodzaj wykończenia podłogi oraz oczekiwany sposób sterowania.</p>
+      <div class="grid g3" style="margin-top:2rem">
+        {offer.map(([h, t, d, b]) => <a class="card link" href={h}><h3>{t}</h3><p>{d}</p><span class="more">{b} →</span></a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap split">
+      <div>
+        <span class="kicker">Zastosowania</span>
+        <h2>Gdzie montujemy folie grzewcze?</h2>
+        <p>Wykonujemy instalacje w nowych i modernizowanych obiektach:</p>
+        <ul class="checks">{uses.map((u) => <li>{u}</li>)}</ul>
+        <p style="margin-top:1.2rem">Każdy system projektujemy indywidualnie. Przed realizacją sprawdzamy warunki techniczne oraz możliwości montażu.</p>
+        <a class="btn dark" href="/zastosowania">Zobacz zastosowania</a>
+      </div>
+      <Img id="drogoszow-6" />
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <span class="kicker">Lokalnie</span>
+      <h2>Montaż folii grzewczych w Opolu i całym województwie opolskim</h2>
+      <p class="intro">Realizujemy instalacje między innymi w {cities.join(', ')} i okolicznych miejscowościach.</p>
+      <ul class="chips">{['Opole','Kędzierzyn-Koźle','Nysa','Brzeg','Kluczbork','Prudnik','Strzelce Opolskie','Namysłów','Krapkowice','Głubczyce','Olesno'].map((c) => <li>{c}</li>)}</ul>
+      <p style="margin-top:1.2rem">Nie widzisz swojej miejscowości na liście? <a href="/kontakt">Skontaktuj się z nami</a> i zapytaj o możliwość realizacji.</p>
+    </div>
+  </section>
+
+  <section class="block dark">
+    <div class="wrap">
+      <span class="kicker">Jak pracujemy</span>
+      <h2>Od konsultacji do ciepłego wnętrza</h2>
+      <ol class="steps">{process.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}</ol>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap split">
+      <div>
+        <span class="kicker">O firmie</span>
+        <h2>Ogrzewanie zaprojektowane na lata</h2>
+        <p>W ECO-TOO stawiamy na rzetelne doradztwo, staranny montaż i rozwiązania dopasowane do konkretnego budynku. Nie sprzedajemy gotowego schematu. Najpierw sprawdzamy potrzeby klienta i warunki techniczne, a dopiero później rekomendujemy odpowiedni system.</p>
+        <p>Klient otrzymuje jasne informacje dotyczące zakresu prac, sposobu sterowania oraz zasad bezpiecznego użytkowania instalacji.</p>
+        <a class="btn dark" href="/o-firmie">Poznaj naszą firmę</a>
+      </div>
+      <Img id="zestaw" sizes="(min-width: 900px) 40vw, 90vw" />
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <span class="kicker">Realizacje</span>
+      <h2>Zobacz nasze realizacje</h2>
+      <p class="intro">Prezentujemy wybrane instalacje wykonane w domach, mieszkaniach i lokalach na terenie województwa opolskiego.</p>
+      <div style="margin-top:2rem"><Gallery ids={['drogoszow-1','dobrzen-3','ochodze-1','drogoszow-3','dobrzen-1','ochodze-9']} /></div>
+      <a class="btn dark" href="/realizacje">Zobacz realizacje</a>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap split">
+      <div>
+        <span class="kicker">Kalkulator</span>
+        <h2>Sprawdź orientacyjny koszt</h2>
+        <p>Podaj powierzchnię i liczbę pomieszczeń, a kalkulator pokaże przybliżony koszt folii i sterowników. To punkt wyjścia do rozmowy — konkretną ofertę przygotujemy po analizie budynku.</p>
+        <a class="btn" href="/kalkulator">Otwórz kalkulator</a>
+      </div>
+      <Img id="folia-1m" sizes="(min-width: 900px) 40vw, 80vw" />
+    </div>
+  </section>
+
+  <CTA />
+</Base>
