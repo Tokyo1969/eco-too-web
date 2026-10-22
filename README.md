@@ -10,6 +10,7 @@ Formularz kontaktowy: `POST /api/contact` → `worker/index.ts` → `functions/a
 ## Gdzie zmieniać treści
 - `src/data/site.ts` – dane kontaktowe, menu, FAQ, realizacje, opisy zdjęć (alt), stawki kalkulatora
 - `src/pages/*.astro` – treści podstron
+- `src/components/Analytics.astro` – Google Analytics 4 (`G-LN1KQSKH5F`), ładowany wyłącznie po akceptacji w banerze cookies. Wybór jest zapisywany w localStorage; zmiana i wycofanie zgody są dostępne w stopce („Ustawienia cookies”).
 
 ## Wdrożenie (stan obecny)
 - **Repo:** `Tokyo1969/eco-too-web`, gałąź `main`. Każdy push na `main` uruchamia build i wdrożenie.

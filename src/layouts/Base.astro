@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '../components/Analytics.astro';
 import { site, nav } from '../data/site';
 const { title, description, path = Astro.url.pathname, noindex = false, ogImage = '/img/drogoszow-1-1600.webp', schema = null } = Astro.props;
 const canonical = new URL(path === '/' ? '/' : path.replace(/\/$/, ''), site.url).href;
@@ -85,6 +86,7 @@ const ld = [local, ...(schema ? [schema] : [])];
     <div class="legal">
       <span>© {new Date().getFullYear()} ECO-TOO. Wszelkie prawa zastrzeżone.</span>
       <a href="/polityka-prywatnosci">Polityka prywatności i cookies</a>
+      <Analytics />
     </div>
   </div></footer>
   <a class="mobile-call" href={site.phoneHref}>📞 Zadzwoń: {site.phone}</a>

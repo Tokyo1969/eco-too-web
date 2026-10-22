@@ -1,0 +1,108 @@
+<button type="button" class="cookie-settings" id="cookie-settings" hidden>Ustawienia cookies</button>
+<section class="cookie-banner" id="cookie-banner" aria-label="Ustawienia cookies" hidden>
+  <div class="wrap">
+    <h2 tabindex="-1" id="cookie-title">Cookies analityczne</h2>
+    <p>Za Twoją zgodą używamy Google Analytics, aby mierzyć odwiedziny i ulepszać stronę.
+      Możesz odmówić lub wycofać zgodę w ustawieniach cookies w stopce.
+      <a href="/polityka-prywatnosci">Polityka prywatności i cookies</a>.</p>
+    <div class="btn-row">
+      <button type="button" class="btn" id="cookie-accept">Akceptuję analitykę</button>
+      <button type="button" class="btn" id="cookie-reject">Odrzucam analitykę</button>
+    </div>
+    <p id="cookie-error" role="alert" hidden>Nie udało się zapisać ustawień cookies. Wybór będzie obowiązywał tylko na tej stronie.</p>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const key = 'eco-too-analytics-consent';
+    const measurementId = 'G-LN1KQSKH5F';
+    const banner = document.getElementById('cookie-banner');
+    const settings = document.getElementById('cookie-settings');
+    const errorMessage = document.getElementById('cookie-error');
+    let loaded = false;
+
+    function enableAnalytics() {
+      if (loaded) {
+        window.gtag('consent', 'update', { analytics_storage: 'granted' });
+        return;
+      }
+      loaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', measurementId);
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+      document.head.appendChild(script);
+    }
+
+    function removeAnalyticsCookies() {
+      const hostname = window.location.hostname;
+      const domains = hostname.split('.').map((_, i, parts) => parts.slice(i).join('.'));
+      document.cookie.split(';').forEach((cookie) => {
+        const name = cookie.split('=')[0].trim();
+        if (name !== '_ga' && !name.startsWith('_ga_')) return;
+        const expired = name + '=; Max-Age=0; Path=/';
+        document.cookie = expired;
+        domains.forEach((domain) => { document.cookie = expired + '; Domain=' + domain; });
+      });
+    }
+
+    function choose(value) {
+      errorMessage.hidden = true;
+      let saved = true;
+      try {
+        localStorage.setItem(key, value);
+      } catch (error) {
+        console.error('Nie udało się zapisać zgody na analitykę.', error);
+        errorMessage.hidden = false;
+        saved = false;
+      }
+      if (value === 'granted') {
+        enableAnalytics();
+      } else {
+        window['ga-disable-' + measurementId] = true;
+        if (loaded) {
+          window.gtag('consent', 'update', { analytics_storage: 'denied' });
+        }
+        removeAnalyticsCookies();
+      }
+      banner.hidden = saved;
+      if (saved) settings.focus();
+      if (saved && loaded && value === 'denied') window.location.reload();
+    }
+
+    let consent = null;
+    try {
+      consent = localStorage.getItem(key);
+    } catch (error) {
+      console.error('Nie udało się odczytać zgody na analitykę.', error);
+    }
+    if (consent === 'granted') enableAnalytics();
+    else if (consent === 'denied') removeAnalyticsCookies();
+    banner.hidden = consent === 'granted' || consent === 'denied';
+    settings.hidden = false;
+    settings.addEventListener('click', () => {
+      banner.hidden = false;
+      document.getElementById('cookie-title').focus();
+    });
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+      window['ga-disable-' + measurementId] = false;
+      choose('granted');
+    });
+    document.getElementById('cookie-reject').addEventListener('click', () => choose('denied'));
+  })();
+</script>
+
+<style>
+  .cookie-settings { border: 0; padding: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .cookie-settings[hidden], .cookie-banner[hidden] { display: none; }
+  .cookie-banner { position: fixed; inset: auto 0 0; z-index: 110; max-height: 80dvh; overflow-y: auto; padding: 1.5rem 0; background: var(--white); color: var(--ink); border-top: 2px solid var(--line); box-shadow: var(--shadow); font-size: 1rem; }
+  .cookie-banner h2 { font-size: 1.6rem; }
+  .cookie-banner a { color: var(--red-dark); text-decoration: underline; }
+  .cookie-banner p { margin-bottom: .6rem; }
+  .cookie-banner .btn-row { margin-top: .8rem; }
+  #cookie-error { margin-top: .8rem; color: var(--red-dark); }
+</style>
