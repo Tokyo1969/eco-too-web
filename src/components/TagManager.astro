@@ -1,0 +1,27 @@
+<script is:inline>
+  (() => {
+    const containerId = 'GTM-T79GMQ28';
+    let loaded = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
+
+    window.addEventListener('eco-too:analytics-consent', (event) => {
+      const granted = event.detail === 'granted';
+      window.gtag('consent', 'update', { analytics_storage: granted ? 'granted' : 'denied' });
+      if (!granted || loaded) return;
+      loaded = true;
+      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtm.js?id=' + containerId;
+      const firstScript = document.getElementsByTagName('script')[0];
+      firstScript.parentNode.insertBefore(script, firstScript);
+    });
+  })();
+</script>

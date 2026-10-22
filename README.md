@@ -10,7 +10,9 @@ Formularz kontaktowy: `POST /api/contact` → `worker/index.ts` → `functions/a
 ## Gdzie zmieniać treści
 - `src/data/site.ts` – dane kontaktowe, menu, FAQ, realizacje, opisy zdjęć (alt), stawki kalkulatora
 - `src/pages/*.astro` – treści podstron
-- `src/components/Analytics.astro` – Google Analytics 4 (`G-LN1KQSKH5F`), ładowany wyłącznie po akceptacji w banerze cookies. Wybór jest zapisywany w localStorage; zmiana i wycofanie zgody są dostępne w stopce („Ustawienia cookies”).
+- `src/components/Analytics.astro` – baner zgody na analitykę. Wybór jest zapisywany w localStorage; zmiana i wycofanie zgody są dostępne w stopce („Ustawienia cookies”).
+- `src/components/TagManager.astro` – Google Tag Manager (`GTM-T79GMQ28`), inicjalizacja w `<head>`, pobranie kontenera wyłącznie po zgodzie. Consent Mode domyślnie odmawia zgód analitycznych i reklamowych; baner przyznaje jedynie `analytics_storage`. Celowo bez iframe `noscript`, który omijałby zgodę.
+- **Konfiguracja GTM:** skonfiguruj i opublikuj w kontenerze tag Google dla GA4 `G-LN1KQSKH5F` z wyzwalaczem na wszystkich stronach. Bezpośredni tag GA4 został usunięty, aby nie dublować pomiaru. Kontener jest przeznaczony wyłącznie do analityki; nie dodawaj tagów reklamowych ani tagów ignorujących zgodę. Przy wycofaniu zgody strona usuwa cookies `_ga` i `_ga_*`.
 
 ## Wdrożenie (stan obecny)
 - **Repo:** `Tokyo1969/eco-too-web`, gałąź `main`. Każdy push na `main` uruchamia build i wdrożenie.

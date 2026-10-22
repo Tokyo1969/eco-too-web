@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Analytics from '../components/Analytics.astro';
+import TagManager from '../components/TagManager.astro';
 import { site, nav } from '../data/site';
 const { title, description, path = Astro.url.pathname, noindex = false, ogImage = '/img/drogoszow-1-1600.webp', schema = null } = Astro.props;
 const canonical = new URL(path === '/' ? '/' : path.replace(/\/$/, ''), site.url).href;
@@ -25,6 +26,7 @@ const ld = [local, ...(schema ? [schema] : [])];
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
+  <TagManager />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />

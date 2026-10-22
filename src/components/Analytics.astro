@@ -23,19 +23,8 @@
     let loaded = false;
 
     function enableAnalytics() {
-      if (loaded) {
-        window.gtag('consent', 'update', { analytics_storage: 'granted' });
-        return;
-      }
       loaded = true;
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      window.gtag('js', new Date());
-      window.gtag('config', measurementId);
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
-      document.head.appendChild(script);
+      window.dispatchEvent(new CustomEvent('eco-too:analytics-consent', { detail: 'granted' }));
     }
 
     function removeAnalyticsCookies() {
@@ -64,9 +53,7 @@
         enableAnalytics();
       } else {
         window['ga-disable-' + measurementId] = true;
-        if (loaded) {
-          window.gtag('consent', 'update', { analytics_storage: 'denied' });
-        }
+        window.dispatchEvent(new CustomEvent('eco-too:analytics-consent', { detail: 'denied' }));
         removeAnalyticsCookies();
       }
       banner.hidden = saved;
