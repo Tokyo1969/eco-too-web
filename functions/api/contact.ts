@@ -1,16 +1,18 @@
-// Cloudflare Pages Function: POST /api/contact
+// POST /api/contact – używane przez Workera (worker/index.ts) i jako Pages Function.
 // Wysyła wiadomość przez Resend (https://resend.com) na biuro@eco-too.opole.pl.
-// Zmienne środowiskowe (Pages → Settings → Variables and Secrets):
+// Zmienne środowiskowe (Worker → Settings → Variables and Secrets):
 //   RESEND_API_KEY (secret)  – klucz API Resend
 //   MAIL_TO     (opcjonalnie) – domyślnie biuro@eco-too.opole.pl
 //   MAIL_FROM   (opcjonalnie) – domyślnie "ECO-TOO WWW <formularz@eco-too.opole.pl>" (domena musi być zweryfikowana w Resend)
-interface Env { RESEND_API_KEY?: string; MAIL_TO?: string; MAIL_FROM?: string }
+export interface Env { RESEND_API_KEY?: string; MAIL_TO?: string; MAIL_FROM?: string }
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8' } });
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+export const onRequestPost = ({ request, env }: { request: Request; env: Env }) => handleContact(request, env);
+
+export async function handleContact(request: Request, env: Env): Promise<Response> {
   let f: FormData;
   try { f = await request.formData(); } catch { return json({ ok: false, error: 'bad_request' }, 400); }
   const g = (k: string) => String(f.get(k) ?? '').trim().slice(0, 2000);
@@ -44,4 +46,4 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   });
   if (!res.ok) return json({ ok: false, error: 'send_failed' }, 502);
   return json({ ok: true });
-};
+}
