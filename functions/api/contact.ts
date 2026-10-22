@@ -44,6 +44,9 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
       html, text,
     }),
   });
-  if (!res.ok) return json({ ok: false, error: 'send_failed' }, 502);
+  if (!res.ok) {
+    console.error('Resend error', res.status, await res.text()); // widoczne w Workers → Logs
+    return json({ ok: false, error: 'send_failed' }, 502);
+  }
   return json({ ok: true });
 }
