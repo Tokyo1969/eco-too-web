@@ -1,6 +1,7 @@
-# ECO-TOO – strona www (Astro + Cloudflare Pages)
+# ECO-TOO – strona www (Astro + Cloudflare Workers)
 
-Statyczna strona (Astro 5), formularz kontaktowy jako Cloudflare Pages Function (`functions/api/contact.ts`).
+Statyczna strona (Astro) serwowana przez Cloudflare Worker (`wrangler.jsonc`, pliki z `dist/`).
+Formularz kontaktowy: `POST /api/contact` → `worker/index.ts` → `functions/api/contact.ts` (wysyłka przez Resend).
 
 ## Komendy
 - `npm install` · `npm run dev` · `npm run build` (wynik w `dist/`)
@@ -10,18 +11,20 @@ Statyczna strona (Astro 5), formularz kontaktowy jako Cloudflare Pages Function 
 - `src/data/site.ts` – dane kontaktowe, menu, FAQ, realizacje, opisy zdjęć (alt), stawki kalkulatora
 - `src/pages/*.astro` – treści podstron
 
-## Wdrożenie
-1. **GitHub:** utwórz repo (np. `eco-too-web`), `git remote add origin ...`, `git push -u origin main`.
-2. **Cloudflare Pages:** Workers & Pages → Create → Pages → Connect to Git → wybierz repo.
-   Build command: `npm run build` · Output directory: `dist` · zmienna `NODE_VERSION=22`.
-3. **Formularz:** konto na resend.com, zweryfikuj domenę `eco-too.opole.pl` (rekordy DNS), utwórz klucz API.
-   W Pages → Settings → Variables and Secrets dodaj: `RESEND_API_KEY` (Secret), opcjonalnie `MAIL_TO`, `MAIL_FROM`.
-4. **Domena (lh.pl):** w Pages → Custom domains dodaj `eco-too.opole.pl` i `www`.
-   Najprościej: zostaw domenę w lh.pl i ustaw rekord CNAME na `<projekt>.pages.dev`
-   (dla domeny głównej bez CNAME-flattening: zmień serwery nazw na Cloudflare i przenieś strefę DNS tam).
-5. **Poczta (lh.pl):** rekordy MX/SPF/DKIM zgodne z panelem lh.pl. Jeśli DNS przejdzie do Cloudflare,
-   przepisz je 1:1 (poczta „DNS only”) i dodaj rekordy Resend.
-6. Po uruchomieniu: wyślij testowy formularz, zgłoś `https://eco-too.opole.pl/sitemap-index.xml` w Google Search Console.
+## Wdrożenie (stan obecny)
+- **Repo:** `Tokyo1969/eco-too-web`, gałąź `main`. Każdy push na `main` uruchamia build i wdrożenie.
+- **Cloudflare Worker `eco-too-web`** (Workers Builds): build `npm run build`, deploy `npx wrangler deploy`.
+  Lokalny test bez wdrażania: `npm run build && npx wrangler deploy --dry-run`.
+- **Sekrety** (Worker → Settings → Variables and Secrets – *nie* zmienne buildu, typ **Secret**):
+  `RESEND_API_KEY`, opcjonalnie `MAIL_TO`, `MAIL_FROM`. Zwykłe zmienne „Text” są kasowane przy każdym deployu.
+- **Domeny:** `eco-too.opole.pl` i `www.eco-too.opole.pl` jako Custom domains Workera.
+  Redirect Rule: `www` → domena główna (301). SSL/TLS: Always Use HTTPS.
+- **DNS:** strefa w Cloudflare (serwery nazw ustawione w lh.pl na Cloudflare) – rekordy w panelu lh.pl nie działają.
+  - Poczta zostaje w lh.pl: MX `mail17.lh.pl`, SPF `include:_spf.lh.pl`, DMARC – nie ruszać.
+  - Resend: CNAME `send` i TXT `resend._domainkey` – **DNS only** (szara chmurka). Z proxy Resend nie wyśle maila.
+- **Diagnostyka formularza:** błędy Resend w Worker → Logs („Resend error”). Odpowiedzi API:
+  `not_configured` = brak `RESEND_API_KEY`, `send_failed` = Resend odrzucił (zwykle DNS/weryfikacja domeny).
+- **Google Search Console:** zgłoszona `https://eco-too.opole.pl/sitemap-index.xml`.
 
 ## Do uzupełnienia przed publikacją
 - `/polityka-prywatnosci` – pełna nazwa firmy, NIP, weryfikacja prawna (strona ma `noindex`)
