@@ -14,6 +14,7 @@ export function GET() {
 - E-mail: ${site.email}
 - Godziny: ${site.hours}
 - NIP: ${site.NIP}
+- Profil Firmy w Google: ${site.profiles[0]}
 - Obszar działania: Opole i województwo opolskie (${areas.filter((a) => a.id !== 'opole').map((a) => a.name.replace('Powiat ', 'powiat ')).join(', ')})
 
 ## Usługi

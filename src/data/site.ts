@@ -10,7 +10,9 @@ export const site = {
   postal: '45-031',
   city: 'Opole',
   hours: 'Pn–Pt 9:00–17:00',
-  NIP: '7543364885'
+  NIP: '7543364885',
+  // Profile zewnętrzne (schema sameAs) – Profil Firmy w Google itp.
+  profiles: ['https://share.google/YhT0HJHEbacnmLddK'],
 };
 
 export const nav = [

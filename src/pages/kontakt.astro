@@ -22,7 +22,8 @@ import { site } from '../data/site';
         <li><strong>Adres:</strong> {site.postal} {site.city}, {site.street}</li>
         <li><strong>Godziny kontaktu:</strong> {site.hours}</li>
       </ul>
-      <p style="margin-top:1.2rem;color:var(--muted)">Obsługiwany obszar: Opole i województwo opolskie.</p>
+      <p style="margin-top:1.2rem;color:var(--muted)">Obsługiwany obszar: Opole i <a href="/obszar-dzialania">województwo opolskie</a>.</p>
+      <p><a href={site.profiles[0]} rel="noopener" target="_blank">ECO-TOO w Mapach Google →</a></p>
     </div>
     <div id="formularz">
       <h2 style="font-size:2rem">Formularz kontaktowy</h2>
