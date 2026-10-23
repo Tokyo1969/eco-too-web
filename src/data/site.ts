@@ -1,5 +1,6 @@
 export const site = {
   name: 'ECO-TOO',
+  legalName: 'PORAGLASS sp. z o.o.',
   tagline: 'Systemy ogrzewania foliami na podczerwień',
   url: 'https://eco-too.opole.pl',
   phone: '+48 668 173 872',
