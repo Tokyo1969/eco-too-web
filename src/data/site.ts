@@ -56,12 +56,22 @@ export const photos: Record<string, Photo> = {
   'dobrzen-3': { slug: 'dobrzen-3', alt: 'Folia grzewcza w pomieszczeniu z oknem, Dobrzeń Wielki', w: 1504, h: 2400 },
   'dobrzen-4': { slug: 'dobrzen-4', alt: 'Montaż folii grzewczej, Dobrzeń Wielki', w: 3264, h: 1504 },
   'dobrzen-5': { slug: 'dobrzen-5', alt: 'Folia grzewcza i izolacja podłoża, Dobrzeń Wielki', w: 3264, h: 1504 },
+  'pustkow-1': { slug: 'pustkow-1', alt: 'Folia grzewcza w pomieszczeniu z ceglanym kominem, Pustków', w: 1280, h: 960 },
+  'pustkow-2': { slug: 'pustkow-2', alt: 'Folia grzewcza ułożona w pokoju przed wykończeniem podłogi, Pustków', w: 1280, h: 960 },
+  'pustkow-3': { slug: 'pustkow-3', alt: 'Folia grzewcza w salonie z ceglaną ścianą i oknem tarasowym, Pustków', w: 1280, h: 960 },
+  'pustkow-4': { slug: 'pustkow-4', alt: 'Pasy folii grzewczej w dużym pokoju z oknem, Pustków', w: 1280, h: 960 },
+  'pustkow-5': { slug: 'pustkow-5', alt: 'Folia grzewcza w otwartej przestrzeni dziennej z kominem, Pustków', w: 1280, h: 960 },
+  'pustkow-6': { slug: 'pustkow-6', alt: 'Mata grzewcza pod płytki w łazience, Pustków', w: 960, h: 1280 },
+  'pustkow-7': { slug: 'pustkow-7', alt: 'Mata grzewcza pod płytki w przedpokoju, Pustków', w: 960, h: 1280 },
   'folia-1m': { slug: 'folia-1m', alt: 'Rolka folii grzewczej o szerokości 1 m', w: 2500, h: 2500 },
   'folia-05m': { slug: 'folia-05m', alt: 'Rolka folii grzewczej o szerokości 0,5 m', w: 2500, h: 2500 },
   'zestaw': { slug: 'zestaw', alt: 'Zestaw folii grzewczej z przewodami, złączkami i termostatem', w: 1280, h: 1280 },
 };
 
 export const projects = [
+  { id: 'pustkow', place: 'Pustków k. Ozimka', type: 'Dom ekologiczny, ok. 80 m²', note: 'Dom ekologiczny o powierzchni ok. 80 m² w Pustkowie pod Ozimkiem. W pomieszczeniach mieszkalnych zastosowano folię grzewczą na podczerwień, a pod płytkami maty grzewcze.',
+    facts: ['Powierzchnia: ok. 80 m²', '6 stref grzewczych: 4 folie grzewcze i 2 maty grzewcze pod płytkami', 'Sterowanie: ręczne lub zdalnie w aplikacji, z dowolnego miejsca (wymaga dostępu do internetu)', 'Szacowany roczny koszt ogrzewania: ok. 3,5–5 tys. zł (to szacunek dla tego budynku, rzeczywiste koszty zależą m.in. od izolacji, temperatury, sposobu użytkowania i taryfy energii)'],
+    photos: ['pustkow-5','pustkow-1','pustkow-3','pustkow-4','pustkow-2','pustkow-6','pustkow-7'] },
   { id: 'drogoszow', place: 'Drogoszów', type: 'Dom jednorodzinny', note: 'Folia grzewcza pod podłogą w pomieszczeniach z ceglaną ścianą.', photos: ['drogoszow-1','drogoszow-2','drogoszow-3','drogoszow-4','drogoszow-5','drogoszow-6'] },
   { id: 'ochodze', place: 'Ochodze', type: 'Dom jednorodzinny', note: 'Montaż folii na przygotowanym podłożu, kolejne etapy prac.', photos: ['ochodze-1','ochodze-2','ochodze-3','ochodze-4','ochodze-5','ochodze-6','ochodze-7','ochodze-8','ochodze-9','ochodze-10'] },
   { id: 'dobrzen', place: 'Dobrzeń Wielki', type: 'Dom jednorodzinny', note: 'Instalacja folii w pokojach z istniejącą zabudową i grzejnikami.', photos: ['dobrzen-1','dobrzen-2','dobrzen-3','dobrzen-4','dobrzen-5'] },
