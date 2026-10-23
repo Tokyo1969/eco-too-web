@@ -12,7 +12,8 @@ export const site = {
   hours: 'Pn–Pt 9:00–17:00',
   NIP: '7543364885',
   // Profile zewnętrzne (schema sameAs) – Profil Firmy w Google itp.
-  profiles: ['https://share.google/YhT0HJHEbacnmLddK'],
+  profiles: ['https://g.page/r/CSFZU1C-7r-bEAE', 'https://share.google/YhT0HJHEbacnmLddK'],
+  reviewUrl: 'https://g.page/r/CSFZU1C-7r-bEAE/review',
 };
 
 export const nav = [

@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Gallery from '../components/Gallery.astro';
 import CTA from '../components/CTA.astro';
-import { projects } from '../data/site';
+import { projects, site } from '../data/site';
 ---
 <Base
   breadcrumbs={[['Realizacje', '/realizacje']]}
@@ -26,5 +26,10 @@ import { projects } from '../data/site';
       </div>
     </section>
   ))}
+  <section class="block"><div class="wrap" style="text-align:center">
+    <h2 style="font-size:2rem">Montowaliśmy u Ciebie ogrzewanie?</h2>
+    <p class="intro" style="margin-inline:auto">Twoja opinia w Google pomaga innym mieszkańcom Opolszczyzny w wyborze ogrzewania. Dziękujemy!</p>
+    <div class="btn-row" style="justify-content:center"><a class="btn dark" href={site.reviewUrl} rel="noopener" target="_blank">Wystaw opinię w Google</a></div>
+  </div></section>
   <CTA title="Chcesz podobną instalację?" text="Opowiedz nam o swoim domu lub mieszkaniu. Sprawdzimy możliwości montażu i przygotujemy propozycję." />
 </Base>
