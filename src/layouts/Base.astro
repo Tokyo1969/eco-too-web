@@ -2,25 +2,46 @@
 import '../styles/global.css';
 import Analytics from '../components/Analytics.astro';
 import TagManager from '../components/TagManager.astro';
-import { site, nav } from '../data/site';
-const { title, description, path = Astro.url.pathname, noindex = false, ogImage = '/img/drogoszow-1-1600.webp', schema = null } = Astro.props;
+import { site, nav, areas, services } from '../data/site';
+// breadcrumbs: [['Nazwa', '/sciezka'], ...] – bez strony głównej, dodawana automatycznie
+const { title, description, path = Astro.url.pathname, noindex = false, ogImage = '/img/drogoszow-1-1600.webp', schema = null, breadcrumbs = null } = Astro.props;
 const canonical = new URL(path === '/' ? '/' : path.replace(/\/$/, ''), site.url).href;
 const local = {
   '@context': 'https://schema.org',
-  '@type': 'HomeAndConstructionBusiness',
+  '@type': 'HVACBusiness',
   '@id': `${site.url}/#business`,
   name: site.name,
-  description: 'Projektowanie i montaż ogrzewania na podczerwień – folie grzewcze: podłogowe, sufitowe i ścienne.',
+  alternateName: 'ECO-TOO Opole',
+  description: 'Projektowanie i montaż ogrzewania na podczerwień w Opolu i województwie opolskim – folie grzewcze podłogowe, sufitowe i ścienne, maty grzewcze. Alternatywne ogrzewanie elektryczne bez kotłowni i komina.',
+  slogan: site.tagline,
   url: site.url,
   telephone: site.phone,
   email: site.email,
-  image: `${site.url}/logo.png`,
+  taxID: site.NIP,
+  image: `${site.url}/img/drogoszow-1-1600.webp`,
   logo: `${site.url}/logo.png`,
-  address: { '@type': 'PostalAddress', streetAddress: 'ul. Jana Łangowskiego 4A', postalCode: site.postal, addressLocality: site.city, addressCountry: 'PL' },
-  areaServed: { '@type': 'AdministrativeArea', name: 'Województwo opolskie' },
+  priceRange: '$$',
+  currenciesAccepted: 'PLN',
+  address: { '@type': 'PostalAddress', streetAddress: site.street, postalCode: site.postal, addressLocality: site.city, addressRegion: 'opolskie', addressCountry: 'PL' },
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Województwo opolskie' },
+    ...[...new Set(areas.flatMap((a) => a.places.map((p) => p.split(' – ')[0])))].map((name) => ({ '@type': 'City', name })),
+  ],
+  knowsAbout: ['folia grzewcza', 'ogrzewanie na podczerwień', 'ogrzewanie podłogowe elektryczne', 'ogrzewanie sufitowe', 'ogrzewanie ścienne', 'maty grzewcze', 'ogrzewanie alternatywne', 'fotowoltaika i ogrzewanie elektryczne'],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Ogrzewanie na podczerwień',
+    itemListElement: services.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.name, description: s.desc, url: `${site.url}${s.path}` } })),
+  },
   openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '09:00', closes: '17:00' }],
 };
-const ld = [local, ...(schema ? [schema] : [])];
+const website = { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${site.url}/#website`, url: site.url, name: site.name, inLanguage: 'pl-PL', publisher: { '@id': `${site.url}/#business` } };
+const crumbs = breadcrumbs && {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [['Strona główna', '/'], ...breadcrumbs].map(([name, p], i) => ({ '@type': 'ListItem', position: i + 1, name, item: new URL(p, site.url).href })),
+};
+const ld = [local, website, ...(crumbs ? [crumbs] : []), ...(schema ? [schema].flat() : [])];
 ---
 <!doctype html>
 <html lang="pl">
@@ -41,6 +62,10 @@ const ld = [local, ...(schema ? [schema] : [])];
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={new URL(ogImage, site.url).href} />
+  <meta property="og:image:alt" content={title} />
+  <meta name="geo.region" content="PL-OP" />
+  <meta name="geo.placename" content="Opole" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json" set:html={JSON.stringify(ld)} />
 </head>
@@ -65,7 +90,8 @@ const ld = [local, ...(schema ? [schema] : [])];
     <div class="grid g3">
       <div>
         <div class="logo-box"><img src="/logo.webp" width="113" height="46" alt="ECO-TOO" loading="lazy" /></div>
-        <p>Projektujemy i montujemy ogrzewanie na podczerwień w Opolu i województwie opolskim.</p>
+        <p>Projektujemy i montujemy ogrzewanie na podczerwień w Opolu i <a href="/obszar-dzialania">województwie opolskim</a>.</p>
+        <p style="font-size:.9rem">NIP: {site.NIP}</p>
       </div>
       <div>
         <h3>Kontakt</h3>
@@ -80,7 +106,10 @@ const ld = [local, ...(schema ? [schema] : [])];
         <h3>Na skróty</h3>
         <ul>
           {nav.slice(0, 4).map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href="/ogrzewanie-alternatywne">Ogrzewanie alternatywne</a></li>
+          <li><a href="/tanie-ogrzewanie-domu">Tanie ogrzewanie – koszty</a></li>
           <li><a href="/kalkulator">Kalkulator kosztów</a></li>
+          <li><a href="/obszar-dzialania">Obszar działania</a></li>
           <li><a href="/kontakt">Kontakt i wycena</a></li>
         </ul>
       </div>

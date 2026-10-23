@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { areas, projects } from '../data/site';
+const byId = Object.fromEntries(projects.map((p) => [p.id, p]));
+---
+<Base
+  title="Folie grzewcze w woj. opolskim – obszar działania | ECO-TOO"
+  description="Montaż ogrzewania na podczerwień: Opole, Kędzierzyn-Koźle, Nysa, Brzeg, Krapkowice, Strzelce Opolskie, Kluczbork, Namysłów, Olesno, Prudnik, Głubczyce."
+  breadcrumbs={[['Obszar działania', '/obszar-dzialania']]}
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Obszar działania</span>
+    <h1>Montaż folii grzewczych w całym województwie opolskim</h1>
+    <p>Siedziba ECO-TOO jest w Opolu. Do klientów dojeżdżamy na terenie wszystkich powiatów województwa opolskiego – na konsultację, pomiary i montaż.</p>
+  </div></div>
+
+  <section class="block"><div class="wrap">
+    <h2>Powiaty i miejscowości</h2>
+    <p class="intro">Poniżej najważniejsze miejscowości w każdym powiecie. Obsługujemy także wsie i mniejsze miejscowości w okolicy – jeśli Twojej nie ma na liście, <a href="/kontakt">zapytaj</a>.</p>
+    <div class="grid g2" style="margin-top:2rem">
+      {areas.map((a) => (
+        <div class="card" id={a.id}>
+          <h3>{a.name}</h3>
+          <ul class="chips">{a.places.map((p) => <li>{p}</li>)}</ul>
+          {a.projects.length > 0 && (
+            <p style="margin-top:1rem"><strong>Nasze realizacje:</strong>{' '}
+              {a.projects.map((id, i) => <>{i > 0 && ', '}<a href={`/realizacje#${id}`}>{byId[id].place}</a></>)}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="block alt"><div class="wrap" style="max-width:860px">
+    <h2>Jak wygląda współpraca poza Opolem?</h2>
+    <p>Wycenę wstępną przygotujemy zdalnie – wystarczy rzut pomieszczeń lub ich wymiary, rodzaj podłogi i informacja o ociepleniu. Na miejscu pojawiamy się na pomiary i montaż. Instalacja odbywa się na sucho, bez wylewek do wysychania, co skraca czas prac na miejscu.</p>
+    <div class="btn-row"><a class="btn" href="/kontakt#formularz">Poproś o wycenę</a><a class="btn ghost" style="color:var(--ink)" href="/jak-wyglada-realizacja">Jak pracujemy</a></div>
+  </div></section>
+
+  <CTA />
+</Base>

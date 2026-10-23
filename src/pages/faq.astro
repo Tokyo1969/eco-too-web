@@ -5,6 +5,7 @@ import { faq } from '../data/site';
 const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
 ---
 <Base
+  breadcrumbs={[['FAQ', '/faq']]}
   title="FAQ – najczęstsze pytania o folie grzewcze | ECO-TOO"
   description="Odpowiedzi na pytania o ogrzewanie folią grzewczą: koszty, remont, sterowanie przez telefon, fotowoltaika, montaż, podłoże i gwarancja."
   schema={schema}

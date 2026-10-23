@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import CTA from '../components/CTA.astro';
+import { site } from '../data/site';
+const rows = [
+  ['Kotłownia, komin, opał', 'niepotrzebne', 'jednostka zewnętrzna + instalacja wodna', 'przyłącze gazu, odprowadzenie spalin', 'kotłownia, komin, magazyn opału'],
+  ['Montaż', 'na sucho, bez rur i wylewek', 'instalacja wodna, często wylewki', 'instalacja gazowa i wodna', 'instalacja wodna, kocioł, komin'],
+  ['Koszt instalacji', 'niski–średni', 'wysoki', 'średni (+ przyłącze)', 'średni'],
+  ['Obsługa i serwis', 'brak elementów mechanicznych', 'okresowy serwis', 'coroczne przeglądy', 'dokładanie opału, czyszczenie, przeglądy komina'],
+  ['Koszt użytkowania', 'zależy od ceny prądu i ocieplenia; najniższy z fotowoltaiką', 'niski – z 1 kWh prądu kilka kWh ciepła', 'zależy od ceny gazu', 'zależy od ceny paliwa; dużo pracy'],
+  ['Sterowanie pokojami', 'osobny termostat w każdym pokoju', 'możliwe, zwykle droższe', 'możliwe', 'ograniczone'],
+  ['Emisja w miejscu użytkowania', 'brak spalania', 'brak spalania', 'spalanie gazu', 'spalanie paliwa stałego'],
+];
+const best = [
+  'dobrze ocieplone domy i nowe budynki o niskim zapotrzebowaniu na ciepło',
+  'domy z fotowoltaiką – ogrzewanie wykorzystuje własny prąd',
+  'mieszkania, w których nie ma miejsca na kocioł ani komin',
+  'remonty – zamiana starego pieca lub grzejników elektrycznych bez kucia pod rury',
+  'domki letniskowe i obiekty używane okresowo (zdalne sterowanie, temperatura minimalna)',
+  'poddasza, łazienki, pojedyncze pokoje jako ogrzewanie uzupełniające',
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Alternatywne ogrzewanie domu – folie grzewcze na podczerwień',
+  serviceType: 'Montaż ogrzewania na podczerwień',
+  provider: { '@id': `${site.url}/#business` },
+  areaServed: { '@type': 'AdministrativeArea', name: 'Województwo opolskie' },
+  url: `${site.url}/ogrzewanie-alternatywne`,
+};
+---
+<Base
+  title="Ogrzewanie alternatywne Opole – folia zamiast pieca | ECO-TOO"
+  description="Alternatywne ogrzewanie domu bez kotłowni, komina i opału. Porównanie: folia grzewcza, pompa ciepła, gaz, pellet. Montaż w Opolu i województwie opolskim."
+  breadcrumbs={[['Ogrzewanie alternatywne', '/ogrzewanie-alternatywne']]}
+  schema={schema}
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Ogrzewanie alternatywne</span>
+    <h1>Ogrzewanie bez pieca, komina i opału</h1>
+    <p>Folia grzewcza na podczerwień to elektryczna alternatywa dla kotła na węgiel, pellet czy gaz. Montujemy ją w Opolu i całym województwie opolskim.</p>
+  </div></div>
+
+  <section class="block"><div class="wrap split">
+    <div>
+      <h2>Czym jest ogrzewanie folią na podczerwień?</h2>
+      <p>Folia grzewcza to cienki element grzejny układany pod podłogą, w suficie lub w ścianie. Zamienia energię elektryczną w ciepło oddawane przez promieniowanie podczerwone – nagrzewa podłogę, ściany i przedmioty w pomieszczeniu, a te oddają ciepło dalej. Nie ma spalania, wody w instalacji ani ruchomych części.</p>
+      <p>Każde pomieszczenie może mieć własny termostat, a sterowanie może odbywać się zdalnie z telefonu. Dlatego folia sprawdza się jako ogrzewanie podstawowe w dobrze ocieplonych budynkach oraz jako ogrzewanie uzupełniające.</p>
+      <p class="note">Uchwała antysmogowa województwa opolskiego ogranicza stosowanie starych kotłów na paliwa stałe. Ogrzewanie elektryczne to jedna z dróg wymiany „kopciucha” bez budowy nowej kotłowni.</p>
+    </div>
+    <Img id="pustkow-3" sizes="(min-width: 900px) 40vw, 90vw" />
+  </div></section>
+
+  <section class="block alt"><div class="wrap">
+    <h2>Folia grzewcza a inne źródła ciepła</h2>
+    <p class="intro">Porównanie ogólne – w praktyce o wyborze decydują ocieplenie budynku, dostępna moc elektryczna, fotowoltaika i budżet. Chętnie przeanalizujemy Twój przypadek.</p>
+    <div class="tbl"><table>
+      <thead><tr><th scope="col"></th><th scope="col">Folia grzewcza</th><th scope="col">Pompa ciepła</th><th scope="col">Kocioł gazowy</th><th scope="col">Kocioł na pellet / węgiel</th></tr></thead>
+      <tbody>{rows.map(([k, ...v]) => <tr><th scope="row">{k}</th>{v.map((c, i) => <td class={i === 0 ? 'hl' : undefined}>{c}</td>)}</tr>)}</tbody>
+    </table></div>
+    <p>Uczciwie: pompa ciepła z 1 kWh prądu wytwarza kilka kWh ciepła, folia – jedną. Za to folia jest zwykle znacznie tańsza i szybsza w instalacji, nie wymaga serwisu i nie zajmuje miejsca. W domu o niskim zapotrzebowaniu na ciepło, z fotowoltaiką lub korzystną taryfą, różnica w rachunkach często nie uzasadnia wysokiego kosztu pompy. W słabo ocieplonym, dużym domu – zwykle tak. Powiemy wprost, co ma sens w Twoim budynku.</p>
+  </div></section>
+
+  <section class="block"><div class="wrap">
+    <h2>Kiedy folia grzewcza jest najlepszym wyborem?</h2>
+    <ul class="checks">{best.map((b) => <li>{b}</li>)}</ul>
+    <div class="btn-row">
+      <a class="btn" href="/tanie-ogrzewanie-domu">Ile to kosztuje?</a>
+      <a class="btn ghost" style="color:var(--ink)" href="/realizacje">Zobacz realizacje</a>
+    </div>
+  </div></section>
+
+  <CTA title="Chcesz pozbyć się pieca?" text="Opisz nam budynek – ocenimy, czy folia grzewcza wystarczy jako ogrzewanie podstawowe, i przygotujemy wycenę." />
+</Base>

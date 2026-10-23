@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import CTA from '../components/CTA.astro';
 import Gallery from '../components/Gallery.astro';
-import { cities } from '../data/site';
+import { cities, pln, exampleCost } from '../data/site';
 const benefits = [
   ['🔥', 'Komfort cieplny', 'Ciepło rozprowadzane jest na dużej powierzchni, bez konieczności instalowania tradycyjnych grzejników.'],
   ['⬜', 'Więcej miejsca we wnętrzu', 'Instalacja może zostać ukryta pod podłogą, w suficie lub w ścianie. Dzięki temu nie ogranicza możliwości aranżacji pomieszczeń.'],
@@ -24,11 +24,16 @@ const process = [
   ['Profesjonalny montaż', 'Instalujemy system zgodnie z przygotowanym projektem i wymaganiami technicznymi.'],
   ['Sprawdzenie i uruchomienie', 'Kontrolujemy instalację, konfigurujemy sterowanie oraz przekazujemy wskazówki dotyczące użytkowania.'],
 ];
+const quick = [
+  ['Szybki montaż na sucho', 'Bez rur, wylewek do wysychania i kucia. Pod panelami podłogę można układać zaraz po ułożeniu folii.'],
+  ['Niski koszt instalacji', `Bez kotła, komina i instalacji wodnej. Orientacyjnie ok. ${pln(exampleCost)} za 100 m² z termostatami w 5 pokojach.`],
+  ['Bez serwisu i opału', 'Brak części ruchomych, palnika i przeglądów kotła. Współpracuje z fotowoltaiką.'],
+];
 const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach letniskowych', 'biurach', 'gabinetach', 'lokalach usługowych', 'obiektach przeznaczonych na wynajem', 'wybranych obiektach komercyjnych'];
 ---
 <Base
   title="Folie grzewcze Opole – montaż ogrzewania | ECO-TOO"
-  description="Projektujemy i montujemy folie grzewcze na podczerwień w Opolu i województwie opolskim. Ogrzewanie podłogowe, sufitowe i ścienne. Zapytaj o wycenę."
+  description="Folie grzewcze na podczerwień – Opole i woj. opolskie. Alternatywne, tanie w instalacji ogrzewanie bez kotłowni i komina. Szybki montaż na sucho."
 >
   <section class="hero">
     <Img id="drogoszow-1" class="bg" sizes="100vw" eager />
@@ -53,6 +58,20 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
       <h3 style="margin-top:2rem">Dlaczego warto rozważyć ogrzewanie folią grzewczą?</h3>
       <div class="grid g3">
         {benefits.map(([i, t, d]) => <div class="card"><div class="ico" aria-hidden="true">{i}</div><h3>{t}</h3><p>{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="block dark">
+    <div class="wrap">
+      <span class="kicker">Szybko i bez kotłowni</span>
+      <h2>Alternatywne ogrzewanie, tanie w instalacji</h2>
+      <div class="grid g3" style="margin-top:1.5rem">
+        {quick.map(([t, d]) => <div><h3>{t}</h3><p>{d}</p></div>)}
+      </div>
+      <div class="btn-row">
+        <a class="btn" href="/tanie-ogrzewanie-domu">Sprawdź koszty</a>
+        <a class="btn ghost" href="/ogrzewanie-alternatywne">Porównaj z pompą ciepła i piecem</a>
       </div>
     </div>
   </section>
@@ -88,7 +107,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
       <h2>Montaż folii grzewczych w Opolu i całym województwie opolskim</h2>
       <p class="intro">Realizujemy instalacje między innymi w {cities.join(', ')} i okolicznych miejscowościach.</p>
       <ul class="chips">{['Opole','Kędzierzyn-Koźle','Nysa','Brzeg','Kluczbork','Prudnik','Strzelce Opolskie','Namysłów','Krapkowice','Głubczyce','Olesno'].map((c) => <li>{c}</li>)}</ul>
-      <p style="margin-top:1.2rem">Nie widzisz swojej miejscowości na liście? <a href="/kontakt">Skontaktuj się z nami</a> i zapytaj o możliwość realizacji.</p>
+      <p style="margin-top:1.2rem">Pełna lista powiatów i miejscowości: <a href="/obszar-dzialania">obszar działania</a>. Nie widzisz swojej miejscowości? <a href="/kontakt">Skontaktuj się z nami</a> i zapytaj o możliwość realizacji.</p>
     </div>
   </section>
 

@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import CTA from '../components/CTA.astro';
+import { installCost, pln } from '../data/site';
+const examples: [string, number, number][] = [
+  ['Mieszkanie', 50, 3],
+  ['Mały dom', 80, 5],
+  ['Dom', 100, 5],
+  ['Duży dom', 150, 8],
+];
+const savings = [
+  ['Nie płacisz za kotłownię', 'Bez kotła, komina, zasobnika, rur i grzejników – w budżecie zostają tylko folia, sterowniki i montaż.'],
+  ['Brak serwisu', 'Folia nie ma części ruchomych ani palnika. Odpadają coroczne przeglądy kotła i czyszczenie komina.'],
+  ['Grzejesz tylko tam, gdzie trzeba', 'Osobny termostat w każdym pokoju i harmonogram – sypialnia chłodniej, łazienka cieplej, pusty pokój na temperaturze minimalnej.'],
+  ['Własny prąd z fotowoltaiki', 'Folia jest odbiornikiem prądu, więc może korzystać z energii z Twoich paneli. Im większa autokonsumpcja, tym niższy rachunek.'],
+  ['Taryfa dwustrefowa', 'Przy odpowiednim sterowaniu część pracy ogrzewania można przesunąć na tańsze godziny – warto sprawdzić ofertę swojego sprzedawcy energii.'],
+  ['Szybki montaż = mniej kosztów robocizny', 'Instalacja na sucho, bez wylewek do wysychania. Podłogę z paneli można układać zaraz po ułożeniu folii.'],
+];
+const faq = [
+  ['Ile kosztuje montaż folii grzewczej na 100 m²?', `Orientacyjnie ok. ${pln(installCost(100, 5))} dla 100 m² i 5 pomieszczeń, z folią i sterownikami. Dokładną cenę podajemy po analizie budynku.`],
+  ['Ile kosztuje ogrzewanie domu folią miesięcznie?', 'Zależy od ocieplenia, powierzchni, temperatury i ceny prądu. Przykład z naszej realizacji: dom ekologiczny ok. 80 m² w Pustkowie – szacunkowo ok. 3,5–5 tys. zł rocznie, czyli średnio ok. 290–420 zł miesięcznie w skali roku.'],
+  ['Czy folia grzewcza to najtańsze ogrzewanie?', 'W instalacji – należy do najtańszych, bo nie wymaga kotłowni ani instalacji wodnej. W użytkowaniu – jest korzystna w dobrze ocieplonych domach, z fotowoltaiką lub tanią taryfą. W słabo ocieplonych domach pompa ciepła bywa tańsza w eksploatacji, ale droższa na starcie.'],
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+---
+<Base
+  title="Tanie ogrzewanie domu – koszt folii grzewczej Opole | ECO-TOO"
+  description={`Ile kosztuje ogrzewanie folią na podczerwień? Instalacja 100 m² od ok. ${pln(installCost(100, 5))}, bez kotłowni i serwisu. Przykładowe koszty roczne i jak obniżyć rachunki.`}
+  breadcrumbs={[['Tanie ogrzewanie domu', '/tanie-ogrzewanie-domu']]}
+  schema={schema}
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Koszty ogrzewania</span>
+    <h1>Tanie ogrzewanie domu folią na podczerwień</h1>
+    <p>Niski koszt instalacji, szybki montaż i brak serwisu. Sprawdź, ile kosztuje ogrzewanie folią grzewczą i od czego zależą rachunki.</p>
+  </div></div>
+
+  <section class="block"><div class="wrap">
+    <h2>Ile kosztuje instalacja?</h2>
+    <p class="intro">Orientacyjne koszty folii grzewczej ze sterownikami (jeden termostat na pomieszczenie), liczone tak samo jak w naszym <a href="/kalkulator">kalkulatorze</a>.</p>
+    <div class="tbl"><table>
+      <thead><tr><th scope="col">Obiekt</th><th scope="col">Powierzchnia</th><th scope="col">Pomieszczenia</th><th scope="col">Orientacyjny koszt</th></tr></thead>
+      <tbody>{examples.map(([n, m2, r]) => <tr><th scope="row">{n}</th><td>{m2} m²</td><td>{r}</td><td class="hl"><strong>ok. {pln(installCost(m2, r))}</strong></td></tr>)}</tbody>
+    </table></div>
+    <p class="note">To wartości orientacyjne. Ostateczna cena zależy od rodzaju podłogi, przygotowania podłoża, liczby stref, wybranych sterowników i zakresu prac elektrycznych.</p>
+  </div></section>
+
+  <section class="block alt"><div class="wrap split">
+    <div>
+      <h2>Ile kosztuje ogrzewanie w skali roku?</h2>
+      <p>Folia zamienia całą pobraną energię elektryczną w ciepło. Rachunek to więc w uproszczeniu: <strong>zapotrzebowanie budynku na ciepło (kWh) × cena prądu</strong>. Najwięcej zależy od ocieplenia – w dobrze izolowanym domu potrzeba wielokrotnie mniej energii niż w nieocieplonym.</p>
+      <h3 style="margin-top:1.4rem">Przykład z naszej realizacji – Pustków k. Ozimka</h3>
+      <ul class="checks">
+        <li>dom ekologiczny, ok. 80 m²</li>
+        <li>6 stref: 4 folie grzewcze i 2 maty pod płytkami</li>
+        <li>sterowanie ręczne lub zdalne z aplikacji</li>
+        <li>szacowany koszt ogrzewania: <strong>ok. 3,5–5 tys. zł rocznie</strong></li>
+      </ul>
+      <p style="margin-top:1rem;color:var(--muted);font-size:.95rem">Szacunek dla tego budynku. Rzeczywiste koszty zależą m.in. od izolacji, temperatury, sposobu użytkowania i taryfy energii.</p>
+      <a class="btn dark" href="/realizacje#pustkow">Zobacz zdjęcia z Pustkowa</a>
+    </div>
+    <Img id="pustkow-5" sizes="(min-width: 900px) 40vw, 90vw" />
+  </div></section>
+
+  <section class="block"><div class="wrap">
+    <h2>Dlaczego folia może być tanim ogrzewaniem?</h2>
+    <div class="grid g3" style="margin-top:1.5rem">
+      {savings.map(([t, d]) => <div class="card"><h3>{t}</h3><p>{d}</p></div>)}
+    </div>
+  </div></section>
+
+  <section class="block alt"><div class="wrap" style="max-width:860px">
+    <h2>Pytania o koszty</h2>
+    {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+    <p style="margin-top:1.4rem">Porównanie z pompą ciepła, gazem i pelletem znajdziesz na stronie <a href="/ogrzewanie-alternatywne">ogrzewanie alternatywne</a>.</p>
+  </div></section>
+
+  <CTA title="Policzymy koszt dla Twojego domu" text="Podaj metraż, liczbę pokoi i rodzaj podłogi – przygotujemy wycenę. Działamy w Opolu i całym województwie opolskim." />
+</Base>

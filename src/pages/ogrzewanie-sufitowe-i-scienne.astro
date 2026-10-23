@@ -2,9 +2,13 @@
 import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import CTA from '../components/CTA.astro';
+import { site } from '../data/site';
 const when = ['nie planujesz wymiany podłogi','rodzaj podłogi utrudnia montaż ogrzewania podłogowego','potrzebujesz dodatkowego źródła ciepła','zależy Ci na zachowaniu pełnej swobody aranżacji','modernizujesz tylko wybraną część budynku'];
+const schema = { '@context': 'https://schema.org', '@type': 'Service', name: 'Ogrzewanie sufitowe i ścienne na podczerwień', serviceType: 'Montaż folii grzewczej w suficie i ścianach', provider: { '@id': `${site.url}/#business` }, areaServed: { '@type': 'AdministrativeArea', name: 'Województwo opolskie' }, url: `${site.url}/ogrzewanie-sufitowe-i-scienne` };
 ---
 <Base
+  schema={schema}
+  breadcrumbs={[['Ogrzewanie sufitowe i ścienne', '/ogrzewanie-sufitowe-i-scienne']]}
   title="Ogrzewanie sufitowe i ścienne na podczerwień – Opole | ECO-TOO"
   description="Folia grzewcza w suficie i ścianie – ogrzewanie podstawowe lub uzupełniające. Projekt i montaż w Opolu i województwie opolskim."
 >

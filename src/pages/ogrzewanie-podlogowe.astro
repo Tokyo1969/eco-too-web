@@ -2,10 +2,14 @@
 import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import CTA from '../components/CTA.astro';
+import { site } from '../data/site';
 const pros = ['równomierne rozprowadzanie ciepła','możliwość niezależnego sterowania pomieszczeniami','brak widocznych grzejników','szybka reakcja systemu sterowanego termostatem','cicha praca','brak konieczności budowy kotłowni','możliwość integracji z rozwiązaniami smart home'];
 const floors = ['panelami laminowanymi','panelami winylowymi','deskami warstwowymi','innymi materiałami dopuszczonymi do współpracy z ogrzewaniem podłogowym'];
+const schema = { '@context': 'https://schema.org', '@type': 'Service', name: 'Ogrzewanie podłogowe folią grzewczą', serviceType: 'Montaż elektrycznego ogrzewania podłogowego na podczerwień', provider: { '@id': `${site.url}/#business` }, areaServed: { '@type': 'AdministrativeArea', name: 'Województwo opolskie' }, url: `${site.url}/ogrzewanie-podlogowe` };
 ---
 <Base
+  schema={schema}
+  breadcrumbs={[['Ogrzewanie podłogowe', '/ogrzewanie-podlogowe']]}
   title="Ogrzewanie podłogowe folią grzewczą – Opole i okolice | ECO-TOO"
   description="Elektryczne ogrzewanie podłogowe na podczerwień z folii grzewczej. Dobór systemu do podłogi, montaż i sterowanie. Opole i województwo opolskie."
 >
@@ -18,6 +22,7 @@ const floors = ['panelami laminowanymi','panelami winylowymi','deskami warstwowy
     <div>
       <p>Ogrzewanie podłogowe z wykorzystaniem folii grzewczej pozwala równomiernie oddawać ciepło na dużej powierzchni. System pozostaje niewidoczny i nie zajmuje miejsca na ścianach, dzięki czemu ułatwia aranżację wnętrza.</p>
       <p>Rozwiązanie może być stosowane zarówno w nowych budynkach, jak i podczas wybranych remontów. Możliwość montażu zależy od konstrukcji podłogi, jej izolacji oraz rodzaju planowanej okładziny.</p>
+      <p><strong>Szybki montaż:</strong> folia ma grubość ułamka milimetra i układa się ją na sucho na izolacji, bez rur i wylewek. Pod panelami lub deską warstwową podłogę można kłaść zaraz po ułożeniu i podłączeniu folii – nie trzeba czekać tygodniami na wyschnięcie jastrychu.</p>
       <h2 style="font-size:1.9rem;margin-top:1.6rem">Najważniejsze zalety</h2>
       <ul class="checks">{pros.map((p) => <li>{p}</li>)}</ul>
     </div>
