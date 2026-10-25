@@ -15,18 +15,18 @@ import { site } from '../data/site';
   </div></div>
   <section class="block"><div class="wrap split" style="align-items:start;grid-template-columns:1fr 1.6fr">
     <div class="card">
-      <h2 style="font-size:2rem">ECO-TOO</h2>
+      <h2 class="h-md">ECO-TOO</h2>
       <ul class="checks" style="gap:.8rem">
         <li><strong>Telefon:</strong> <a href={site.phoneHref}>{site.phone}</a></li>
         <li><strong>E-mail:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></li>
         <li><strong>Adres:</strong> {site.postal} {site.city}, {site.street}</li>
         <li><strong>Godziny kontaktu:</strong> {site.hours}</li>
       </ul>
-      <p style="margin-top:1.2rem;color:var(--muted)">Obsługiwany obszar: Opole i <a href="/obszar-dzialania">województwo opolskie</a>.</p>
+      <p style="margin-top:1.2rem;color:var(--ink-muted)">Obsługiwany obszar: Opole i <a href="/obszar-dzialania">województwo opolskie</a>.</p>
       <p><a href={site.profiles[0]} rel="noopener" target="_blank">ECO-TOO w Mapach Google →</a><br /><a href={site.reviewUrl} rel="noopener" target="_blank">Wystaw nam opinię w Google →</a></p>
     </div>
     <div id="formularz">
-      <h2 style="font-size:2rem">Formularz kontaktowy</h2>
+      <h2 class="h-md">Formularz kontaktowy</h2>
       <ContactForm />
     </div>
   </div></section>

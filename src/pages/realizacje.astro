@@ -17,7 +17,7 @@ import { projects, site } from '../data/site';
   {projects.map((p, i) => (
     <section class={`block ${i % 2 ? 'alt' : ''}`} id={p.id}>
       <div class="wrap">
-        <h2 style="font-size:2.2rem">{p.place}</h2>
+        <h2 class="h-md">{p.place}</h2>
         <div class="proj-meta"><span>{p.type}</span><span>Folia grzewcza na podczerwień</span></div>
         <p class="intro" style="margin-bottom:1.2rem">{p.note}</p>
         {p.facts && <ul class="checks" style="margin-bottom:1.6rem">{p.facts.map((f) => <li>{f}</li>)}</ul>}
@@ -27,7 +27,7 @@ import { projects, site } from '../data/site';
     </section>
   ))}
   <section class="block"><div class="wrap" style="text-align:center">
-    <h2 style="font-size:2rem">Montowaliśmy u Ciebie ogrzewanie?</h2>
+    <h2 class="h-md">Montowaliśmy u Ciebie ogrzewanie?</h2>
     <p class="intro" style="margin-inline:auto">Twoja opinia w Google pomaga innym mieszkańcom Opolszczyzny w wyborze ogrzewania. Dziękujemy!</p>
     <div class="btn-row" style="justify-content:center"><a class="btn dark" href={site.reviewUrl} rel="noopener" target="_blank">Wystaw opinię w Google</a></div>
   </div></section>

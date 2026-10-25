@@ -99,6 +99,10 @@ export const photos: Record<string, Photo> = {
   'folia-1m': { slug: 'folia-1m', alt: 'Rolka folii grzewczej o szerokości 1 m', w: 2500, h: 2500 },
   'folia-05m': { slug: 'folia-05m', alt: 'Rolka folii grzewczej o szerokości 0,5 m', w: 2500, h: 2500 },
   'zestaw': { slug: 'zestaw', alt: 'Zestaw folii grzewczej z przewodami, złączkami i termostatem', w: 1280, h: 1280 },
+  'salon-zachod': { slug: 'salon-zachod', alt: 'Salon w ciepłym świetle zachodzącego słońca', w: 743, h: 773 },
+  'salon-wieczor': { slug: 'salon-wieczor', alt: 'Salon z drewnianą podłogą ogrzewaną folią grzewczą', w: 1122, h: 700 },
+  'sypialnia': { slug: 'sypialnia', alt: 'Przytulna sypialnia z drewnianą podłogą w ciepłym świetle', w: 1122, h: 640 },
+  'folia-rolka': { slug: 'folia-rolka', alt: 'Rolka folii grzewczej na podczerwień na drewnianej podłodze', w: 1122, h: 670 },
 };
 
 export const projects = [

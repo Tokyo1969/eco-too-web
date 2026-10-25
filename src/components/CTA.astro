@@ -4,12 +4,14 @@ const { title = 'Planujesz ogrzewanie domu lub mieszkania?', text = 'Opowiedz na
 ---
 <section class="cta">
   <div class="wrap">
-    <h2>{title}</h2>
-    <p>{text}</p>
-    <div class="btn-row" style="justify-content:center">
-      <a class="btn" href="/kontakt">{btn}</a>
+    <div class="cta__copy">
+      <h2>{title}</h2>
+      <p>{text}</p>
+      <p class="contact-line"><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    <div class="btn-row">
+      <a class="btn" href="/kontakt#formularz">{btn}</a>
       <a class="btn ghost" href={site.phoneHref}>Zadzwoń: {site.phone}</a>
     </div>
-    <p class="contact-line">{site.email}</p>
   </div>
 </section>

@@ -4,13 +4,14 @@ import Img from '../components/Img.astro';
 import CTA from '../components/CTA.astro';
 import Gallery from '../components/Gallery.astro';
 import { cities, pln, exampleCost } from '../data/site';
+// ikony liniowe 24×24 (obrys currentColor)
 const benefits = [
-  ['🔥', 'Komfort cieplny', 'Ciepło rozprowadzane jest na dużej powierzchni, bez konieczności instalowania tradycyjnych grzejników.'],
-  ['⬜', 'Więcej miejsca we wnętrzu', 'Instalacja może zostać ukryta pod podłogą, w suficie lub w ścianie. Dzięki temu nie ogranicza możliwości aranżacji pomieszczeń.'],
-  ['🎛️', 'Sterowanie temperaturą', 'Każda strefa może być wyposażona w osobny termostat. Pozwala to ustawić temperaturę odpowiednią dla danego pomieszczenia i sposobu jego użytkowania.'],
-  ['🔇', 'Cicha praca', 'System nie wykorzystuje wentylatorów ani elementów mechanicznych, dlatego pracuje bezgłośnie.'],
-  ['🏠', 'Brak kotłowni i spalin', 'Ogrzewanie elektryczne nie wymaga składowania opału, komina ani wydzielania osobnego pomieszczenia na kocioł.'],
-  ['☀️', 'Współpraca z fotowoltaiką', 'Folia grzewcza może być elementem instalacji wykorzystującej energię elektryczną produkowaną przez panele fotowoltaiczne.'],
+  ['<path d="M7 3c1.5 1.5 1.5 3 0 4.5S5.5 10.5 7 12s1.5 3 0 4.5S5.5 19.5 7 21M12 3c1.5 1.5 1.5 3 0 4.5S10.5 10.5 12 12s1.5 3 0 4.5-1.5 3 0 4.5M17 3c1.5 1.5 1.5 3 0 4.5S15.5 10.5 17 12s1.5 3 0 4.5-1.5 3 0 4.5"/>', 'Komfort cieplny', 'Ciepło rozprowadzane jest na dużej powierzchni, bez konieczności instalowania tradycyjnych grzejników.'],
+  ['<path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/>', 'Więcej miejsca we wnętrzu', 'Instalacja może zostać ukryta pod podłogą, w suficie lub w ścianie. Dzięki temu nie ogranicza możliwości aranżacji pomieszczeń.'],
+  ['<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>', 'Sterowanie temperaturą', 'Każda strefa może być wyposażona w osobny termostat. Pozwala to ustawić temperaturę odpowiednią dla danego pomieszczenia i sposobu jego użytkowania.'],
+  ['<path d="M11 5 6 9H2v6h4l5 4V5zM22 9l-6 6M16 9l6 6"/>', 'Cicha praca', 'System nie wykorzystuje wentylatorów ani elementów mechanicznych, dlatego pracuje bezgłośnie.'],
+  ['<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>', 'Brak kotłowni i spalin', 'Ogrzewanie elektryczne nie wymaga składowania opału, komina ani wydzielania osobnego pomieszczenia na kocioł.'],
+  ['<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>', 'Współpraca z fotowoltaiką', 'Folia grzewcza może być elementem instalacji wykorzystującej energię elektryczną produkowaną przez panele fotowoltaiczne.'],
 ];
 const offer = [
   ['/ogrzewanie-podlogowe', 'Ogrzewanie podłogowe', 'Folie grzewcze montowane pod odpowiednio dobraną warstwą wykończeniową zapewniają przyjemnie ciepłą podłogę i równomierne ogrzewanie wnętrza.', 'Dowiedz się więcej'],
@@ -36,18 +37,18 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
   description="Folie grzewcze na podczerwień – Opole i woj. opolskie. Alternatywne, tanie w instalacji ogrzewanie bez kotłowni i komina. Szybki montaż na sucho."
 >
   <section class="hero">
-    <Img id="drogoszow-1" class="bg" sizes="100vw" eager />
-    <div class="wrap">
+    <div class="hero__copy">
       <span class="kicker">ECO-TOO · Opole i województwo opolskie</span>
-      <h1>Folie grzewcze na podczerwień w województwie opolskim</h1>
+      <h1><span class="hero__slogan">Ciepło, które <em class="em">pokochasz</em></span> <span class="hero__sub">Folie grzewcze na podczerwień w województwie opolskim</span></h1>
       <p class="lead">Nowoczesne i wygodne ogrzewanie elektryczne do domów, mieszkań, biur oraz lokali użytkowych.</p>
-      <p style="max-width:40rem;color:#d6d2cb">Projektujemy i montujemy systemy ogrzewania podłogowego, sufitowego i ściennego oparte na foliach grzewczych. Zapewniamy kompleksową obsługę — od doboru rozwiązania i przygotowania wyceny aż po profesjonalny montaż i uruchomienie instalacji.</p>
+      <p class="more-text">Projektujemy i montujemy systemy ogrzewania podłogowego, sufitowego i ściennego oparte na foliach grzewczych. Zapewniamy kompleksową obsługę — od doboru rozwiązania i przygotowania wyceny aż po profesjonalny montaż i uruchomienie instalacji.</p>
       <div class="btn-row">
-        <a class="btn" href="/kontakt">Umów bezpłatną konsultację</a>
-        <a class="btn ghost" href="/kontakt#formularz">Poproś o wycenę</a>
+        <a class="btn" href="/kontakt#formularz">Poproś o wycenę</a>
+        <a class="btn ghost" href="#jak-to-dziala">Zobacz, jak to działa</a>
       </div>
       <small>Obsługujemy klientów z Opola oraz całego województwa opolskiego.</small>
     </div>
+    <div class="hero__photo"><Img id="salon-zachod" sizes="(min-width: 860px) 50vw, 100vw" eager /></div>
   </section>
 
   <section class="block">
@@ -55,9 +56,9 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
       <span class="kicker">Dlaczego folia grzewcza</span>
       <h2>Komfortowe ciepło dopasowane do Twojego wnętrza</h2>
       <p class="intro">Folia grzewcza zamienia energię elektryczną w ciepło przekazywane przez promieniowanie podczerwone. Ogrzewa powierzchnie znajdujące się w pomieszczeniu, a następnie pomaga utrzymać przyjemną i równomierną temperaturę.</p>
-      <h3 style="margin-top:2rem">Dlaczego warto rozważyć ogrzewanie folią grzewczą?</h3>
+      <h3 style="margin:var(--space-7) 0 var(--space-5)">Dlaczego warto rozważyć ogrzewanie folią grzewczą?</h3>
       <div class="grid g3">
-        {benefits.map(([i, t, d]) => <div class="card"><div class="ico" aria-hidden="true">{i}</div><h3>{t}</h3><p>{d}</p></div>)}
+        {benefits.map(([i, t, d]) => <div class="card"><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" set:html={i} /></div><h3>{t}</h3><p>{d}</p></div>)}
       </div>
     </div>
   </section>
@@ -66,7 +67,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
     <div class="wrap">
       <span class="kicker">Szybko i bez kotłowni</span>
       <h2>Alternatywne ogrzewanie, tanie w instalacji</h2>
-      <div class="grid g3" style="margin-top:1.5rem">
+      <div class="grid g3" style="margin-top:var(--space-6)">
         {quick.map(([t, d]) => <div><h3>{t}</h3><p>{d}</p></div>)}
       </div>
       <div class="btn-row">
@@ -81,7 +82,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
       <span class="kicker">Oferta</span>
       <h2>Dobieramy ogrzewanie do budynku i potrzeb użytkowników</h2>
       <p class="intro">Nie ma jednego rozwiązania odpowiedniego dla każdego obiektu. Przed przygotowaniem oferty analizujemy między innymi powierzchnię pomieszczeń, standard izolacji, rodzaj wykończenia podłogi oraz oczekiwany sposób sterowania.</p>
-      <div class="grid g3" style="margin-top:2rem">
+      <div class="grid g3" style="margin-top:var(--space-7)">
         {offer.map(([h, t, d, b]) => <a class="card link" href={h}><h3>{t}</h3><p>{d}</p><span class="more">{b} →</span></a>)}
       </div>
     </div>
@@ -94,10 +95,10 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
         <h2>Gdzie montujemy folie grzewcze?</h2>
         <p>Wykonujemy instalacje w nowych i modernizowanych obiektach:</p>
         <ul class="checks">{uses.map((u) => <li>{u}</li>)}</ul>
-        <p style="margin-top:1.2rem">Każdy system projektujemy indywidualnie. Przed realizacją sprawdzamy warunki techniczne oraz możliwości montażu.</p>
+        <p style="margin-top:var(--space-5)">Każdy system projektujemy indywidualnie. Przed realizacją sprawdzamy warunki techniczne oraz możliwości montażu.</p>
         <a class="btn dark" href="/zastosowania">Zobacz zastosowania</a>
       </div>
-      <Img id="drogoszow-6" />
+      <Img id="salon-wieczor" />
     </div>
   </section>
 
@@ -107,11 +108,11 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
       <h2>Montaż folii grzewczych w Opolu i całym województwie opolskim</h2>
       <p class="intro">Realizujemy instalacje między innymi w {cities.join(', ')} i okolicznych miejscowościach.</p>
       <ul class="chips">{['Opole','Kędzierzyn-Koźle','Nysa','Brzeg','Kluczbork','Prudnik','Strzelce Opolskie','Namysłów','Krapkowice','Głubczyce','Olesno'].map((c) => <li>{c}</li>)}</ul>
-      <p style="margin-top:1.2rem">Pełna lista powiatów i miejscowości: <a href="/obszar-dzialania">obszar działania</a>. Nie widzisz swojej miejscowości? <a href="/kontakt">Skontaktuj się z nami</a> i zapytaj o możliwość realizacji.</p>
+      <p style="margin-top:var(--space-5)">Pełna lista powiatów i miejscowości: <a href="/obszar-dzialania">obszar działania</a>. Nie widzisz swojej miejscowości? <a href="/kontakt">Skontaktuj się z nami</a> i zapytaj o możliwość realizacji.</p>
     </div>
   </section>
 
-  <section class="block dark">
+  <section class="block dark" id="jak-to-dziala">
     <div class="wrap">
       <span class="kicker">Jak pracujemy</span>
       <h2>Od konsultacji do ciepłego wnętrza</h2>
@@ -137,7 +138,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
       <span class="kicker">Realizacje</span>
       <h2>Zobacz nasze realizacje</h2>
       <p class="intro">Prezentujemy wybrane instalacje wykonane w domach, mieszkaniach i lokalach na terenie województwa opolskiego.</p>
-      <div style="margin-top:2rem"><Gallery ids={['drogoszow-1','pustkow-5','dobrzen-3','ochodze-1','drogoszow-3','dobrzen-1']} /></div>
+      <div style="margin:var(--space-7) 0 var(--space-5)"><Gallery ids={['drogoszow-1','pustkow-5','dobrzen-3','ochodze-1','drogoszow-3','dobrzen-1']} /></div>
       <a class="btn dark" href="/realizacje">Zobacz realizacje</a>
     </div>
   </section>
@@ -150,7 +151,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
         <p>Podaj powierzchnię i liczbę pomieszczeń, a kalkulator pokaże przybliżony koszt folii i sterowników. To punkt wyjścia do rozmowy — konkretną ofertę przygotujemy po analizie budynku.</p>
         <a class="btn" href="/kalkulator">Otwórz kalkulator</a>
       </div>
-      <Img id="folia-1m" sizes="(min-width: 900px) 40vw, 80vw" />
+      <Img id="folia-rolka" sizes="(min-width: 900px) 40vw, 90vw" />
     </div>
   </section>
 

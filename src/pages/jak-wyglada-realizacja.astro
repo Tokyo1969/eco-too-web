@@ -16,16 +16,16 @@ const scope = ['konsultację','dobór systemu','projekt rozmieszczenia elementó
   </div></div>
   <section class="block"><div class="wrap grid g2">
     <div class="card">
-      <h2 style="font-size:1.9rem">Co jest potrzebne do przygotowania wyceny?</h2>
+      <h2 class="h-md">Co jest potrzebne do przygotowania wyceny?</h2>
       <p>Aby opracować wstępną propozycję, poprosimy o:</p>
       <ul class="checks">{need.map((n) => <li>{n}</li>)}</ul>
       <p style="margin-top:1rem">Jeśli nie posiadasz wszystkich danych, skontaktuj się z nami. Pomożemy ustalić, jakie informacje będą potrzebne na kolejnym etapie.</p>
     </div>
     <div class="card">
-      <h2 style="font-size:1.9rem">Zakres usługi</h2>
+      <h2 class="h-md">Zakres usługi</h2>
       <p>W zależności od wybranego wariantu możemy zapewnić:</p>
       <ul class="checks">{scope.map((n) => <li>{n}</li>)}</ul>
     </div>
   </div></section>
-  <CTA btn="Prześlij projekt" title="Masz rzut lub projekt?" text="Wyślij nam podstawowe informacje o inwestycji – ocenimy możliwości techniczne i wrócimy z propozycją." />
+  <CTA title="Masz rzut lub projekt?" text="Wyślij nam podstawowe informacje o inwestycji – ocenimy możliwości techniczne i wrócimy z propozycją." />
 </Base>

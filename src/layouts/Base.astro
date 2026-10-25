@@ -56,7 +56,7 @@ const ld = [local, website, ...(crumbs ? [crumbs] : []), ...(schema ? [schema].f
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   {noindex && <meta name="robots" content="noindex" />}
-  <meta name="theme-color" content="#16181b" />
+  <meta name="theme-color" content="#1a120c" />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="pl_PL" />
@@ -79,12 +79,12 @@ const ld = [local, website, ...(crumbs ? [crumbs] : []), ...(schema ? [schema].f
     <span><a href={site.phoneHref}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a></span>
   </div></div>
   <header class="site"><div class="wrap">
-    <a class="brand" href="/" aria-label="ECO-TOO – strona główna"><img src="/logo.webp" width="132" height="54" alt="ECO-TOO – systemy ogrzewania na podczerwień" /></a>
-    <button class="burger" aria-expanded="false" aria-controls="nav" id="burger">☰ Menu</button>
+    <a class="brand" href="/" aria-label="ECO-TOO – strona główna"><img src="/logo-on-dark.webp" width="128" height="52" alt="ECO-TOO – systemy ogrzewania na podczerwień" /></a>
+    <button class="burger" aria-expanded="false" aria-controls="nav" id="burger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
     <nav class="main" id="nav" aria-label="Główna nawigacja">
       <ul>
         {nav.map((n) => <li><a href={n.href} aria-current={Astro.url.pathname.startsWith(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
-        <li><a class="btn" style="padding:.55rem 1.2rem;color:#fff;border-bottom:2px solid var(--red)" href="/kontakt">Wycena</a></li>
+        <li><a class="btn sm" href="/kontakt#formularz">Poproś o wycenę</a></li>
       </ul>
     </nav>
   </div></header>
@@ -92,9 +92,9 @@ const ld = [local, website, ...(crumbs ? [crumbs] : []), ...(schema ? [schema].f
   <footer class="site"><div class="wrap">
     <div class="grid g3">
       <div>
-        <div class="logo-box"><img src="/logo.webp" width="113" height="46" alt="ECO-TOO" loading="lazy" /></div>
+        <img class="footer-logo" src="/logo-on-dark.webp" width="137" height="56" alt="ECO-TOO" loading="lazy" />
         <p>Projektujemy i montujemy ogrzewanie na podczerwień w Opolu i <a href="/obszar-dzialania">województwie opolskim</a>.</p>
-        <p style="font-size:.9rem">NIP: {site.NIP}</p>
+        <p>NIP: {site.NIP}</p>
       </div>
       <div>
         <h3>Kontakt</h3>
@@ -124,7 +124,7 @@ const ld = [local, website, ...(crumbs ? [crumbs] : []), ...(schema ? [schema].f
       <Analytics />
     </div>
   </div></footer>
-  <a class="mobile-call" href={site.phoneHref}>📞 Zadzwoń: {site.phone}</a>
+  <a class="mobile-call" href={site.phoneHref}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Zadzwoń: {site.phone}</a>
   <dialog class="lb" id="lb" aria-label="Podgląd zdjęcia">
     <figure style="margin:0"><img id="lb-img" alt="" /><figcaption id="lb-cap"></figcaption></figure>
     <button class="x" aria-label="Zamknij" id="lb-x">×</button>
