@@ -54,7 +54,8 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
 
   const rows: [string, string][] = [
     ['Imię i nazwisko', name], ['Telefon', phone], ['E-mail', email], ['Miejscowość', city], ['Rodzaj obiektu', object],
-    ['Powierzchnia (m²)', g('area')], ['Etap inwestycji', g('stage')], ['Wykończenie podłogi', g('floor')], ['Wiadomość', g('message')],
+    ['Powierzchnia (m²)', g('area')], ['Etap inwestycji', g('stage')], ['Wykończenie podłogi', g('floor')],
+    ['Zainteresowanie montażem podłogi', g('floorInstallation') ? 'Tak' : 'Nie'], ['Wiadomość', g('message')],
   ];
   const html = `<h2>Nowe zapytanie ze strony eco-too.opole.pl</h2><table cellpadding="6" style="border-collapse:collapse">${rows
     .filter(([, v]) => v)
