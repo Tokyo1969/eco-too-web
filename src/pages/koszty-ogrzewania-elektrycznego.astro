@@ -20,7 +20,7 @@ const savings = [
 const faq = [
   ['Ile kosztuje montaż folii grzewczej na 100 m²?', `Orientacyjnie ok. ${pln(installCost(100, 5))} dla 100 m² i 5 pomieszczeń, z folią i sterownikami. Dokładną cenę podajemy po analizie budynku.`],
   ['Ile kosztuje ogrzewanie domu folią miesięcznie?', 'Zależy od ocieplenia, powierzchni, temperatury i ceny prądu. Przykład z naszej realizacji: dom ekologiczny ok. 80 m² w Pustkowie – szacunkowo ok. 3,5–5 tys. zł rocznie, czyli średnio ok. 290–420 zł miesięcznie w skali roku.'],
-  ['Czy folia grzewcza to najtańsze ogrzewanie?', 'W instalacji – należy do najtańszych, bo nie wymaga kotłowni ani instalacji wodnej. W użytkowaniu – jest korzystna w dobrze ocieplonych domach, z fotowoltaiką lub tanią taryfą. W słabo ocieplonych domach pompa ciepła bywa tańsza w eksploatacji, ale droższa na starcie.'],
+  ['Czy ogrzewanie elektryczne folią się opłaca?', 'W instalacji – należy do najtańszych, bo nie wymaga kotłowni ani instalacji wodnej. W użytkowaniu – jest korzystna w dobrze ocieplonych domach, z fotowoltaiką lub tanią taryfą. W słabo ocieplonych domach pompa ciepła bywa tańsza w eksploatacji, ale droższa na starcie.'],
 ];
 const schema = {
   '@context': 'https://schema.org',
@@ -29,14 +29,14 @@ const schema = {
 };
 ---
 <Base
-  title="Tanie ogrzewanie domu – koszt folii grzewczej Opole | ECO-TOO"
+  title="Koszty ogrzewania elektrycznego – folia grzewcza Opole | ECO-TOO"
   description={`Ile kosztuje ogrzewanie folią na podczerwień? Instalacja 100 m² od ok. ${pln(installCost(100, 5))}, bez kotłowni i serwisu. Przykładowe koszty roczne i jak obniżyć rachunki.`}
-  breadcrumbs={[['Tanie ogrzewanie domu', '/tanie-ogrzewanie-domu']]}
+  breadcrumbs={[['Koszty ogrzewania elektrycznego', '/koszty-ogrzewania-elektrycznego']]}
   schema={schema}
 >
   <div class="page-hero"><div class="wrap">
     <span class="kicker">Koszty ogrzewania</span>
-    <h1>Tanie ogrzewanie domu folią na podczerwień</h1>
+    <h1>Koszty ogrzewania elektrycznego folią na podczerwień</h1>
     <p>Niski koszt instalacji, szybki montaż i brak serwisu. Sprawdź, ile kosztuje ogrzewanie folią grzewczą i od czego zależą rachunki.</p>
   </div></div>
 
@@ -68,7 +68,7 @@ const schema = {
   </div></section>
 
   <section class="block"><div class="wrap">
-    <h2>Dlaczego folia może być tanim ogrzewaniem?</h2>
+    <h2>Co obniża koszty ogrzewania domu prądem?</h2>
     <div class="grid g3" style="margin-top:1.5rem">
       {savings.map(([t, d]) => <div class="card"><h3>{t}</h3><p>{d}</p></div>)}
     </div>

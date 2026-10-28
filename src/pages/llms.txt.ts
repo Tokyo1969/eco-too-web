@@ -23,7 +23,7 @@ ${services.map((s) => `- [${s.name}](${u(s.path)}): ${s.desc}`).join('\n')}
 ## Strony
 - [Strona główna](${site.url}/)
 ${nav.map((n) => `- [${n.label}](${u(n.href)})`).join('\n')}
-- [Tanie ogrzewanie domu – koszty](${u('/tanie-ogrzewanie-domu')})
+- [Koszty ogrzewania elektrycznego](${u('/koszty-ogrzewania-elektrycznego')})
 - [Kalkulator kosztów](${u('/kalkulator')})
 - [Obszar działania](${u('/obszar-dzialania')})
 - [Kontakt i wycena](${u('/kontakt')})
