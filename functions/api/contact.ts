@@ -2,9 +2,10 @@
 // Wysyła wiadomość przez Resend (https://resend.com) na biuro@eco-too.opole.pl.
 // Zmienne środowiskowe (Worker → Settings → Variables and Secrets):
 //   RESEND_API_KEY (secret)  – klucz API Resend
+//   RECAPTCHA_SECRET_KEY (secret) – tajny klucz reCAPTCHA v3
 //   MAIL_TO     (opcjonalnie) – domyślnie biuro@eco-too.opole.pl
 //   MAIL_FROM   (opcjonalnie) – domyślnie "ECO-TOO WWW <formularz@eco-too.opole.pl>" (domena musi być zweryfikowana w Resend)
-export interface Env { RESEND_API_KEY?: string; MAIL_TO?: string; MAIL_FROM?: string }
+export interface Env { RESEND_API_KEY?: string; RECAPTCHA_SECRET_KEY?: string; MAIL_TO?: string; MAIL_FROM?: string }
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8' } });
@@ -21,6 +22,34 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
   const name = g('name'), phone = g('phone'), email = g('email'), city = g('city'), object = g('object');
   if (!name || !phone || !email || !city || !object || !f.get('consent')) return json({ ok: false, error: 'missing_fields' }, 400);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: 'bad_email' }, 400);
+  if (!env.RECAPTCHA_SECRET_KEY) return json({ ok: false, error: 'recaptcha_not_configured' }, 500);
+  const recaptchaToken = g('recaptchaToken');
+  if (!recaptchaToken) return json({ ok: false, error: 'recaptcha_required' }, 400);
+
+  let verificationResponse: Response;
+  try {
+    verificationResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ secret: env.RECAPTCHA_SECRET_KEY, response: recaptchaToken }),
+    });
+  } catch (error) {
+    console.error('reCAPTCHA verification request failed', error);
+    return json({ ok: false, error: 'recaptcha_unavailable' }, 502);
+  }
+  if (!verificationResponse.ok) {
+    console.error('reCAPTCHA verification error', verificationResponse.status, await verificationResponse.text());
+    return json({ ok: false, error: 'recaptcha_unavailable' }, 502);
+  }
+
+  const verification = await verificationResponse.json() as {
+    success?: boolean;
+    score?: number;
+    action?: string;
+  };
+  if (verification.success !== true || verification.action !== 'contact' || (verification.score ?? 0) < 0.5) {
+    return json({ ok: false, error: 'recaptcha_failed' }, 403);
+  }
   if (!env.RESEND_API_KEY) return json({ ok: false, error: 'not_configured' }, 500);
 
   const rows: [string, string][] = [

@@ -35,6 +35,38 @@
   <div class="full form-msg" id="form-msg" role="status" aria-live="polite"></div>
 </form>
 <script>
+  const recaptchaSiteKey = '6LfaCQUuAAAAAEm8vlKjLJvKJUoOaCr5lwRxRHZt';
+  const recaptchaScriptUrl = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+
+  interface Grecaptcha {
+    ready(callback: () => void): void;
+    execute(siteKey: string, options: { action: string }): Promise<string>;
+  }
+
+  declare global {
+    interface Window { grecaptcha?: Grecaptcha }
+  }
+
+  let recaptchaScript: Promise<void> | undefined;
+  function loadRecaptcha(): Promise<void> {
+    if (window.grecaptcha) return Promise.resolve();
+    if (!recaptchaScript) {
+      recaptchaScript = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = recaptchaScriptUrl;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => resolve();
+        script.onerror = () => {
+          recaptchaScript = undefined;
+          reject(new Error('recaptcha_load_failed'));
+        };
+        document.head.appendChild(script);
+      });
+    }
+    return recaptchaScript;
+  }
+
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const msg = document.getElementById('form-msg')!;
   form?.addEventListener('submit', async (e) => {
@@ -44,7 +76,17 @@
     const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
     btn.disabled = true; btn.textContent = 'Wysyłanie…';
     try {
-      const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+      await loadRecaptcha();
+      const recaptcha = window.grecaptcha;
+      if (!recaptcha) throw new Error('recaptcha_unavailable');
+      const token = await new Promise<string>((resolve, reject) => {
+        recaptcha.ready(() => {
+          recaptcha.execute(recaptchaSiteKey, { action: 'contact' }).then(resolve, reject);
+        });
+      });
+      const formData = new FormData(form);
+      formData.set('recaptchaToken', token);
+      const res = await fetch(form.action, { method: 'POST', body: formData });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) throw new Error(data.error || 'error');
       form.reset();

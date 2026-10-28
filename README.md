@@ -19,14 +19,15 @@ Formularz kontaktowy: `POST /api/contact` → `worker/index.ts` → `functions/a
 - **Cloudflare Worker `eco-too-web`** (Workers Builds): build `npm run build`, deploy `npx wrangler deploy`.
   Lokalny test bez wdrażania: `npm run build && npx wrangler deploy --dry-run`.
 - **Sekrety** (Worker → Settings → Variables and Secrets – *nie* zmienne buildu, typ **Secret**):
-  `RESEND_API_KEY`, opcjonalnie `MAIL_TO`, `MAIL_FROM`. Zwykłe zmienne „Text” są kasowane przy każdym deployu.
+  `RESEND_API_KEY`, `RECAPTCHA_SECRET_KEY` (tajny klucz reCAPTCHA v3), opcjonalnie `MAIL_TO`, `MAIL_FROM`. Zwykłe zmienne „Text” są kasowane przy każdym deployu.
 - **Domeny:** `eco-too.opole.pl` i `www.eco-too.opole.pl` jako Custom domains Workera.
   Redirect Rule: `www` → domena główna (301). SSL/TLS: Always Use HTTPS.
 - **DNS:** strefa w Cloudflare (serwery nazw ustawione w lh.pl na Cloudflare) – rekordy w panelu lh.pl nie działają.
   - Poczta zostaje w lh.pl: MX `mail17.lh.pl`, SPF `include:_spf.lh.pl`, DMARC – nie ruszać.
   - Resend: CNAME `send` i TXT `resend._domainkey` – **DNS only** (szara chmurka). Z proxy Resend nie wyśle maila.
 - **Diagnostyka formularza:** błędy Resend w Worker → Logs („Resend error”). Odpowiedzi API:
-  `not_configured` = brak `RESEND_API_KEY`, `send_failed` = Resend odrzucił (zwykle DNS/weryfikacja domeny).
+  `not_configured` = brak `RESEND_API_KEY`, `recaptcha_not_configured` = brak `RECAPTCHA_SECRET_KEY`,
+  `recaptcha_failed` = token nie przeszedł weryfikacji, `send_failed` = Resend odrzucił (zwykle DNS/weryfikacja domeny).
 - **Google Search Console:** zgłoszona `https://eco-too.opole.pl/sitemap-index.xml`.
 
 ## Do uzupełnienia przed publikacją
