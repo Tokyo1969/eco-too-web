@@ -122,7 +122,6 @@ export const photos: Record<string, Photo> = {
   'kosmetyczny-4': { slug: 'kosmetyczny-4', alt: 'Folia grzewcza na podłodze w salonie kosmetycznym przed ułożeniem paneli, Opole', w: 600, h: 600 },
   'kosmetyczny-5': { slug: 'kosmetyczny-5', alt: 'Układanie paneli na folii grzewczej w salonie kosmetycznym, Opole', w: 1275, h: 957 },
   'kosmetyczny-6': { slug: 'kosmetyczny-6', alt: 'Gabinet salonu kosmetycznego z panelami ułożonymi na folii grzewczej, Opole', w: 1275, h: 957 },
-  'o-firmie': { slug: 'o-firmie', alt: 'Montaż folii grzewczej na podczerwień w holu domu przy schodach, ECO-TOO', w: 1067, h: 1600 },
   'folia-1m': { slug: 'folia-1m', alt: 'Rolka folii grzewczej o szerokości 1 m', w: 2500, h: 2500 },
   'folia-05m': { slug: 'folia-05m', alt: 'Rolka folii grzewczej o szerokości 0,5 m', w: 2500, h: 2500 },
   'zestaw': { slug: 'zestaw', alt: 'Zestaw folii grzewczej z przewodami, złączkami i termostatem', w: 1280, h: 1280 },
