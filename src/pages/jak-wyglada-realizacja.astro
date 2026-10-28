@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
+import Img from '../components/Img.astro';
 const need = ['lokalizację inwestycji','rzut pomieszczeń z wymiarami','informację, czy jest to nowy budynek, czy remont','rodzaj i grubość izolacji','planowany materiał wykończeniowy podłogi','wskazanie stałej zabudowy i ciężkich mebli','informację o dostępnej instalacji elektrycznej','oczekiwany sposób sterowania'];
 const scope = ['konsultację','dobór systemu','projekt rozmieszczenia elementów grzewczych','dostawę materiałów','montaż folii','montaż czujników i regulatorów','wykonanie pomiarów','konfigurację sterowania','instruktaż użytkownika','dokumentację powykonawczą w uzgodnionym zakresie'];
 ---
@@ -28,12 +29,18 @@ const scope = ['konsultację','dobór systemu','projekt rozmieszczenia elementó
     </div>
   </div></section>
   <section class="block alt">
-    <div class="wrap">
+    <div class="wrap split">
+      <Img id="drogoszow-2" sizes="(min-width: 900px) 45vw, 90vw" class="split-photo" />
+      <div>
       <h2>Ogrzewanie i wykończenie podłogi w ramach jednej współpracy</h2>
       <p class="intro">Po montażu ogrzewania możemy skoordynować również ułożenie paneli, desek lub innej podłogi — usługę wykonuje współpracujący z nami wykonawca.</p>
       <p>Wstępna cena montażu wynosi 44 zł netto/m². Ostateczna wycena zależy m.in. od rodzaju paneli lub desek, sposobu ułożenia oraz rodzaju i sposobu wykończenia listwami przypodłogowymi. Szczegóły i wycenę ustalisz bezpośrednio z wykonawcą: <a href="tel:+48500292392">+48 500 292 392</a> lub <a href="tel:+48602678867">+48 602 678 867</a>.</p>
       <p>Możesz też zaznaczyć zainteresowanie montażem podłogi w <a href="/kontakt#formularz">formularzu kontaktowym</a>.</p>
+      </div>
     </div>
   </section>
   <CTA title="Masz rzut lub projekt?" text="Wyślij nam podstawowe informacje o inwestycji – ocenimy możliwości techniczne i wrócimy z propozycją." />
 </Base>
+<style>
+  :global(.split-photo) { width: 100%; max-height: 520px; object-fit: cover; }
+</style>
