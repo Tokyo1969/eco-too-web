@@ -1,0 +1,101 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ECO-TOO Contact API",
+    "version": "1.0.0",
+    "description": "Contact form submission for ECO-TOO. Requires user consent and a valid Google reCAPTCHA v3 token for the contact action. Not an unrestricted automated messaging API."
+  },
+  "servers": [
+    { "url": "https://eco-too.opole.pl" }
+  ],
+  "externalDocs": {
+    "url": "https://eco-too.opole.pl/dokumentacja-api"
+  },
+  "paths": {
+    "/api/contact": {
+      "post": {
+        "operationId": "submitContact",
+        "summary": "Submit a contact enquiry",
+        "description": "Sends an enquiry by email. Use the website contact form to obtain a reCAPTCHA token; do not bypass anti-spam protection. Only POST is supported; other methods return 405 with Allow: POST.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": { "$ref": "#/components/schemas/ContactForm" }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": { "$ref": "#/components/schemas/ContactForm" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Submission accepted. Anti-spam honeypot submissions also receive this response without sending email.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["ok"],
+                  "properties": { "ok": { "const": true } },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid form: bad_request, missing_fields, bad_email or recaptcha_required.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
+          },
+          "403": {
+            "description": "reCAPTCHA verification rejected: recaptcha_failed.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
+          },
+          "500": {
+            "description": "Server configuration missing: recaptcha_not_configured or not_configured.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
+          },
+          "502": {
+            "description": "Upstream service failure: recaptcha_unavailable or send_failed.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ContactForm": {
+        "type": "object",
+        "required": ["name", "phone", "email", "city", "object", "consent", "recaptchaToken"],
+        "description": "Text fields are trimmed and truncated to 2000 characters by the server.",
+        "properties": {
+          "name": { "type": "string", "minLength": 1, "description": "Full name." },
+          "phone": { "type": "string", "minLength": 1 },
+          "email": { "type": "string", "format": "email" },
+          "city": { "type": "string", "minLength": 1 },
+          "object": { "type": "string", "minLength": 1, "description": "Building or property type." },
+          "consent": { "type": "string", "minLength": 1, "description": "Non-empty value confirming the user's consent to processing the enquiry, for example on." },
+          "recaptchaToken": { "type": "string", "minLength": 1, "description": "Google reCAPTCHA v3 token for action contact. Requires score >= 0.5." },
+          "area": { "type": "string", "description": "Property area in square metres." },
+          "stage": { "type": "string", "description": "Construction or renovation stage." },
+          "floor": { "type": "string", "description": "Floor finish." },
+          "floorInstallation": { "type": "string", "description": "Non-empty value indicates interest in floor installation." },
+          "message": { "type": "string" },
+          "website": { "type": "string", "description": "Anti-spam honeypot. Leave empty or omit." }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["ok", "error"],
+        "properties": {
+          "ok": { "const": false },
+          "error": {
+            "type": "string",
+            "enum": ["bad_request", "missing_fields", "bad_email", "recaptcha_required", "recaptcha_failed", "recaptcha_not_configured", "not_configured", "recaptcha_unavailable", "send_failed"]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

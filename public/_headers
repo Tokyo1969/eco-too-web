@@ -2,6 +2,14 @@
   Cache-Control: public, max-age=31536000, immutable
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+/.well-known/api-catalog
+  Content-Type: application/linkset+json
+/openapi.json
+  Content-Type: application/vnd.oai.openapi+json
+/auth.md
+  Content-Type: text/markdown; charset=utf-8
+/
+  Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json", </openapi.json>; rel="service-desc"; type="application/vnd.oai.openapi+json"; anchor="/api/contact", </dokumentacja-api>; rel="service-doc"; type="text/html"; anchor="/api/contact", </llms.txt>; rel="describedby"; type="text/plain"
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

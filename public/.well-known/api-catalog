@@ -1,0 +1,19 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://eco-too.opole.pl/api/contact",
+      "service-desc": [
+        {
+          "href": "https://eco-too.opole.pl/openapi.json",
+          "type": "application/vnd.oai.openapi+json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://eco-too.opole.pl/dokumentacja-api",
+          "type": "text/html"
+        }
+      ]
+    }
+  ]
+}

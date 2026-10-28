@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Dokumentacja API | ECO-TOO" description="Katalog API ECO-TOO i dokumentacja formularza kontaktowego.">
+  <div class="page-hero"><div class="wrap"><h1>Dokumentacja API</h1></div></div>
+  <section class="block"><div class="wrap" style="max-width:820px">
+    <p>Katalog API zgodny z <a href="https://www.rfc-editor.org/rfc/rfc9727">RFC 9727</a>:
+      <a href="/.well-known/api-catalog"><code>/.well-known/api-catalog</code></a>.
+      Specyfikacja OpenAPI 3.1: <a href="/openapi.json"><code>/openapi.json</code></a>.</p>
+    <h2 class="h-md">Formularz kontaktowy</h2>
+    <p><code>POST https://eco-too.opole.pl/api/contact</code> przyjmuje
+      <code>multipart/form-data</code> lub <code>application/x-www-form-urlencoded</code>.
+      Służy do wysyłania zapytań do ECO-TOO, nie do masowej lub niezamówionej wysyłki wiadomości.</p>
+    <p>Korzystaj z <a href="/kontakt#formularz">formularza na stronie kontaktowej</a>.
+      Wymagane są zgoda użytkownika na przetwarzanie zapytania oraz poprawny token Google reCAPTCHA v3
+      dla akcji <code>contact</code> z wynikiem co najmniej 0,5. Katalog nie znosi ochrony antyspamowej.</p>
+    <h2 class="h-md">Pola żądania</h2>
+    <ul>
+      <li>Wymagane: <code>name</code>, <code>phone</code>, <code>email</code>, <code>city</code>,
+        <code>object</code>, <code>consent</code>, <code>recaptchaToken</code>.</li>
+      <li>Opcjonalne: <code>area</code>, <code>stage</code>, <code>floor</code>,
+        <code>floorInstallation</code>, <code>message</code>.</li>
+      <li><code>consent</code>: niepusta wartość, np. <code>on</code>, potwierdzająca zgodę użytkownika.</li>
+      <li><code>floorInstallation</code>: niepusta wartość oznacza zainteresowanie montażem podłogi.</li>
+      <li><code>website</code>: pole antyspamowe — pozostaw puste lub pomiń.</li>
+    </ul>
+    <p>Serwer usuwa białe znaki na początku i końcu pól tekstowych oraz skraca je do 2000 znaków.
+      Dane osobowe przekazuj wyłącznie za zgodą użytkownika, zgodnie z
+      <a href="/polityka-prywatnosci">polityką prywatności</a>.</p>
+    <h2 class="h-md">Odpowiedzi</h2>
+    <p>Odpowiedzi POST mają format JSON. Sukces: <code>{'{"ok":true}'}</code>.
+      Błąd: <code>{'{"ok":false,"error":"kod_błędu"}'}</code>.
+      Wypełnienie pola antyspamowego zwraca pozorny sukces bez wysłania wiadomości.</p>
+    <ul>
+      <li><code>200</code> — przyjęto zgłoszenie.</li>
+      <li><code>400</code> — <code>bad_request</code>, <code>missing_fields</code>,
+        <code>bad_email</code> lub <code>recaptcha_required</code>.</li>
+      <li><code>403</code> — <code>recaptcha_failed</code>.</li>
+      <li><code>500</code> — <code>recaptcha_not_configured</code> lub <code>not_configured</code>.</li>
+      <li><code>502</code> — <code>recaptcha_unavailable</code> lub <code>send_failed</code>.</li>
+      <li>Metody inne niż POST zwracają <code>405</code>, tekst <code>Method Not Allowed</code>
+        i nagłówek <code>Allow: POST</code>.</li>
+    </ul>
+  </div></section>
+</Base>

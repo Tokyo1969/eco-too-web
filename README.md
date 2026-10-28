@@ -6,8 +6,25 @@ Formularz kontaktowy: `POST /api/contact` → `worker/index.ts` → `functions/a
 ## Komendy
 - `npm install` · `npm run dev` · `npm run build` (wynik w `dist/`)
 - `npm run images -- <katalog_ze_zdjeciami>` – regeneracja WebP (mapowanie w `scripts/images.mjs`)
+- `npm test` – testy generowania Markdown i negocjacji formatu (Node.js 22.6+).
+
+## Markdown dla agentów
+- `npm run build` generuje pliki `.md` z treści `<main>` każdej zbudowanej strony HTML. Nawigacja, stopka i skrypty nie trafiają do Markdown.
+- Worker obsługuje wszystkie żądania (`assets.run_worker_first: true`). Dla stron żądania GET/HEAD z `Accept: text/markdown` otrzymują `Content-Type: text/markdown; charset=utf-8`; domyślnie pozostaje HTML. Wagi `q` są respektowane, a `q=0` wyłącza Markdown.
+- Odpowiedzi stron mają `Vary: Accept`. Przekierowania, błędy, pliki statyczne i API zachowują dotychczasowe działanie. Markdown nie używa walidatorów ani zakresów bajtowych HTML; liczba tokenów nie jest szacowana.
+- Test lokalny po buildzie: `npx wrangler dev`, następnie `curl.exe -i -H "Accept: text/markdown" http://localhost:8787/` oraz `curl.exe -i -H "Accept: text/html" http://localhost:8787/`.
+- `astro dev` i `astro preview` nie uruchamiają Workera, więc negocjację formatu należy sprawdzać przez Wrangler. Nie jest wymagane włączenie usługi Markdown for Agents w panelu Cloudflare.
 
 ## Gdzie zmieniać treści
+### Katalog API
+- `/.well-known/api-catalog` — katalog RFC 9727 (`application/linkset+json`), źródło: `public/.well-known/api-catalog`. Zawiera jedyne obecnie dostępne API: formularz kontaktowy.
+- `/openapi.json` — specyfikacja OpenAPI 3.1; `/dokumentacja-api` — dokumentacja użytkowa (również Markdown przez negocjację formatu).
+- Typy MIME ustawia `public/_headers`. Dodając API, aktualizuj katalog, specyfikację i dokumentację. Nie publikujemy relacji `status`, ponieważ nie ma osobnego endpointu zdrowia.
+- Lokalnie sprawdzaj przez Wrangler po buildzie: `curl.exe -i http://localhost:8787/.well-known/api-catalog`. Oczekiwane: HTTP 200, `Content-Type: application/linkset+json`.
+- Strona główna (`/`) zwraca nagłówek `Link` z relacjami `api-catalog`, `service-desc`, `service-doc` i `describedby` (RFC 8288). Konfiguracja: `public/_headers`; działa dla GET/HEAD w HTML i Markdown. Relacje opisu i dokumentacji API mają `anchor="/api/contact"`, a `describedby` wskazuje `/llms.txt`.
+
+### Treści strony
+- `public/auth.md` — publiczny dokument dla agentów (`/auth.md`, `text/markdown`). Opisuje odczyt bez poświadczeń oraz brak rejestracji, wydawania kluczy i OAuth. Nie deklaruje nieistniejących przepływów; sam dokument nie gwarantuje zaliczenia testu `authMd` wymagającego rejestracji.
 - `src/data/site.ts` – dane kontaktowe, menu, FAQ, realizacje, opisy zdjęć (alt), stawki kalkulatora
 - `src/pages/*.astro` – treści podstron
 - `src/components/Analytics.astro` – baner zgody na analitykę. Wybór jest zapisywany w localStorage; zmiana i wycofanie zgody są dostępne w stopce („Ustawienia cookies”).
