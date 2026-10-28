@@ -69,6 +69,10 @@
 
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const msg = document.getElementById('form-msg')!;
+  void loadRecaptcha().catch(() => {
+    msg.className = 'full form-msg err';
+    msg.textContent = 'Nie udało się załadować ochrony antyspamowej. Odśwież stronę lub skontaktuj się z nami telefonicznie.';
+  });
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     msg.className = 'full form-msg';
