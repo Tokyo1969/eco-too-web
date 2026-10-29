@@ -48,6 +48,6 @@ Formularz kontaktowy: `POST /api/contact` → `worker/index.ts` → `functions/a
 - **Google Search Console:** zgłoszona `https://eco-too.opole.pl/sitemap-index.xml`.
 
 ## Do uzupełnienia przed publikacją
-- `/polityka-prywatnosci` – pełna nazwa firmy, NIP, weryfikacja prawna (strona ma `noindex`)
+- `/polityka-prywatnosci` – weryfikacja prawna, umowy powierzenia (Cloudflare, Resend, Google, LH.pl) (strona ma `noindex`)
 - Gwarancja, uprawnienia, lata doświadczenia, opinie klientów – tylko prawdziwe dane
 - Zdjęcia z folderu „Przykładowe zdjęcia konkurencji” celowo NIE zostały użyte

@@ -19,9 +19,10 @@ import Base from '../layouts/Base.astro';
       <li>Wymagane: <code>name</code>, <code>phone</code>, <code>email</code>, <code>city</code>,
         <code>object</code>, <code>consent</code>, <code>recaptchaToken</code>.</li>
       <li>Opcjonalne: <code>area</code>, <code>stage</code>, <code>floor</code>,
-        <code>floorInstallation</code>, <code>message</code>.</li>
+        <code>floorInstallation</code>, <code>floorDataTransfer</code>, <code>message</code>.</li>
       <li><code>consent</code>: niepusta wartość, np. <code>on</code>, potwierdzająca zgodę użytkownika.</li>
       <li><code>floorInstallation</code>: niepusta wartość oznacza zainteresowanie montażem podłogi.</li>
+      <li><code>floorDataTransfer</code>: niepusta wartość oznacza odrębną, dobrowolną zgodę na przekazanie danych kontaktowych wykonawcy montażu podłóg.</li>
       <li><code>website</code>: pole antyspamowe — pozostaw puste lub pomiń.</li>
     </ul>
     <p>Serwer usuwa białe znaki na początku i końcu pól tekstowych oraz skraca je do 2000 znaków.

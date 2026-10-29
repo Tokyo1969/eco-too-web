@@ -11,6 +11,7 @@ export const site = {
   city: 'Opole',
   hours: 'Pn–Pt 9:00–17:00',
   NIP: '7543364885',
+  KRS: '0001072906',
   // Profile zewnętrzne (schema sameAs) – Profil Firmy w Google itp.
   profiles: ['https://g.page/r/CSFZU1C-7r-bEAE', 'https://share.google/YhT0HJHEbacnmLddK', 'https://share.google/Y86ONCaOI87801QKh'],
   reviewUrl: 'https://g.page/r/CSFZU1C-7r-bEAE/review',

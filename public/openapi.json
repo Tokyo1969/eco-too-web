@@ -80,6 +80,7 @@
           "stage": { "type": "string", "description": "Construction or renovation stage." },
           "floor": { "type": "string", "description": "Floor finish." },
           "floorInstallation": { "type": "string", "description": "Non-empty value indicates interest in floor installation." },
+          "floorDataTransfer": { "type": "string", "description": "Non-empty value indicates separate, optional consent to share contact details with the floor installation contractor." },
           "message": { "type": "string" },
           "website": { "type": "string", "description": "Anti-spam honeypot. Leave empty or omit." }
         }
