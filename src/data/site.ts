@@ -19,7 +19,7 @@ export const site = {
   profiles: ['https://maps.google.com/?cid=11222951297589401889', 'https://g.page/r/CSFZU1C-7r-bEAE'],
   reviewUrl: 'https://g.page/r/CSFZU1C-7r-bEAE/review',
   // Cloudflare Turnstile – klucz publiczny (Site Key) widgetu; tajny klucz: TURNSTILE_SECRET_KEY w ustawieniach Workera
-  turnstileSiteKey: 'TURNSTILE_SITE_KEY',
+  turnstileSiteKey: '0x4AAAAAAF76wLe1FlfCR20d',
 };
 
 export const nav = [
