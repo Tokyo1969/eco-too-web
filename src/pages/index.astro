@@ -6,23 +6,23 @@ import Gallery from '../components/Gallery.astro';
 import { cities, pln, exampleCost } from '../data/site';
 // ikony liniowe 24×24 (obrys currentColor)
 const benefits = [
-  ['<path d="M7 3c1.5 1.5 1.5 3 0 4.5S5.5 10.5 7 12s1.5 3 0 4.5S5.5 19.5 7 21M12 3c1.5 1.5 1.5 3 0 4.5S10.5 10.5 12 12s1.5 3 0 4.5-1.5 3 0 4.5M17 3c1.5 1.5 1.5 3 0 4.5S15.5 10.5 17 12s1.5 3 0 4.5-1.5 3 0 4.5"/>', 'Komfort cieplny', 'Ciepło rozprowadzane jest na dużej powierzchni, bez konieczności instalowania tradycyjnych grzejników.'],
-  ['<path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/>', 'Więcej miejsca we wnętrzu', 'Instalacja może zostać ukryta pod podłogą, w suficie lub w ścianie. Dzięki temu nie ogranicza możliwości aranżacji pomieszczeń.'],
-  ['<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>', 'Sterowanie temperaturą', 'Każda strefa może być wyposażona w osobny termostat. Pozwala to ustawić temperaturę odpowiednią dla danego pomieszczenia i sposobu jego użytkowania.'],
+  ['<path d="M7 3c1.5 1.5 1.5 3 0 4.5S5.5 10.5 7 12s1.5 3 0 4.5S5.5 19.5 7 21M12 3c1.5 1.5 1.5 3 0 4.5S10.5 10.5 12 12s1.5 3 0 4.5-1.5 3 0 4.5M17 3c1.5 1.5 1.5 3 0 4.5S15.5 10.5 17 12s1.5 3 0 4.5-1.5 3 0 4.5"/>', 'Komfort cieplny', 'Grzeje cała podłoga, sufit albo ściana, a nie jeden grzejnik pod oknem.'],
+  ['<path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/>', 'Więcej miejsca we wnętrzu', 'Folia leży pod podłogą, w suficie lub w ścianie. Meble stawiasz tam, gdzie chcesz, bo na ścianach nie ma grzejników.'],
+  ['<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>', 'Sterowanie temperaturą', 'Każdy pokój może mieć własny termostat: sypialnia chłodniej, łazienka cieplej, pusty pokój na temperaturze minimalnej.'],
   ['<path d="M11 5 6 9H2v6h4l5 4V5zM22 9l-6 6M16 9l6 6"/>', 'Cicha praca', 'System nie wykorzystuje wentylatorów ani elementów mechanicznych, dlatego pracuje bezgłośnie.'],
   ['<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>', 'Brak kotłowni i spalin', 'Ogrzewanie elektryczne nie wymaga składowania opału, komina ani wydzielania osobnego pomieszczenia na kocioł.'],
-  ['<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>', 'Współpraca z fotowoltaiką', 'Folia grzewcza może być elementem instalacji wykorzystującej energię elektryczną produkowaną przez panele fotowoltaiczne.'],
+  ['<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>', 'Współpraca z fotowoltaiką', 'Folia grzeje prądem, więc może korzystać z energii z Twoich paneli fotowoltaicznych.'],
 ];
 const offer = [
-  ['/ogrzewanie-podlogowe', 'Ogrzewanie podłogowe', 'Folie grzewcze montowane pod odpowiednio dobraną warstwą wykończeniową zapewniają przyjemnie ciepłą podłogę i równomierne ogrzewanie wnętrza.', 'Dowiedz się więcej'],
-  ['/ogrzewanie-sufitowe-i-scienne', 'Ogrzewanie sufitowe', 'Rozwiązanie odpowiednie między innymi tam, gdzie konstrukcja lub planowane wykończenie podłogi utrudnia wykonanie ogrzewania podłogowego.', 'Poznaj możliwości'],
-  ['/ogrzewanie-sufitowe-i-scienne#sciany', 'Ogrzewanie ścienne', 'System może być zamontowany w wybranych fragmentach ścian. Sprawdza się jako ogrzewanie podstawowe lub uzupełniające, zależnie od parametrów budynku.', 'Zapytaj o rozwiązanie'],
+  ['/ogrzewanie-podlogowe', 'Ogrzewanie podłogowe', 'Folia pod panelami, winylem lub deską warstwową, a pod płytkami mata grzewcza.', 'Dowiedz się więcej'],
+  ['/ogrzewanie-sufitowe-i-scienne', 'Ogrzewanie sufitowe', 'Gdy podłogi nie chcesz zrywać albo jej konstrukcja nie pozwala na ogrzewanie podłogowe, np. w łazience.', 'Poznaj możliwości'],
+  ['/ogrzewanie-sufitowe-i-scienne#sciany', 'Ogrzewanie ścienne', 'Folia na wybranych fragmentach ścian, pod płytą gipsowo-kartonową. Jako ogrzewanie główne albo dodatkowe, zależnie od ocieplenia budynku.', 'Zapytaj o rozwiązanie'],
 ];
 const process = [
   ['Rozmowa i analiza potrzeb', 'Poznajemy budynek, planowane wykończenie oraz oczekiwania dotyczące komfortu i sterowania.'],
   ['Dobór systemu', 'Określamy odpowiedni sposób montażu, rozmieszczenie folii, moc instalacji i podział na strefy.'],
   ['Przejrzysta wycena', 'Przedstawiamy zakres prac oraz koszt realizacji. Wyjaśniamy, jakie przygotowanie będzie potrzebne przed montażem.'],
-  ['Profesjonalny montaż', 'Instalujemy system zgodnie z przygotowanym projektem i wymaganiami technicznymi.'],
+  ['Montaż', 'Montuje nasza ekipa, zgodnie z projektem. W naszych realizacjach montaż folii trwał od 4 do 10 godzin.'],
   ['Sprawdzenie i uruchomienie', 'Kontrolujemy instalację, konfigurujemy sterowanie oraz przekazujemy wskazówki dotyczące użytkowania.'],
 ];
 const quick = [
@@ -40,8 +40,8 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
     <div class="hero__copy">
       <span class="kicker">ECO-TOO · Opole i województwo opolskie</span>
       <h1><span class="hero__slogan">Ciepło, które <em class="em">pokochasz</em></span> <span class="hero__sub">Folie grzewcze na podczerwień w województwie opolskim</span></h1>
-      <p class="lead">Nowoczesne i wygodne ogrzewanie elektryczne do domów, mieszkań, biur oraz lokali użytkowych.</p>
-      <p class="more-text">Projektujemy i montujemy systemy ogrzewania podłogowego, sufitowego i ściennego oparte na foliach grzewczych. Zapewniamy kompleksową obsługę — od doboru rozwiązania i przygotowania wyceny aż po profesjonalny montaż i uruchomienie instalacji.</p>
+      <p class="lead">Ogrzewanie elektryczne bez kotłowni, komina i grzejników do domów, mieszkań, biur i lokali usługowych.</p>
+      <p class="more-text">Projektujemy i montujemy ogrzewanie podłogowe, sufitowe i ścienne z folii grzewczych. Dobieramy system, wyceniamy, montujemy i uruchamiamy instalację. Na folię dajemy 30 lat gwarancji.</p>
       <div class="btn-row">
         <a class="btn" href="/kontakt#formularz">Poproś o wycenę</a>
         <a class="btn ghost" href="#jak-to-dziala">Zobacz, jak to działa</a>
@@ -54,7 +54,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
   <section class="block">
     <div class="wrap">
       <span class="kicker">Dlaczego folia grzewcza</span>
-      <h2>Komfortowe ciepło dopasowane do Twojego wnętrza</h2>
+      <h2>Ciepło z podłogi, sufitu lub ściany</h2>
       <p class="intro">Folia grzewcza zamienia energię elektryczną w ciepło przekazywane przez promieniowanie podczerwone. Ogrzewa powierzchnie znajdujące się w pomieszczeniu, a następnie pomaga utrzymać przyjemną i równomierną temperaturę.</p>
       <h3 style="margin:var(--space-7) 0 var(--space-5)">Dlaczego warto rozważyć ogrzewanie folią grzewczą?</h3>
       <div class="grid g3">
@@ -81,7 +81,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
     <div class="wrap">
       <span class="kicker">Oferta</span>
       <h2>Dobieramy ogrzewanie do budynku i potrzeb użytkowników</h2>
-      <p class="intro">Nie ma jednego rozwiązania odpowiedniego dla każdego obiektu. Przed przygotowaniem oferty analizujemy między innymi powierzchnię pomieszczeń, standard izolacji, rodzaj wykończenia podłogi oraz oczekiwany sposób sterowania.</p>
+      <p class="intro">Przed ofertą sprawdzamy powierzchnię pomieszczeń, ocieplenie, rodzaj podłogi i to, jak chcesz sterować ogrzewaniem.</p>
       <div class="grid g3" style="margin-top:var(--space-7)">
         {offer.map(([h, t, d, b]) => <a class="card link" href={h}><h3>{t}</h3><p>{d}</p><span class="more">{b} →</span></a>)}
       </div>
@@ -99,7 +99,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
         <h2>Gdzie montujemy folie grzewcze?</h2>
         <p>Wykonujemy instalacje w nowych i modernizowanych obiektach:</p>
         <ul class="checks">{uses.map((u) => <li>{u}</li>)}</ul>
-        <p style="margin-top:var(--space-5)">Każdy system projektujemy indywidualnie. Przed realizacją sprawdzamy warunki techniczne oraz możliwości montażu.</p>
+        <p style="margin-top:var(--space-5)">Przed montażem sprawdzamy podłoże, ocieplenie i instalację elektryczną w budynku.</p>
         <a class="btn dark" href="/zastosowania">Zobacz zastosowania</a>
       </div>
       <Img id="drogoszow-6" />
@@ -128,9 +128,9 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
     <div class="wrap split">
       <div>
         <span class="kicker">O firmie</span>
-        <h2>Ogrzewanie zaprojektowane na lata</h2>
-        <p>W ECO-TOO stawiamy na rzetelne doradztwo, staranny montaż i rozwiązania dopasowane do konkretnego budynku. Nie sprzedajemy gotowego schematu. Najpierw sprawdzamy potrzeby klienta i warunki techniczne, a dopiero później rekomendujemy odpowiedni system.</p>
-        <p>Klient otrzymuje jasne informacje dotyczące zakresu prac, sposobu sterowania oraz zasad bezpiecznego użytkowania instalacji.</p>
+        <h2>30 lat gwarancji na folię</h2>
+        <p>Folie grzewcze montuje ekipa ECO-TOO od 6 lat. Najpierw sprawdzamy budynek i pytamy, jak z niego korzystasz, a dopiero potem dobieramy moc folii i podział na strefy.</p>
+        <p>Na folię grzewczą dajemy 30 lat gwarancji, na sterowniki i pozostałe urządzenia oraz materiały użyte przy montażu 2 lata. Po montażu pokazujemy, jak obsługiwać sterowanie.</p>
         <a class="btn dark" href="/o-firmie">Poznaj naszą firmę</a>
       </div>
       <Img id="zestaw" sizes="(min-width: 900px) 40vw, 90vw" />
@@ -152,7 +152,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
       <div>
         <span class="kicker">Kalkulator</span>
         <h2>Sprawdź orientacyjny koszt</h2>
-        <p>Podaj powierzchnię i liczbę pomieszczeń, a kalkulator pokaże przybliżony koszt folii i sterowników. To punkt wyjścia do rozmowy — konkretną ofertę przygotujemy po analizie budynku.</p>
+        <p>Podaj powierzchnię i liczbę pomieszczeń, a kalkulator pokaże przybliżony koszt folii i sterowników. To punkt wyjścia do rozmowy – konkretną ofertę przygotujemy po analizie budynku.</p>
         <a class="btn" href="/kalkulator">Otwórz kalkulator</a>
       </div>
       <Img id="folia-rolka" sizes="(min-width: 900px) 40vw, 90vw" />

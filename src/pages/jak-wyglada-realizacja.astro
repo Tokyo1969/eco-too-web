@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
 import Img from '../components/Img.astro';
 const need = ['lokalizację inwestycji','rzut pomieszczeń z wymiarami','informację, czy jest to nowy budynek, czy remont','rodzaj i grubość izolacji','planowany materiał wykończeniowy podłogi','wskazanie stałej zabudowy i ciężkich mebli','informację o dostępnej instalacji elektrycznej','oczekiwany sposób sterowania'];
-const scope = ['konsultację','dobór systemu','projekt rozmieszczenia elementów grzewczych','dostawę materiałów','montaż folii','montaż czujników i regulatorów','wykonanie pomiarów','konfigurację sterowania','instruktaż użytkownika','dokumentację powykonawczą w uzgodnionym zakresie'];
+const scope = ['konsultację','dobór systemu','projekt rozmieszczenia elementów grzewczych','dostawę materiałów','montaż folii','montaż czujników i regulatorów','wykonanie pomiarów','konfigurację sterowania','instruktaż użytkownika','dokumentację powykonawczą w uzgodnionym zakresie','gwarancję: 30 lat na folię, 2 lata na sterowniki, urządzenia i materiały montażowe'];
 ---
 <Base
   breadcrumbs={[['Jak pracujemy', '/jak-wyglada-realizacja']]}
@@ -13,18 +13,18 @@ const scope = ['konsultację','dobór systemu','projekt rozmieszczenia elementó
   <div class="page-hero"><div class="wrap">
     <span class="kicker">Jak pracujemy</span>
     <h1>Jak wygląda realizacja</h1>
-    <p>Od pierwszej rozmowy do uruchomionej instalacji – bez niespodzianek.</p>
+    <p>Od pierwszej rozmowy do uruchomionej instalacji.</p>
   </div></div>
   <section class="block"><div class="wrap grid g2">
     <div class="card">
       <h2 class="h-md">Co jest potrzebne do przygotowania wyceny?</h2>
       <p>Aby opracować wstępną propozycję, poprosimy o:</p>
       <ul class="checks">{need.map((n) => <li>{n}</li>)}</ul>
-      <p style="margin-top:1rem">Jeśli nie posiadasz wszystkich danych, skontaktuj się z nami. Pomożemy ustalić, jakie informacje będą potrzebne na kolejnym etapie.</p>
+      <p style="margin-top:1rem">Nie masz wszystkich danych? Napisz lub zadzwoń, ustalimy resztę razem.</p>
     </div>
     <div class="card">
       <h2 class="h-md">Zakres usługi</h2>
-      <p>W zależności od wybranego wariantu możemy zapewnić:</p>
+      <p>Zależnie od wariantu robimy:</p>
       <ul class="checks">{scope.map((n) => <li>{n}</li>)}</ul>
     </div>
   </div></section>
@@ -32,14 +32,14 @@ const scope = ['konsultację','dobór systemu','projekt rozmieszczenia elementó
     <div class="wrap split">
       <Img id="drogoszow-2" sizes="(min-width: 900px) 45vw, 90vw" class="split-photo" />
       <div>
-      <h2>Ogrzewanie i wykończenie podłogi w ramach jednej współpracy</h2>
-      <p class="intro">Po montażu ogrzewania możemy skoordynować również ułożenie paneli, desek lub innej podłogi — usługę wykonuje współpracujący z nami wykonawca.</p>
+      <h2>Ogrzewanie i nowa podłoga za jednym razem</h2>
+      <p class="intro">Po montażu ogrzewania może od razu wejść wykonawca podłóg, z którym współpracujemy, i ułożyć panele, deski lub inną podłogę.</p>
       <p>Wstępna cena montażu wynosi 44 zł netto/m². Ostateczna wycena zależy m.in. od rodzaju paneli lub desek, sposobu ułożenia oraz rodzaju i sposobu wykończenia listwami przypodłogowymi. Szczegóły i wycenę ustalisz bezpośrednio z wykonawcą: <a href="tel:+48500292392">+48 500 292 392</a> lub <a href="tel:+48602678867">+48 602 678 867</a>.</p>
       <p>Możesz też zaznaczyć zainteresowanie montażem podłogi w <a href="/kontakt#formularz">formularzu kontaktowym</a>.</p>
       </div>
     </div>
   </section>
-  <CTA title="Masz rzut lub projekt?" text="Wyślij nam podstawowe informacje o inwestycji – ocenimy możliwości techniczne i wrócimy z propozycją." />
+  <CTA title="Masz rzut lub projekt?" text="Wyślij go razem z informacją o ociepleniu i rodzaju podłogi. Na tej podstawie przygotujemy wstępną wycenę." />
 </Base>
 <style>
   :global(.split-photo) { width: 100%; max-height: 520px; object-fit: cover; }

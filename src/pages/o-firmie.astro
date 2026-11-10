@@ -2,12 +2,21 @@
 import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import CTA from '../components/CTA.astro';
-const why = ['indywidualny dobór systemu','przejrzysty zakres prac','bezpośredni kontakt z wykonawcą','staranny montaż','sprawdzone komponenty','pomoc w konfiguracji sterowania','obsługa posprzedażowa','doświadczenie potwierdzone realizacjami'];
+import { site, projects } from '../data/site';
+const why = [
+  'montuje nasza własna ekipa, od 6 lat',
+  '30 lat gwarancji na folię grzewczą',
+  '2 lata gwarancji na sterowniki oraz pozostałe urządzenia i materiały użyte przy montażu',
+  'rozmawiasz bezpośrednio z wykonawcą, bez pośredników',
+  'przed montażem sprawdzamy budynek, ocieplenie i instalację elektryczną',
+  'po montażu konfigurujemy sterowanie i pokazujemy, jak z niego korzystać',
+  `${projects.length} opisanych realizacji z liczbą stref, mocą folii i czasem montażu`,
+];
 ---
 <Base
   breadcrumbs={[['O firmie', '/o-firmie']]}
   title="O firmie ECO-TOO – lokalny wykonawca ogrzewania na podczerwień"
-  description="ECO-TOO projektuje i montuje elektryczne systemy grzewcze z folii na podczerwień w Opolu i województwie opolskim. Poznaj naszą firmę."
+  description="ECO-TOO od 6 lat projektuje i montuje ogrzewanie z folii na podczerwień w Opolu i województwie opolskim. 30 lat gwarancji na folię grzewczą."
 >
   <div class="page-hero"><div class="wrap">
     <span class="kicker">O firmie</span>
@@ -15,12 +24,13 @@ const why = ['indywidualny dobór systemu','przejrzysty zakres prac','bezpośred
   </div></div>
   <section class="block"><div class="wrap split">
     <div>
-      <p>ECO-TOO specjalizuje się w projektowaniu i montażu elektrycznych systemów grzewczych opartych na foliach na podczerwień. Działamy na terenie Opola i województwa opolskiego.</p>
-      <p>Naszym celem jest wykonanie instalacji dopasowanej do rzeczywistych potrzeb użytkowników oraz parametrów budynku. Dlatego każdą współpracę rozpoczynamy od zebrania informacji i oceny warunków technicznych.</p>
-      <h2 class="h-md" style="margin-top:var(--space-6)">Dlaczego klienci wybierają ECO-TOO?</h2>
+      <p>ECO-TOO projektuje i montuje elektryczne ogrzewanie z folii na podczerwień. Mamy siedzibę w Opolu i pracujemy w całym województwie opolskim. Folie montuje ekipa ECO-TOO od 6 lat.</p>
+      <p>Każde zlecenie zaczynamy od pytań o budynek: ocieplenie, rodzaj podłogi, dostępną moc elektryczną i to, jak korzystasz z pomieszczeń. Od tego zależy moc folii i podział na strefy.</p>
+      <h2 class="h-md" style="margin-top:var(--space-6)">Co dostajesz</h2>
       <ul class="checks">{why.map((w) => <li>{w}</li>)}</ul>
+      <p style="margin-top:var(--space-5)"><a href="/realizacje">Zobacz realizacje</a> albo <a href={site.profiles[0]} rel="noopener" target="_blank">przeczytaj opinie w Google</a>.</p>
     </div>
     <Img id="drogoszow-3" sizes="(min-width: 900px) 35vw, 80vw" />
   </div></section>
-  <CTA title="Porozmawiajmy o Twoim ogrzewaniu" text="Napisz lub zadzwoń – ocenimy możliwości techniczne i zaproponujemy kolejne kroki." />
+  <CTA title="Porozmawiajmy o Twoim ogrzewaniu" text="Napisz lub zadzwoń. Wstępną wycenę przygotujemy na podstawie wymiarów pomieszczeń, rodzaju podłogi i informacji o ociepleniu." />
 </Base>

@@ -2,11 +2,11 @@
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
 const items = [
-  ['Ogrzewanie elektryczne domu jednorodzinnego', 'System może stanowić ogrzewanie podstawowe w odpowiednio przygotowanym energetycznie budynku lub ogrzewanie wybranych pomieszczeń. Szczególne znaczenie mają izolacja, zapotrzebowanie na ciepło i prawidłowo dobrana moc.'],
-  ['Ogrzewanie mieszkania folią grzewczą', 'Folia grzewcza pozwala zrezygnować z widocznych grzejników i sterować temperaturą niezależnie w poszczególnych pokojach. Przed montażem sprawdzamy możliwości techniczne oraz moc przyłączeniową.'],
-  ['Ogrzewanie podłogowe do remontu', 'Niewielka grubość elementów systemu może ułatwiać jego zastosowanie podczas modernizacji. Ostateczny układ warstw zawsze dobieramy do istniejącej konstrukcji.'],
-  ['Ogrzewanie domku letniskowego i obiektów użytkowanych okresowo', 'Programowalne lub zdalne sterowanie umożliwia utrzymywanie temperatury minimalnej i ogrzanie wnętrza przed przyjazdem.'],
-  ['Ogrzewanie biura i lokalu usługowego na podczerwień', 'Podział instalacji na strefy pozwala dopasować temperaturę do godzin pracy i sposobu wykorzystania poszczególnych pomieszczeń.'],
+  ['Ogrzewanie elektryczne domu jednorodzinnego', 'W dobrze ocieplonym domu folia może być głównym ogrzewaniem, w słabiej ocieplonym ogrzewać wybrane pomieszczenia. Moc dobieramy do zapotrzebowania budynku na ciepło. Przykład: dom ok. 180 m² w Starych Budkowicach, 13 stref.'],
+  ['Ogrzewanie mieszkania folią grzewczą', 'Bez grzejników na ścianach, z osobnym termostatem w każdym pokoju. Przed montażem sprawdzamy instalację elektryczną i moc przyłączeniową mieszkania.'],
+  ['Ogrzewanie podłogowe do remontu', 'Folia ma ułamek milimetra grubości, więc zwykle mieści się pod nową podłogą. Układ warstw dobieramy do istniejącej konstrukcji. Przykład: prawie 100-letni dom w Drogoszowie.'],
+  ['Ogrzewanie domku letniskowego i obiektów użytkowanych okresowo', 'Ze sterowaniem przez telefon utrzymasz temperaturę minimalną pod nieobecność i ogrzejesz domek przed przyjazdem.'],
+  ['Ogrzewanie biura i lokalu usługowego na podczerwień', 'Każda strefa grzeje według godzin pracy danego pomieszczenia. Przykład: salon kosmetyczny w Opolu, ok. 24 m².'],
 ];
 ---
 <Base
@@ -17,7 +17,7 @@ const items = [
   <div class="page-hero"><div class="wrap">
     <span class="kicker">Zastosowania</span>
     <h1>Gdzie sprawdza się ogrzewanie folią</h1>
-    <p>Każdy system projektujemy indywidualnie – od mieszkania po lokal usługowy.</p>
+    <p>Od pokoju na poddaszu po cały dom i lokal usługowy.</p>
   </div></div>
   <section class="block"><div class="wrap grid g2">
     {items.map(([t, d]) => <div class="card"><h3>{t}</h3><p>{d}</p></div>)}

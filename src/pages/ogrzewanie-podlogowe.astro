@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import CTA from '../components/CTA.astro';
 import { site } from '../data/site';
-const pros = ['równomierne rozprowadzanie ciepła','możliwość niezależnego sterowania pomieszczeniami','brak widocznych grzejników','szybka reakcja systemu sterowanego termostatem','cicha praca','brak konieczności budowy kotłowni','możliwość integracji z rozwiązaniami smart home'];
+const pros = ['grzeje cała podłoga, a nie jeden punkt w pokoju','każdym pomieszczeniem sterujesz osobno','na ścianach nie ma grzejników','termostat włącza folię tylko wtedy, gdy temperatura spadnie','pracuje bezgłośnie','nie trzeba budować kotłowni ani komina','sterowanie można podłączyć do systemu smart home','30 lat gwarancji na folię grzewczą'];
 const comfort = [
   ['Ciepłe powierzchnie', 'Podłoga i przegrody o wyższej temperaturze dają wrażenie komfortu cieplnego, nawet gdy temperatura powietrza jest ustawiona nieco niżej.'],
   ['Spokojniejsze powietrze', 'Folia nie ma wentylatorów, a ruch powietrza jest zwykle mniejszy niż przy grzejnikach konwekcyjnych.'],
@@ -26,8 +26,8 @@ const schema = { '@context': 'https://schema.org', '@type': 'Service', name: 'Og
   </div></div>
   <section class="block"><div class="wrap split">
     <div>
-      <p>Ogrzewanie podłogowe z wykorzystaniem folii grzewczej pozwala równomiernie oddawać ciepło na dużej powierzchni. System pozostaje niewidoczny i nie zajmuje miejsca na ścianach, dzięki czemu ułatwia aranżację wnętrza.</p>
-      <p>Rozwiązanie może być stosowane zarówno w nowych budynkach, jak i podczas wybranych remontów. Możliwość montażu zależy od konstrukcji podłogi, jej izolacji oraz rodzaju planowanej okładziny.</p>
+      <p>Folia grzewcza pod podłogą oddaje ciepło całą powierzchnią. Nie widać jej, a na ścianach nie ma grzejników.</p>
+      <p>Montujemy ją w nowych budynkach i przy remontach. Czy da się ją położyć u Ciebie, zależy od konstrukcji podłogi, izolacji i tego, jaką podłogę planujesz.</p>
       <p><strong>Szybki montaż:</strong> folia ma grubość ułamka milimetra i układa się ją na sucho na izolacji, bez rur i wylewek. Pod panelami lub deską warstwową podłogę można kłaść zaraz po ułożeniu i podłączeniu folii – nie trzeba czekać tygodniami na wyschnięcie jastrychu.</p>
       <h2 class="h-md" style="margin-top:var(--space-6)">Najważniejsze zalety</h2>
       <ul class="checks">{pros.map((p) => <li>{p}</li>)}</ul>
@@ -45,15 +45,15 @@ const schema = { '@context': 'https://schema.org', '@type': 'Service', name: 'Og
     <p class="intro">System dobieramy do konkretnego rodzaju wykończenia. Przed montażem sprawdzamy zalecenia producenta podłogi oraz dopuszczalną temperaturę jej pracy.</p>
     <p style="margin-top:1.2rem">Folie grzewcze mogą być stosowane pod wybranymi:</p>
     <ul class="checks">{floors.map((p) => <li>{p}</li>)}</ul>
-    <p class="note" style="margin-top:1.5rem">W przypadku płytek ceramicznych sposób wykonania instalacji wymaga zastosowania odpowiedniego kompletnego systemu. Każdy taki projekt oceniamy indywidualnie.</p>
+    <p class="note" style="margin-top:1.5rem">Pod płytki ceramiczne nie kładziemy folii, tylko maty grzewcze: przewód grzejny na siatce, zatopiony w kleju do płytek. Tak zrobiliśmy łazienkę i przedpokój w <a href="/realizacje#pustkow">Pustkowie</a>.</p>
   </div></section>
   <section class="block alt"><div class="wrap">
     <h2>Ogrzewanie podłogowe do remontu</h2>
-    <p class="intro">W wielu przypadkach folię można zamontować podczas remontu. Najpierw sprawdzamy stan i konstrukcję podłoża, dostępne miejsce, rodzaj podłogi oraz instalację elektryczną. Więcej odpowiedzi znajdziesz w <a href="/faq">najczęstszych pytaniach</a>.</p>
+    <p class="intro">Folia ma ułamek milimetra grubości, więc przy remoncie zwykle mieści się pod nową podłogą. W salonie kosmetycznym w Opolu położyliśmy ją bezpośrednio na starych kafelkach, a na niej panele. Przed remontem sprawdzamy podłoże, wysokość warstw i instalację elektryczną. Więcej odpowiedzi znajdziesz w <a href="/faq">najczęstszych pytaniach</a>.</p>
   </div></section>
   <section class="block"><div class="wrap">
     <h2>Bezpieczeństwo i sterowanie</h2>
-    <p class="intro">Instalacja powinna zostać właściwie dobrana, zabezpieczona i podłączona przez osobę posiadającą odpowiednie kwalifikacje. Czujniki temperatury podłogi i termostaty pomagają kontrolować pracę systemu oraz chronić materiały wykończeniowe przed przegrzaniem.</p>
+    <p class="intro">Folię podłącza i zabezpiecza osoba z uprawnieniami elektrycznymi. Czujnik temperatury podłogi i termostat pilnują, żeby panele czy deska nie przegrzały się. Na folię dajemy 30 lat gwarancji, na sterowniki 2 lata.</p>
     <div class="btn-row"><a class="btn" href="/kontakt">Zapytaj o ogrzewanie podłogowe</a><a class="btn ghost" href="/realizacje">Zobacz realizacje</a></div>
   </div></section>
   <CTA />
