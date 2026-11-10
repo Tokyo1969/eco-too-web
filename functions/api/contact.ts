@@ -18,7 +18,7 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
   try { f = await request.formData(); } catch { return json({ ok: false, error: 'bad_request' }, 400); }
   const g = (k: string) => String(f.get(k) ?? '').trim().slice(0, 2000);
 
-  if (g('website')) return json({ ok: true }); // honeypot – boty
+  if (g('website')) { console.log('contact: honeypot filled, not sent', g('type') || 'form'); return json({ ok: true }); } // honeypot – boty
   // type=callback – krótkie zgłoszenie z kalkulatora na stronie głównej (telefon + metraż), reszta – pełny formularz
   const callback = g('type') === 'callback';
   const name = g('name'), phone = g('phone'), email = g('email'), city = g('city'), object = g('object');
@@ -93,5 +93,7 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
     console.error('Resend error', res.status, await res.text()); // widoczne w Workers → Logs
     return json({ ok: false, error: 'send_failed' }, 502);
   }
+  const sent = await res.json().catch(() => ({})) as { id?: string };
+  console.log('contact: sent via Resend', callback ? 'callback' : 'form', sent.id ?? '');
   return json({ ok: true });
 }
