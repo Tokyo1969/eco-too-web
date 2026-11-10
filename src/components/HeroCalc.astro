@@ -89,9 +89,10 @@ import { pricing } from '../data/site';
       msg.className = 'form-msg ok';
       msg.textContent = 'Dziękujemy! Oddzwonimy tego samego dnia roboczego.';
       (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({ event: 'callback_request' });
-    } catch {
+    } catch (err) {
       msg.className = 'form-msg err';
-      msg.innerHTML = 'Nie udało się wysłać. Zadzwoń: <a href="tel:+48668173872">+48 668 173 872</a>.';
+      const code = err instanceof Error ? err.message : 'error';
+      msg.innerHTML = `Nie udało się wysłać. Zadzwoń: <a href="tel:+48668173872">+48 668 173 872</a>. <small>(kod: ${code.replace(/[^a-z0-9_]/gi, '')})</small>`;
     } finally { btn.disabled = false; btn.textContent = 'Oddzwońcie do mnie'; }
   });
 </script>

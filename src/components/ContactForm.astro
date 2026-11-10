@@ -100,9 +100,10 @@
       form.reset();
       msg.className = 'full form-msg ok';
       msg.textContent = 'Dziękujemy! Wiadomość została wysłana. Odezwiemy się w godzinach pracy (Pn–Pt 9:00–17:00).';
-    } catch {
+    } catch (err) {
       msg.className = 'full form-msg err';
-      msg.innerHTML = 'Nie udało się wysłać formularza. Napisz na <a href="mailto:biuro@eco-too.opole.pl">biuro@eco-too.opole.pl</a> lub zadzwoń: <a href="tel:+48668173872">+48 668 173 872</a>.';
+      const code = err instanceof Error ? err.message : 'error';
+      msg.innerHTML = `Nie udało się wysłać formularza. Napisz na <a href="mailto:biuro@eco-too.opole.pl">biuro@eco-too.opole.pl</a> lub zadzwoń: <a href="tel:+48668173872">+48 668 173 872</a>. <small>(kod: ${code.replace(/[^a-z0-9_]/gi, '')})</small>`;
     } finally { btn.disabled = false; btn.textContent = 'Poproś o kontakt'; }
   });
 </script>
