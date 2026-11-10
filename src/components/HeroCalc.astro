@@ -1,7 +1,7 @@
 ---
 // Mini-kalkulator w nagłówku strony głównej: wynik od razu, telefon opcjonalnie (prośba o oddzwonienie).
 // Wysyła na /api/contact z type=callback (functions/api/contact.ts).
-import { pricing } from '../data/site';
+import { pricing, site } from '../data/site';
 ---
 <div class="hc" id="hc" data-foil={pricing.foilPerM2} data-cov={pricing.coverage} data-ctrl={pricing.controllerPerRoom}>
   <p class="hc__title">Ile kosztuje folia w Twoim domu?</p>
@@ -13,7 +13,7 @@ import { pricing } from '../data/site';
     <span>Orientacyjnie, folia + sterowniki</span>
     <strong id="hc-total">–</strong>
   </div>
-  <form id="hc-form" action="/api/contact" method="post" novalidate>
+  <form id="hc-form" action="/api/contact" method="post" novalidate data-sitekey={site.turnstileSiteKey}>
     <p class="hc__ask">Chcesz dokładną wycenę? <b>Oddzwonimy tego samego dnia roboczego.</b></p>
     <div class="hc__inputs">
       <label class="fl">Telefon<input name="phone" type="tel" required autocomplete="tel" placeholder="np. 600 100 200" /></label>
@@ -26,12 +26,14 @@ import { pricing } from '../data/site';
     <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
     <label class="consent"><input type="checkbox" name="consent" required />
       <span>Zgadzam się na kontakt telefoniczny w sprawie wyceny. <a href="/polityka-prywatnosci">Polityka prywatności</a></span></label>
+    <div class="captcha" id="hc-captcha"></div>
     <button class="btn" type="submit">Oddzwońcie do mnie</button>
     <small class="hc__hours">Pn–Pt 9:00–17:00. Zgłoszenia po 17:00 i w weekend – następnego dnia roboczego.</small>
     <div class="form-msg" id="hc-msg" role="status" aria-live="polite"></div>
   </form>
 </div>
 <script>
+  import { createCaptcha } from '../scripts/captcha';
   const el = document.getElementById('hc')!;
   const foil = +el.dataset.foil!, cov = +el.dataset.cov!, ctrl = +el.dataset.ctrl!;
   const m2 = document.getElementById('hc-m2') as HTMLInputElement;
@@ -49,24 +51,10 @@ import { pricing } from '../data/site';
   };
   m2.addEventListener('input', calc); rooms.addEventListener('input', calc); calc();
 
-  // reCAPTCHA v3 ładowana dopiero przy pierwszej interakcji z formularzem (nie spowalnia strony głównej)
-  const siteKey = '6LfaCQUuAAAAAEm8vlKjLJvKJUoOaCr5lwRxRHZt';
-  type G = { ready(cb: () => void): void; execute(k: string, o: { action: string }): Promise<string> };
-  let loading: Promise<void> | undefined;
-  const loadRecaptcha = () => {
-    const w = window as unknown as { grecaptcha?: G };
-    if (w.grecaptcha) return Promise.resolve();
-    loading ??= new Promise<void>((resolve, reject) => {
-      const s = document.createElement('script');
-      s.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
-      s.async = true; s.onload = () => resolve(); s.onerror = () => { loading = undefined; reject(new Error('recaptcha')); };
-      document.head.appendChild(s);
-    });
-    return loading;
-  };
   const form = document.getElementById('hc-form') as HTMLFormElement;
   const msg = document.getElementById('hc-msg')!;
-  form.addEventListener('focusin', () => { void loadRecaptcha().catch(() => {}); }, { once: true });
+  const captcha = createCaptcha(document.getElementById('hc-captcha')!, form.dataset.sitekey!, 'callback');
+  form.addEventListener('focusin', captcha.preload, { once: true });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     msg.className = 'form-msg';
@@ -76,12 +64,8 @@ import { pricing } from '../data/site';
     const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
     btn.disabled = true; btn.textContent = 'Wysyłanie…';
     try {
-      await loadRecaptcha();
-      const g = (window as unknown as { grecaptcha?: G }).grecaptcha;
-      if (!g) throw new Error('recaptcha');
-      const token = await new Promise<string>((res, rej) => g.ready(() => g.execute(siteKey, { action: 'callback' }).then(res, rej)));
       const data = new FormData(form);
-      data.set('recaptchaToken', token);
+      data.set('captchaToken', await captcha.token());
       const r = await fetch(form.action, { method: 'POST', body: data });
       const j = await r.json().catch(() => ({}));
       if (!r.ok || !j.ok) throw new Error(j.error || 'error');

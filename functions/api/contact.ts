@@ -2,10 +2,10 @@
 // Wysyła wiadomość przez Resend (https://resend.com) na biuro@eco-too.opole.pl.
 // Zmienne środowiskowe (Worker → Settings → Variables and Secrets):
 //   RESEND_API_KEY (secret)  – klucz API Resend
-//   RECAPTCHA_SECRET_KEY (secret) – tajny klucz reCAPTCHA v3
+//   TURNSTILE_SECRET_KEY (secret) – tajny klucz widgetu Cloudflare Turnstile
 //   MAIL_TO     (opcjonalnie) – domyślnie biuro@eco-too.opole.pl
 //   MAIL_FROM   (opcjonalnie) – domyślnie "ECO-TOO WWW <formularz@eco-too.opole.pl>" (domena musi być zweryfikowana w Resend)
-export interface Env { RESEND_API_KEY?: string; RECAPTCHA_SECRET_KEY?: string; MAIL_TO?: string; MAIL_FROM?: string }
+export interface Env { RESEND_API_KEY?: string; TURNSTILE_SECRET_KEY?: string; MAIL_TO?: string; MAIL_FROM?: string }
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8' } });
@@ -29,29 +29,29 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
     if (!name || !phone || !email || !city || !object || !f.get('consent')) return json({ ok: false, error: 'missing_fields' }, 400);
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: 'bad_email' }, 400);
   }
-  if (!env.RECAPTCHA_SECRET_KEY) return json({ ok: false, error: 'recaptcha_not_configured' }, 500);
-  const recaptchaToken = g('recaptchaToken');
-  if (!recaptchaToken) return json({ ok: false, error: 'recaptcha_required' }, 400);
+  if (!env.TURNSTILE_SECRET_KEY) return json({ ok: false, error: 'captcha_not_configured' }, 500);
+  const captchaToken = String(f.get('captchaToken') ?? '').trim(); // bez przycinania – tokeny Turnstile mają do 2048 znaków
+  if (!captchaToken) return json({ ok: false, error: 'captcha_required' }, 400);
 
   let verificationResponse: Response;
   try {
-    verificationResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    const ip = request.headers.get('cf-connecting-ip');
+    verificationResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ secret: env.RECAPTCHA_SECRET_KEY, response: recaptchaToken }),
+      body: new URLSearchParams({ secret: env.TURNSTILE_SECRET_KEY, response: captchaToken, ...(ip ? { remoteip: ip } : {}) }),
     });
   } catch (error) {
-    console.error('reCAPTCHA verification request failed', error);
-    return json({ ok: false, error: 'recaptcha_unavailable' }, 502);
+    console.error('Turnstile verification request failed', error);
+    return json({ ok: false, error: 'captcha_unavailable' }, 502);
   }
   if (!verificationResponse.ok) {
-    console.error('reCAPTCHA verification error', verificationResponse.status, await verificationResponse.text());
-    return json({ ok: false, error: 'recaptcha_unavailable' }, 502);
+    console.error('Turnstile verification error', verificationResponse.status, await verificationResponse.text());
+    return json({ ok: false, error: 'captcha_unavailable' }, 502);
   }
 
   const verification = await verificationResponse.json() as {
     success?: boolean;
-    score?: number;
     action?: string;
     hostname?: string;
     'error-codes'?: string[];
@@ -61,11 +61,10 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
   const reason = verification.success !== true
     ? `invalid_${(verification['error-codes'] ?? ['unknown']).join('_')}`
     : verification.action !== expectedAction ? 'action'
-    : (verification.score ?? 0) < 0.5 ? `score_${Math.round((verification.score ?? 0) * 10)}`
     : '';
   if (reason) {
-    console.log('contact: reCAPTCHA rejected', reason, { score: verification.score, action: verification.action, hostname: verification.hostname });
-    return json({ ok: false, error: `recaptcha_failed_${reason.replace(/[^a-z0-9_]/gi, '_')}` }, 403);
+    console.log('contact: Turnstile rejected', reason, { action: verification.action, hostname: verification.hostname });
+    return json({ ok: false, error: `captcha_failed_${reason.replace(/[^a-z0-9_]/gi, '_')}` }, 403);
   }
   if (!env.RESEND_API_KEY) return json({ ok: false, error: 'not_configured' }, 500);
 

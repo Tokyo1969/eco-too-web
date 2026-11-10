@@ -254,3 +254,5 @@ footer .footer-logo { height: 56px; width: auto; margin-bottom: var(--space-4); 
   .hero__photo::after { background: rgba(26, 18, 12, .35); }
   .hc { width: 100%; }
 }
+.captcha:empty { display: none; }
+.captcha { margin: var(--space-2) 0; }

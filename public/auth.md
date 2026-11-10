@@ -30,10 +30,10 @@ when reading public content.
 The only API is `POST /api/contact`, used by the
 [website contact form](https://eco-too.opole.pl/kontakt#formularz).
 It sends an enquiry; it does not register agents, provision accounts, or issue
-credentials. Submission requires the user's consent and a valid Google
-reCAPTCHA v3 token for the `contact` action with a score of at least 0.5.
-The reCAPTCHA token is an anti-spam check, not an API access credential.
-Agents must not bypass reCAPTCHA or submit unsolicited messages.
+credentials. Submission requires the user's consent and a valid Cloudflare
+Turnstile token (field `captchaToken`) for the `contact` or `callback` action.
+The Turnstile token is an anti-spam check, not an API access credential.
+Agents must not bypass Turnstile or submit unsolicited messages.
 Do not submit forms during passive discovery scans.
 
 ## API discovery

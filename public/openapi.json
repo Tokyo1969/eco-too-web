@@ -3,7 +3,7 @@
   "info": {
     "title": "ECO-TOO Contact API",
     "version": "1.0.0",
-    "description": "Contact form submission for ECO-TOO. Requires user consent and a valid Google reCAPTCHA v3 token for the contact action. Not an unrestricted automated messaging API."
+    "description": "Contact form submission for ECO-TOO. Requires user consent and a valid Cloudflare Turnstile token for the contact or callback action. Not an unrestricted automated messaging API."
   },
   "servers": [
     { "url": "https://eco-too.opole.pl" }
@@ -16,7 +16,7 @@
       "post": {
         "operationId": "submitContact",
         "summary": "Submit a contact enquiry",
-        "description": "Sends an enquiry by email. Use the website contact form to obtain a reCAPTCHA token; do not bypass anti-spam protection. Only POST is supported; other methods return 405 with Allow: POST.",
+        "description": "Sends an enquiry by email. Use the website contact form to obtain a Turnstile token; do not bypass anti-spam protection. Only POST is supported; other methods return 405 with Allow: POST.",
         "requestBody": {
           "required": true,
           "content": {
@@ -43,19 +43,19 @@
             }
           },
           "400": {
-            "description": "Invalid form: bad_request, missing_fields, bad_email or recaptcha_required.",
+            "description": "Invalid form: bad_request, missing_fields, bad_email, bad_phone or captcha_required.",
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
           },
           "403": {
-            "description": "reCAPTCHA verification rejected: recaptcha_failed_<reason> (invalid_<google error codes>, action or score_<0-10>).",
+            "description": "Turnstile verification rejected: captcha_failed_<reason> (invalid_<Cloudflare error codes> or action).",
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
           },
           "500": {
-            "description": "Server configuration missing: recaptcha_not_configured or not_configured.",
+            "description": "Server configuration missing: captcha_not_configured or not_configured.",
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
           },
           "502": {
-            "description": "Upstream service failure: recaptcha_unavailable or send_failed.",
+            "description": "Upstream service failure: captcha_unavailable or send_failed.",
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
           }
         }
@@ -66,7 +66,7 @@
     "schemas": {
       "ContactForm": {
         "type": "object",
-        "required": ["name", "phone", "email", "city", "object", "consent", "recaptchaToken"],
+        "required": ["name", "phone", "email", "city", "object", "consent", "captchaToken"],
         "description": "Text fields are trimmed and truncated to 2000 characters by the server.",
         "properties": {
           "name": { "type": "string", "minLength": 1, "description": "Full name." },
@@ -75,7 +75,7 @@
           "city": { "type": "string", "minLength": 1 },
           "object": { "type": "string", "minLength": 1, "description": "Building or property type." },
           "consent": { "type": "string", "minLength": 1, "description": "Non-empty value confirming the user's consent to processing the enquiry, for example on." },
-          "recaptchaToken": { "type": "string", "minLength": 1, "description": "Google reCAPTCHA v3 token for action contact. Requires score >= 0.5." },
+          "captchaToken": { "type": "string", "minLength": 1, "description": "Cloudflare Turnstile token for action contact (or callback when type=callback). Not truncated by the server." },
           "area": { "type": "string", "description": "Property area in square metres." },
           "stage": { "type": "string", "description": "Construction or renovation stage." },
           "floor": { "type": "string", "description": "Floor finish." },
@@ -83,7 +83,7 @@
           "floorDataTransfer": { "type": "string", "description": "Non-empty value indicates separate, optional consent to share contact details with the floor installation contractor." },
           "message": { "type": "string" },
           "website": { "type": "string", "description": "Anti-spam honeypot. Leave empty or omit." },
-          "type": { "type": "string", "enum": ["callback"], "description": "Optional. callback = short callback request from the home page calculator: only phone (at least 9 digits), consent and a reCAPTCHA token for action callback are required." },
+          "type": { "type": "string", "enum": ["callback"], "description": "Optional. callback = short callback request from the home page calculator: only phone (at least 9 digits), consent and a Turnstile token for action callback are required." },
           "rooms": { "type": "string", "description": "Number of rooms (callback requests)." },
           "estimate": { "type": "string", "description": "Estimated installation cost shown to the user (callback requests)." }
         }
@@ -95,8 +95,8 @@
           "ok": { "const": false },
           "error": {
             "type": "string",
-            "description": "One of: bad_request, missing_fields, bad_email, bad_phone, recaptcha_required, recaptcha_failed_<reason>, recaptcha_not_configured, not_configured, recaptcha_unavailable, send_failed.",
-            "pattern": "^(bad_request|missing_fields|bad_email|bad_phone|recaptcha_required|recaptcha_failed(_[a-z0-9_]+)?|recaptcha_not_configured|not_configured|recaptcha_unavailable|send_failed)$"
+            "description": "One of: bad_request, missing_fields, bad_email, bad_phone, captcha_required, captcha_failed_<reason>, captcha_not_configured, not_configured, captcha_unavailable, send_failed.",
+            "pattern": "^(bad_request|missing_fields|bad_email|bad_phone|captcha_required|captcha_failed(_[a-z0-9_]+)?|captcha_not_configured|not_configured|captcha_unavailable|send_failed)$"
           }
         },
         "additionalProperties": false

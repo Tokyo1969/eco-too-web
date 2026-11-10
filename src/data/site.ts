@@ -18,6 +18,8 @@ export const site = {
   // Profile zewnętrzne (schema sameAs) – Profil Firmy w Google itp.
   profiles: ['https://maps.google.com/?cid=11222951297589401889', 'https://g.page/r/CSFZU1C-7r-bEAE'],
   reviewUrl: 'https://g.page/r/CSFZU1C-7r-bEAE/review',
+  // Cloudflare Turnstile – klucz publiczny (Site Key) widgetu; tajny klucz: TURNSTILE_SECRET_KEY w ustawieniach Workera
+  turnstileSiteKey: 'TURNSTILE_SITE_KEY',
 };
 
 export const nav = [

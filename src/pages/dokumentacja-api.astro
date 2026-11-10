@@ -12,12 +12,12 @@ import Base from '../layouts/Base.astro';
       <code>multipart/form-data</code> lub <code>application/x-www-form-urlencoded</code>.
       Służy do wysyłania zapytań do ECO-TOO, nie do masowej lub niezamówionej wysyłki wiadomości.</p>
     <p>Korzystaj z <a href="/kontakt#formularz">formularza na stronie kontaktowej</a>.
-      Wymagane są zgoda użytkownika na przetwarzanie zapytania oraz poprawny token Google reCAPTCHA v3
-      dla akcji <code>contact</code> z wynikiem co najmniej 0,5. Katalog nie znosi ochrony antyspamowej.</p>
+      Wymagane są zgoda użytkownika na przetwarzanie zapytania oraz poprawny token Cloudflare Turnstile
+      (pole <code>captchaToken</code>) dla akcji <code>contact</code> lub <code>callback</code>. Katalog nie znosi ochrony antyspamowej.</p>
     <h2 class="h-md">Pola żądania</h2>
     <ul>
       <li>Wymagane: <code>name</code>, <code>phone</code>, <code>email</code>, <code>city</code>,
-        <code>object</code>, <code>consent</code>, <code>recaptchaToken</code>.</li>
+        <code>object</code>, <code>consent</code>, <code>captchaToken</code>. Przy <code>type=callback</code> (prośba o oddzwonienie) wystarczą <code>phone</code>, <code>consent</code> i <code>captchaToken</code>.</li>
       <li>Opcjonalne: <code>area</code>, <code>stage</code>, <code>floor</code>,
         <code>floorInstallation</code>, <code>floorDataTransfer</code>, <code>message</code>.</li>
       <li><code>consent</code>: niepusta wartość, np. <code>on</code>, potwierdzająca zgodę użytkownika.</li>
@@ -35,10 +35,10 @@ import Base from '../layouts/Base.astro';
     <ul>
       <li><code>200</code> — przyjęto zgłoszenie.</li>
       <li><code>400</code> — <code>bad_request</code>, <code>missing_fields</code>,
-        <code>bad_email</code> lub <code>recaptcha_required</code>.</li>
-      <li><code>403</code> — <code>recaptcha_failed_&lt;przyczyna&gt;</code> (np. <code>recaptcha_failed_score_3</code>).</li>
-      <li><code>500</code> — <code>recaptcha_not_configured</code> lub <code>not_configured</code>.</li>
-      <li><code>502</code> — <code>recaptcha_unavailable</code> lub <code>send_failed</code>.</li>
+        <code>bad_email</code>, <code>bad_phone</code> lub <code>captcha_required</code>.</li>
+      <li><code>403</code> — <code>captcha_failed_&lt;przyczyna&gt;</code> (np. <code>captcha_failed_invalid_timeout_or_duplicate</code>).</li>
+      <li><code>500</code> — <code>captcha_not_configured</code> lub <code>not_configured</code>.</li>
+      <li><code>502</code> — <code>captcha_unavailable</code> lub <code>send_failed</code>.</li>
       <li>Metody inne niż POST zwracają <code>405</code>, tekst <code>Method Not Allowed</code>
         i nagłówek <code>Allow: POST</code>.</li>
     </ul>

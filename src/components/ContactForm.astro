@@ -1,6 +1,7 @@
 ---
+import { site } from '../data/site';
 ---
-<form class="f" id="contact-form" method="post" action="/api/contact" novalidate>
+<form class="f" id="contact-form" data-sitekey={site.turnstileSiteKey} method="post" action="/api/contact" novalidate>
   <label class="fl">Imię i nazwisko<input name="name" required autocomplete="name" /></label>
   <label class="fl">Numer telefonu<input name="phone" type="tel" required autocomplete="tel" /></label>
   <label class="fl">Adres e-mail<input name="email" type="email" required autocomplete="email" /></label>
@@ -32,6 +33,7 @@
     <span>Wyrażam zgodę na przekazanie moich danych kontaktowych (imię i nazwisko, telefon, e-mail, miejscowość) współpracującemu wykonawcy montażu podłóg – Kodor Sp. z o.o. (Wysoka, NIP 8961535918) – w celu przygotowania oferty i kontaktu w tej sprawie <span class="opt">(opcjonalnie)</span>. Bez tej zgody możesz sam(a) skontaktować się z wykonawcą – numery podamy w odpowiedzi.</span></label>
   <label class="fl full">Wiadomość <span class="opt">(opcjonalnie)</span><textarea name="message"></textarea></label>
   <p class="full note" style="margin:0">Rzut lub projekt (PDF, zdjęcie) możesz dosłać odpowiadając na naszą wiadomość lub wysyłając go na <a href="mailto:biuro@eco-too.opole.pl">biuro@eco-too.opole.pl</a>.</p>
+  <div class="full captcha" id="contact-captcha"></div>
   <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
   <label class="consent full"><input type="checkbox" name="consent" required />
     <span>Wyrażam zgodę na przetwarzanie moich danych w celu odpowiedzi na zapytanie i przygotowania oferty. Szczegóły w <a href="/polityka-prywatnosci">polityce prywatności</a>.</span></label>
@@ -39,71 +41,32 @@
   <div class="full form-msg" id="form-msg" role="status" aria-live="polite"></div>
 </form>
 <script>
-  const recaptchaSiteKey = '6LfaCQUuAAAAAEm8vlKjLJvKJUoOaCr5lwRxRHZt';
-  const recaptchaScriptUrl = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
-
-  interface Grecaptcha {
-    ready(callback: () => void): void;
-    execute(siteKey: string, options: { action: string }): Promise<string>;
-  }
-
-  declare global {
-    interface Window { grecaptcha?: Grecaptcha }
-  }
-
-  let recaptchaScript: Promise<void> | undefined;
-  function loadRecaptcha(): Promise<void> {
-    if (window.grecaptcha) return Promise.resolve();
-    if (!recaptchaScript) {
-      recaptchaScript = new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = recaptchaScriptUrl;
-        script.async = true;
-        script.defer = true;
-        script.onload = () => resolve();
-        script.onerror = () => {
-          recaptchaScript = undefined;
-          reject(new Error('recaptcha_load_failed'));
-        };
-        document.head.appendChild(script);
-      });
-    }
-    return recaptchaScript;
-  }
-
+  import { createCaptcha } from '../scripts/captcha';
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const msg = document.getElementById('form-msg')!;
-  void loadRecaptcha().catch(() => {
-    msg.className = 'full form-msg err';
-    msg.textContent = 'Nie udało się załadować ochrony antyspamowej. Odśwież stronę lub skontaktuj się z nami telefonicznie.';
-  });
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    msg.className = 'full form-msg';
-    if (!form.reportValidity()) return;
-    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
-    btn.disabled = true; btn.textContent = 'Wysyłanie…';
-    try {
-      await loadRecaptcha();
-      const recaptcha = window.grecaptcha;
-      if (!recaptcha) throw new Error('recaptcha_unavailable');
-      const token = await new Promise<string>((resolve, reject) => {
-        recaptcha.ready(() => {
-          recaptcha.execute(recaptchaSiteKey, { action: 'contact' }).then(resolve, reject);
-        });
-      });
-      const formData = new FormData(form);
-      formData.set('recaptchaToken', token);
-      const res = await fetch(form.action, { method: 'POST', body: formData });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok) throw new Error(data.error || 'error');
-      form.reset();
-      msg.className = 'full form-msg ok';
-      msg.textContent = 'Dziękujemy! Wiadomość została wysłana. Odezwiemy się w godzinach pracy (Pn–Pt 9:00–17:00).';
-    } catch (err) {
-      msg.className = 'full form-msg err';
-      const code = err instanceof Error ? err.message : 'error';
-      msg.innerHTML = `Nie udało się wysłać formularza. Napisz na <a href="mailto:biuro@eco-too.opole.pl">biuro@eco-too.opole.pl</a> lub zadzwoń: <a href="tel:+48668173872">+48 668 173 872</a>. <small>(kod: ${code.replace(/[^a-z0-9_]/gi, '')})</small>`;
-    } finally { btn.disabled = false; btn.textContent = 'Poproś o kontakt'; }
-  });
+  if (form) {
+    const captcha = createCaptcha(document.getElementById('contact-captcha')!, form.dataset.sitekey!, 'contact');
+    form.addEventListener('focusin', captcha.preload, { once: true });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.className = 'full form-msg';
+      if (!form.reportValidity()) return;
+      const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
+      btn.disabled = true; btn.textContent = 'Wysyłanie…';
+      try {
+        const formData = new FormData(form);
+        formData.set('captchaToken', await captcha.token());
+        const res = await fetch(form.action, { method: 'POST', body: formData });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) throw new Error(data.error || 'error');
+        form.reset();
+        msg.className = 'full form-msg ok';
+        msg.textContent = 'Dziękujemy! Wiadomość została wysłana. Odezwiemy się w godzinach pracy (Pn–Pt 9:00–17:00).';
+      } catch (err) {
+        msg.className = 'full form-msg err';
+        const code = err instanceof Error ? err.message : 'error';
+        msg.innerHTML = `Nie udało się wysłać formularza. Napisz na <a href="mailto:biuro@eco-too.opole.pl">biuro@eco-too.opole.pl</a> lub zadzwoń: <a href="tel:+48668173872">+48 668 173 872</a>. <small>(kod: ${code.replace(/[^a-z0-9_]/gi, '')})</small>`;
+      } finally { btn.disabled = false; btn.textContent = 'Poproś o kontakt'; }
+    });
+  }
 </script>
