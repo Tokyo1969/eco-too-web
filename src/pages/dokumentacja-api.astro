@@ -36,7 +36,7 @@ import Base from '../layouts/Base.astro';
       <li><code>200</code> — przyjęto zgłoszenie.</li>
       <li><code>400</code> — <code>bad_request</code>, <code>missing_fields</code>,
         <code>bad_email</code> lub <code>recaptcha_required</code>.</li>
-      <li><code>403</code> — <code>recaptcha_failed</code>.</li>
+      <li><code>403</code> — <code>recaptcha_failed_&lt;przyczyna&gt;</code> (np. <code>recaptcha_failed_score_3</code>).</li>
       <li><code>500</code> — <code>recaptcha_not_configured</code> lub <code>not_configured</code>.</li>
       <li><code>502</code> — <code>recaptcha_unavailable</code> lub <code>send_failed</code>.</li>
       <li>Metody inne niż POST zwracają <code>405</code>, tekst <code>Method Not Allowed</code>

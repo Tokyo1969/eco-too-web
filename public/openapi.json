@@ -47,7 +47,7 @@
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
           },
           "403": {
-            "description": "reCAPTCHA verification rejected: recaptcha_failed.",
+            "description": "reCAPTCHA verification rejected: recaptcha_failed_<reason> (invalid_<google error codes>, action or score_<0-10>).",
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } }
           },
           "500": {
@@ -95,7 +95,8 @@
           "ok": { "const": false },
           "error": {
             "type": "string",
-            "enum": ["bad_request", "missing_fields", "bad_email", "recaptcha_required", "recaptcha_failed", "recaptcha_not_configured", "not_configured", "recaptcha_unavailable", "send_failed"]
+            "description": "One of: bad_request, missing_fields, bad_email, bad_phone, recaptcha_required, recaptcha_failed_<reason>, recaptcha_not_configured, not_configured, recaptcha_unavailable, send_failed.",
+            "pattern": "^(bad_request|missing_fields|bad_email|bad_phone|recaptcha_required|recaptcha_failed(_[a-z0-9_]+)?|recaptcha_not_configured|not_configured|recaptcha_unavailable|send_failed)$"
           }
         },
         "additionalProperties": false

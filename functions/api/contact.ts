@@ -53,9 +53,19 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
     success?: boolean;
     score?: number;
     action?: string;
+    hostname?: string;
+    'error-codes'?: string[];
   };
-  if (verification.success !== true || verification.action !== (callback ? 'callback' : 'contact') || (verification.score ?? 0) < 0.5) {
-    return json({ ok: false, error: 'recaptcha_failed' }, 403);
+  const expectedAction = callback ? 'callback' : 'contact';
+  // Szczegółowa przyczyna – w Workers Logs i w kodzie błędu widocznym w komunikacie formularza
+  const reason = verification.success !== true
+    ? `invalid_${(verification['error-codes'] ?? ['unknown']).join('_')}`
+    : verification.action !== expectedAction ? 'action'
+    : (verification.score ?? 0) < 0.5 ? `score_${Math.round((verification.score ?? 0) * 10)}`
+    : '';
+  if (reason) {
+    console.log('contact: reCAPTCHA rejected', reason, { score: verification.score, action: verification.action, hostname: verification.hostname });
+    return json({ ok: false, error: `recaptcha_failed_${reason.replace(/[^a-z0-9_]/gi, '_')}` }, 403);
   }
   if (!env.RESEND_API_KEY) return json({ ok: false, error: 'not_configured' }, 500);
 
