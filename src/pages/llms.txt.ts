@@ -8,13 +8,14 @@ export function GET() {
 > ${site.name} (Opole) projektuje i montuje ogrzewanie na podczerwień – folie grzewcze podłogowe, sufitowe i ścienne oraz maty grzewcze – w Opolu i całym województwie opolskim. Alternatywne ogrzewanie elektryczne bez kotłowni, komina i opału, z szybkim montażem na sucho.
 
 ## Dane firmy
-- Nazwa: ${site.name} (marka ${site.legalName})
+- Nazwa: ${site.name} (marka spółki ${site.legalName})
 - Adres: ${site.street}, ${site.postal} ${site.city}
 - Telefon: ${site.phone}
 - E-mail: ${site.email}
 - Godziny: ${site.hours}
 - NIP: ${site.NIP}
-- Profil Firmy w Google: ${site.profiles[0]}
+- Profil Firmy w Google: ${site.mapsUrl}
+- Gwarancja: 30 lat na folię grzewczą, 2 lata na sterowniki oraz pozostałe urządzenia i materiały montażowe
 - Obszar działania: Opole i województwo opolskie (${areas.filter((a) => a.id !== 'opole').map((a) => a.name.replace('Powiat ', 'powiat ')).join(', ')})
 
 ## Usługi

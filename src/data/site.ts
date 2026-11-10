@@ -12,8 +12,11 @@ export const site = {
   hours: 'Pn–Pt 9:00–17:00',
   NIP: '7543364885',
   KRS: '0001072906',
+  // Profil Firmy w Google – stały adres w Mapach (CID). Używany w hasMap, sameAs i linkach "w Mapach Google".
+  mapsUrl: 'https://maps.google.com/?cid=11222951297589401889',
+  mapsEmbed: 'https://maps.google.com/maps?q=ECO-TOO%2C%20ul.%20Jana%20%C5%81angowskiego%204A%2C%2045-031%20Opole&output=embed',
   // Profile zewnętrzne (schema sameAs) – Profil Firmy w Google itp.
-  profiles: ['https://g.page/r/CSFZU1C-7r-bEAE', 'https://share.google/YhT0HJHEbacnmLddK', 'https://share.google/Y86ONCaOI87801QKh'],
+  profiles: ['https://maps.google.com/?cid=11222951297589401889', 'https://g.page/r/CSFZU1C-7r-bEAE'],
   reviewUrl: 'https://g.page/r/CSFZU1C-7r-bEAE/review',
 };
 

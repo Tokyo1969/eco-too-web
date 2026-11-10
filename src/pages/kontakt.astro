@@ -6,7 +6,7 @@ import { site } from '../data/site';
 <Base
   breadcrumbs={[['Kontakt', '/kontakt']]}
   title="Kontakt i wycena – ECO-TOO Opole | ogrzewanie na podczerwień"
-  description="Skontaktuj się z ECO-TOO: tel. +48 668 173 872, biuro@eco-too.opole.pl, Opole ul. Łangowskiego 4A. Poproś o wycenę ogrzewania folią grzewczą."
+  description="Skontaktuj się z ECO-TOO: tel. +48 668 173 872, biuro@eco-too.opole.pl, ul. Jana Łangowskiego 4A, 45-031 Opole. Poproś o wycenę ogrzewania folią grzewczą."
 >
   <div class="page-hero"><div class="wrap">
     <span class="kicker">Kontakt</span>
@@ -23,7 +23,8 @@ import { site } from '../data/site';
         <li><strong>Godziny kontaktu:</strong> {site.hours}</li>
       </ul>
       <p style="margin-top:1.2rem;color:var(--ink-muted)">Obsługiwany obszar: Opole i <a href="/obszar-dzialania">województwo opolskie</a>.</p>
-      <p><a href={site.profiles[0]} rel="noopener" target="_blank">ECO-TOO w Mapach Google →</a><br /><a href={site.reviewUrl} rel="noopener" target="_blank">Wystaw nam opinię w Google →</a></p>
+      <p><a href={site.mapsUrl} rel="noopener" target="_blank">ECO-TOO w Mapach Google →</a><br /><a href={site.reviewUrl} rel="noopener" target="_blank">Wystaw nam opinię w Google →</a></p>
+      <iframe src={site.mapsEmbed} title="ECO-TOO na mapie Google – ul. Jana Łangowskiego 4A, Opole" width="100%" height="260" style="border:0;border-radius:12px;margin-top:1rem" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div id="formularz">
       <h2 class="h-md">Formularz kontaktowy</h2>
