@@ -230,3 +230,27 @@ footer .footer-logo { height: 56px; width: auto; margin-bottom: var(--space-4); 
 .article .meta { color: var(--ink-muted); font-size: 14px; margin-bottom: var(--space-5); }
 .article .tbl { margin: var(--space-4) 0 var(--space-5); }
 .article .sources { font-size: 14px; color: var(--ink-muted); }
+
+/* Mini-kalkulator na zdjęciu w nagłówku strony głównej */
+.hero__photo { display: flex; align-items: center; justify-content: flex-end; padding: var(--space-7) max(var(--gutter), (100vw - var(--container-max)) / 2) var(--space-7) var(--space-7); }
+.hc { position: relative; z-index: 1; width: min(400px, 100%); background: rgba(26, 18, 12, .86); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1.5px solid var(--accent); border-radius: var(--radius-lg, 16px); padding: var(--space-5); color: var(--ink-on-brand); box-shadow: 0 18px 48px rgba(0, 0, 0, .45); }
+.hc__title { font: 600 20px/28px var(--font-sans); margin: 0 0 var(--space-4); }
+.hc__inputs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.hc label.fl { color: var(--ink-on-brand); font-size: 13px; }
+.hc label.fl span.opt { color: var(--ink-on-brand-muted); }
+.hc input:not([type=checkbox]) { width: 100%; min-height: 44px; }
+.hc__res { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); margin: var(--space-4) 0; padding: var(--space-3) 0; border-top: 1px solid rgba(255, 255, 255, .15); border-bottom: 1px solid rgba(255, 255, 255, .15); }
+.hc__res span { font-size: 13px; line-height: 18px; color: var(--ink-on-brand-muted); }
+.hc__res strong { font: 700 26px/32px var(--font-sans); color: var(--accent); white-space: nowrap; }
+.hc__ask { font-size: 14px; line-height: 21px; margin: 0 0 var(--space-3); color: var(--ink-on-brand-muted); }
+.hc__ask b { color: var(--ink-on-brand); font-weight: 600; }
+.hc .consent { color: var(--ink-on-brand-muted); font-size: 12px; line-height: 18px; margin: var(--space-3) 0; }
+.hc .consent a { color: inherit; }
+.hc .btn { width: 100%; }
+.hc__hours { display: block; margin-top: var(--space-2); font-size: 12px; line-height: 18px; color: var(--ink-on-brand-muted); }
+.hc .form-msg { margin-top: var(--space-3); font-size: 14px; }
+@media (max-width: 860px) {
+  .hero__photo { padding: var(--space-6) var(--gutter); min-height: 0; order: 2; justify-content: center; }
+  .hero__photo::after { background: rgba(26, 18, 12, .35); }
+  .hc { width: 100%; }
+}

@@ -19,9 +19,16 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
   const g = (k: string) => String(f.get(k) ?? '').trim().slice(0, 2000);
 
   if (g('website')) return json({ ok: true }); // honeypot – boty
+  // type=callback – krótkie zgłoszenie z kalkulatora na stronie głównej (telefon + metraż), reszta – pełny formularz
+  const callback = g('type') === 'callback';
   const name = g('name'), phone = g('phone'), email = g('email'), city = g('city'), object = g('object');
-  if (!name || !phone || !email || !city || !object || !f.get('consent')) return json({ ok: false, error: 'missing_fields' }, 400);
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: 'bad_email' }, 400);
+  if (callback) {
+    if (!phone || !f.get('consent')) return json({ ok: false, error: 'missing_fields' }, 400);
+    if (phone.replace(/\D/g, '').length < 9) return json({ ok: false, error: 'bad_phone' }, 400);
+  } else {
+    if (!name || !phone || !email || !city || !object || !f.get('consent')) return json({ ok: false, error: 'missing_fields' }, 400);
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: 'bad_email' }, 400);
+  }
   if (!env.RECAPTCHA_SECRET_KEY) return json({ ok: false, error: 'recaptcha_not_configured' }, 500);
   const recaptchaToken = g('recaptchaToken');
   if (!recaptchaToken) return json({ ok: false, error: 'recaptcha_required' }, 400);
@@ -47,12 +54,16 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
     score?: number;
     action?: string;
   };
-  if (verification.success !== true || verification.action !== 'contact' || (verification.score ?? 0) < 0.5) {
+  if (verification.success !== true || verification.action !== (callback ? 'callback' : 'contact') || (verification.score ?? 0) < 0.5) {
     return json({ ok: false, error: 'recaptcha_failed' }, 403);
   }
   if (!env.RESEND_API_KEY) return json({ ok: false, error: 'not_configured' }, 500);
 
-  const rows: [string, string][] = [
+  const rows: [string, string][] = callback ? [
+    ['Rodzaj zgłoszenia', 'Prośba o oddzwonienie (kalkulator na stronie głównej) – oddzwonić tego samego dnia roboczego'],
+    ['Telefon', phone], ['Imię', name], ['Powierzchnia (m²)', g('area')], ['Liczba pomieszczeń', g('rooms')],
+    ['Wyliczony orientacyjny koszt', g('estimate')],
+  ] : [
     ['Imię i nazwisko', name], ['Telefon', phone], ['E-mail', email], ['Miejscowość', city], ['Rodzaj obiektu', object],
     ['Powierzchnia (m²)', g('area')], ['Etap inwestycji', g('stage')], ['Wykończenie podłogi', g('floor')],
     ['Zainteresowanie montażem podłogi', g('floorInstallation') ? 'Tak' : 'Nie'],
@@ -71,8 +82,10 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
     body: JSON.stringify({
       from: env.MAIL_FROM || 'ECO-TOO WWW <formularz@eco-too.opole.pl>',
       to: [env.MAIL_TO || 'biuro@eco-too.opole.pl'],
-      reply_to: email,
-      subject: `Zapytanie z WWW: ${name}, ${city}`,
+      ...(email ? { reply_to: email } : {}),
+      subject: callback
+        ? `Oddzwonić: ${phone}${g('area') ? `, ${g('area')} m²` : ''}${name ? ` (${name})` : ''}`
+        : `Zapytanie z WWW: ${name}, ${city}`,
       html, text,
     }),
   });

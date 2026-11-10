@@ -82,7 +82,10 @@
           "floorInstallation": { "type": "string", "description": "Non-empty value indicates interest in floor installation." },
           "floorDataTransfer": { "type": "string", "description": "Non-empty value indicates separate, optional consent to share contact details with the floor installation contractor." },
           "message": { "type": "string" },
-          "website": { "type": "string", "description": "Anti-spam honeypot. Leave empty or omit." }
+          "website": { "type": "string", "description": "Anti-spam honeypot. Leave empty or omit." },
+          "type": { "type": "string", "enum": ["callback"], "description": "Optional. callback = short callback request from the home page calculator: only phone (at least 9 digits), consent and a reCAPTCHA token for action callback are required." },
+          "rooms": { "type": "string", "description": "Number of rooms (callback requests)." },
+          "estimate": { "type": "string", "description": "Estimated installation cost shown to the user (callback requests)." }
         }
       },
       "Error": {

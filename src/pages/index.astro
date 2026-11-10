@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import CTA from '../components/CTA.astro';
 import Gallery from '../components/Gallery.astro';
+import HeroCalc from '../components/HeroCalc.astro';
 import { cities, pln, exampleCost } from '../data/site';
 // ikony liniowe 24×24 (obrys currentColor)
 const benefits = [
@@ -48,7 +49,7 @@ const uses = ['domach jednorodzinnych', 'mieszkaniach i apartamentach', 'domkach
       </div>
       <small>Obsługujemy klientów z Opola oraz całego województwa opolskiego.</small>
     </div>
-    <div class="hero__photo"><Img id="hero-folia" sizes="(min-width: 860px) 50vw, 100vw" eager /></div>
+    <div class="hero__photo"><Img id="hero-folia" sizes="(min-width: 860px) 50vw, 100vw" eager /><HeroCalc /></div>
   </section>
 
   <section class="block">
