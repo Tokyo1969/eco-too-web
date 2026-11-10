@@ -36,7 +36,7 @@ Formularz kontaktowy: `POST /api/contact` → `worker/index.ts` → `functions/a
 - **Cloudflare Worker `eco-too-web`** (Workers Builds): build `npm run build`, deploy `npx wrangler deploy`.
   Lokalny test bez wdrażania: `npm run build && npx wrangler deploy --dry-run`.
 - **Sekrety** (Worker → Settings → Variables and Secrets – *nie* zmienne buildu, typ **Secret**):
-  `RESEND_API_KEY`, `TURNSTILE_SECRET_KEY` (tajny klucz widgetu Cloudflare Turnstile; klucz publiczny w `src/data/site.ts` → `turnstileSiteKey`), opcjonalnie `MAIL_TO`, `MAIL_FROM`. Zwykłe zmienne „Text” są kasowane przy każdym deployu.
+  `RESEND_API_KEY`, `TURNSTILE_SECRET_KEY` (tajny klucz widgetu Cloudflare Turnstile; klucz publiczny w `src/data/site.ts` → `turnstileSiteKey`), opcjonalnie `MAIL_TO` (kilku adresatów oddzielonych przecinkami – drugi adres zabezpiecza przed sytuacją, gdy Resend zablokuje biuro@ po odrzuconym mailu), `MAIL_FROM`. Zwykłe zmienne „Text” są kasowane przy każdym deployu.
 - **Domeny:** `eco-too.opole.pl` i `www.eco-too.opole.pl` jako Custom domains Workera.
   Redirect Rule: `www` → domena główna (301). SSL/TLS: Always Use HTTPS.
 - **DNS:** strefa w Cloudflare (serwery nazw ustawione w lh.pl na Cloudflare) – rekordy w panelu lh.pl nie działają.

@@ -3,7 +3,7 @@
 // Zmienne środowiskowe (Worker → Settings → Variables and Secrets):
 //   RESEND_API_KEY (secret)  – klucz API Resend
 //   TURNSTILE_SECRET_KEY (secret) – tajny klucz widgetu Cloudflare Turnstile
-//   MAIL_TO     (opcjonalnie) – domyślnie biuro@eco-too.opole.pl
+//   MAIL_TO     (opcjonalnie, typ Secret) – adresaci oddzieleni przecinkami, np. "biuro@eco-too.opole.pl, ktos@example.com"; domyślnie biuro@eco-too.opole.pl
 //   MAIL_FROM   (opcjonalnie) – domyślnie "ECO-TOO WWW <formularz@eco-too.opole.pl>" (domena musi być zweryfikowana w Resend)
 export interface Env { RESEND_API_KEY?: string; TURNSTILE_SECRET_KEY?: string; MAIL_TO?: string; MAIL_FROM?: string }
 
@@ -90,7 +90,7 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
     headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
     body: JSON.stringify({
       from: env.MAIL_FROM || 'ECO-TOO WWW <formularz@eco-too.opole.pl>',
-      to: [env.MAIL_TO || 'biuro@eco-too.opole.pl'],
+      to: (env.MAIL_TO || 'biuro@eco-too.opole.pl').split(',').map((a) => a.trim()).filter(Boolean),
       ...(email ? { reply_to: email } : {}),
       subject: callback
         ? `Oddzwonić: ${phone}${g('area') ? `, ${g('area')} m²` : ''}${name ? ` (${name})` : ''}`
