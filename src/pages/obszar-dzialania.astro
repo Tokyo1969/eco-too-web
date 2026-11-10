@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
-import { areas, projects } from '../data/site';
+import { areas, projects, projectUrl } from '../data/site';
 const byId = Object.fromEntries(projects.map((p) => [p.id, p]));
 ---
 <Base
@@ -25,7 +25,7 @@ const byId = Object.fromEntries(projects.map((p) => [p.id, p]));
           <ul class="chips">{a.places.map((p) => <li>{p}</li>)}</ul>
           {a.projects.length > 0 && (
             <p style="margin-top:1rem"><strong>Nasze realizacje:</strong>{' '}
-              {a.projects.map((id, i) => <>{i > 0 && ', '}<a href={`/realizacje#${id}`}>{byId[id].place}</a></>)}
+              {a.projects.map((id, i) => <>{i > 0 && ', '}<a href={projectUrl(id)}>{byId[id].place}</a></>)}
             </p>
           )}
         </div>

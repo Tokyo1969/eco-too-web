@@ -1,5 +1,5 @@
 // /llms.txt – zwięzły opis firmy dla modeli AI (https://llmstxt.org), generowany z src/data/site.ts
-import { site, nav, areas, services, projects, faq } from '../data/site';
+import { site, nav, areas, services, projects, faq, projectUrl } from '../data/site';
 
 export function GET() {
   const u = (p: string) => `${site.url}${p}`;
@@ -30,7 +30,7 @@ ${nav.map((n) => `- [${n.label}](${u(n.href)})`).join('\n')}
 - [Kontakt i wycena](${u('/kontakt')})
 
 ## Realizacje
-${projects.map((p) => `- ${p.place}: ${p.type}. ${p.note}`).join('\n')}
+${projects.map((p) => `- [${p.place}](${u(projectUrl(p.id))}): ${p.type}. ${p.note}`).join('\n')}
 
 ## Najczęstsze pytania
 ${faq.map(([q, a]) => `### ${q}\n${a}`).join('\n\n')}

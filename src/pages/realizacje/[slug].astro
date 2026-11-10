@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import Gallery from '../../components/Gallery.astro';
+import Img from '../../components/Img.astro';
+import CTA from '../../components/CTA.astro';
+import { projects, projectPages, projectUrl, areas, photos, site } from '../../data/site';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: projectPages[p.id].slug }, props: { id: p.id } }));
+}
+
+const { id } = Astro.props;
+const p = projects.find((x) => x.id === id)!;
+const page = projectPages[id];
+const area = areas.find((a) => a.projects.includes(id));
+const serviceLabels: Record<string, string> = {
+  '/ogrzewanie-podlogowe': 'Ogrzewanie podłogowe folią grzewczą',
+  '/ogrzewanie-sufitowe-i-scienne': 'Ogrzewanie sufitowe i ścienne',
+  '/ogrzewanie-alternatywne': 'Ogrzewanie bez pieca i kotłowni',
+  '/zastosowania': 'Zastosowania: biura i lokale usługowe',
+};
+// Inne realizacje: najpierw z tego samego powiatu, potem pozostałe
+const others = [
+  ...projects.filter((x) => x.id !== id && area?.projects.includes(x.id)),
+  ...projects.filter((x) => x.id !== id && !area?.projects.includes(x.id)),
+].slice(0, 3);
+const url = `${site.url}${projectUrl(id)}`;
+const description = (p.note.length > 155 ? p.note.slice(0, p.note.lastIndexOf(' ', 152)) + '…' : p.note);
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: page.h1,
+  url,
+  inLanguage: 'pl-PL',
+  about: { '@id': `${site.url}/#business` },
+  contentLocation: { '@type': 'Place', name: p.place, address: { '@type': 'PostalAddress', addressRegion: 'opolskie', addressCountry: 'PL' } },
+  primaryImageOfPage: `${site.url}/img/${photos[p.photos[0]].slug}-1600.webp`,
+  image: p.photos.map((ph) => `${site.url}/img/${photos[ph].slug}-1600.webp`),
+};
+---
+<Base
+  breadcrumbs={[['Realizacje', '/realizacje'], [p.place, projectUrl(id)]]}
+  title={`Folia grzewcza ${p.place} – realizacja | ECO-TOO`}
+  description={description}
+  ogImage={`/img/${photos[p.photos[0]].slug}-1600.webp`}
+  schema={schema}
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Realizacja · {p.place}</span>
+    <h1>{page.h1}</h1>
+    <div class="proj-meta"><span>{p.type}</span><span>Folia grzewcza na podczerwień</span></div>
+  </div></div>
+
+  <section class="block"><div class="wrap split">
+    <div>
+      <p class="intro">{p.note}</p>
+      <h2 class="h-md" style="margin-top:var(--space-6)">Parametry instalacji</h2>
+      <ul class="checks">{p.facts.map((f) => <li>{f}</li>)}</ul>
+    </div>
+    <Img id={p.photos[0]} sizes="(min-width: 900px) 40vw, 90vw" eager />
+  </div></section>
+
+  <section class="block alt"><div class="wrap">
+    <h2>Zdjęcia z montażu</h2>
+    <p class="intro" style="margin-bottom:var(--space-5)">Kliknij zdjęcie, aby je powiększyć.</p>
+    <Gallery ids={p.photos} />
+  </div></section>
+
+  <section class="block"><div class="wrap">
+    <div class="grid g2">
+      <div>
+        <h2 class="h-md">Zastosowane rozwiązania</h2>
+        <ul class="checks">{page.services.map((s) => <li><a href={s}>{serviceLabels[s]}</a></li>)}</ul>
+      </div>
+      {area && (
+        <div>
+          <h2 class="h-md">Montaż w okolicy</h2>
+          <p>{area.id === 'opole' ? 'Opole' : area.name} – zobacz miejscowości, w których montujemy: <a href={`/obszar-dzialania#${area.id}`}>obszar działania</a>.</p>
+        </div>
+      )}
+    </div>
+  </div></section>
+
+  <section class="block alt"><div class="wrap">
+    <h2>Inne realizacje</h2>
+    <div class="grid g3" style="margin-top:var(--space-5)">
+      {others.map((o) => (
+        <a class="card link" href={projectUrl(o.id)}>
+          <Img id={o.photos[0]} sizes="(min-width: 900px) 30vw, 90vw" />
+          <h3 style="margin-top:var(--space-3)">{o.place}</h3>
+          <p>{o.type}</p>
+          <span class="more">Zobacz realizację →</span>
+        </a>
+      ))}
+    </div>
+    <div class="btn-row"><a class="btn dark" href="/realizacje">Wszystkie realizacje</a></div>
+  </div></section>
+
+  <CTA title="Chcesz podobną instalację?" text={`Opisz swój dom lub mieszkanie. Dobierzemy moc folii i podział na strefy tak jak w tej realizacji.`} />
+</Base>

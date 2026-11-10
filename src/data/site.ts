@@ -192,3 +192,17 @@ export const faq = [
   ['Czy ogrzewanie na podczerwień jest zdrowe i bezpieczne?', 'Folia grzewcza jest urządzeniem grzewczym, nie medycznym, dlatego nie przypisujemy jej właściwości leczniczych. Ogrzewa przez promieniowanie podczerwone, nie spala paliwa i nie wytwarza spalin, a ruch powietrza jest zwykle mniejszy niż przy grzejnikach konwekcyjnych. Dla bezpieczeństwa najważniejszy jest właściwy dobór, zabezpieczenie i podłączenie instalacji przez osobę z uprawnieniami oraz zgodność z zaleceniami producenta. W sprawach zdrowotnych warto skonsultować się z lekarzem.'],
   ['Czy ogrzewanie folią wysusza powietrze?', 'Folia nie spala tlenu ani nie nadmuchuje powietrza, ale każde ogrzewanie podnosi temperaturę powietrza, co obniża jego wilgotność względną. Poziom wilgotności zależy głównie od wentylacji, sposobu użytkowania i izolacji budynku. Ogrzewanie powierzchni pomaga ograniczać zimne przegrody, na których może skraplać się wilgoć, ale nie zastępuje wentylacji. Przy problemach z wilgocią najpierw warto ustalić ich przyczynę.'],
 ] as const;
+
+// Podstrony realizacji: /realizacje/<slug>. `h1` – nagłówek i tytuł strony, `services` – powiązane strony usług.
+export const projectPages: Record<string, { slug: string; h1: string; services: string[] }> = {
+  pustkow: { slug: 'pustkow-dom-ekologiczny', h1: 'Folia i maty grzewcze w domu ekologicznym 80 m² – Pustków k. Ozimka', services: ['/ogrzewanie-podlogowe', '/ogrzewanie-alternatywne'] },
+  drogoszow: { slug: 'drogoszow-stary-dom', h1: 'Folia grzewcza w prawie 100-letnim domu po remoncie – Drogoszów', services: ['/ogrzewanie-podlogowe', '/ogrzewanie-sufitowe-i-scienne'] },
+  budkowice: { slug: 'stare-budkowice-dom-180-m2', h1: 'Ogrzewanie folią grzewczą w domu 180 m² – Stare Budkowice', services: ['/ogrzewanie-podlogowe', '/ogrzewanie-sufitowe-i-scienne'] },
+  kosorowice: { slug: 'kosorowice-folia-na-scianach', h1: 'Folia grzewcza na ścianach zamiast pieca na węgiel – Kosorowice', services: ['/ogrzewanie-sufitowe-i-scienne', '/ogrzewanie-alternatywne'] },
+  kosnego: { slug: 'opole-poddasze-kosnego', h1: 'Folia grzewcza pod panelami winylowymi na poddaszu – Opole, ul. Kośnego', services: ['/ogrzewanie-podlogowe'] },
+  ochodze: { slug: 'ochodze-poddasze-w-stodole', h1: 'Folia grzewcza na poddaszu dawnej stodoły – Ochodze', services: ['/ogrzewanie-podlogowe'] },
+  dobrzen: { slug: 'dobrzen-wielki-parter-domu', h1: 'Folia grzewcza na parterze domu jednorodzinnego – Dobrzeń Wielki', services: ['/ogrzewanie-podlogowe'] },
+  samborska: { slug: 'opole-samborska-mieszkanie', h1: 'Folia grzewcza pod panelami w dwóch pokojach i korytarzu – Opole, ul. Samborska', services: ['/ogrzewanie-podlogowe'] },
+  kosmetyczny: { slug: 'opole-salon-kosmetyczny', h1: 'Folia grzewcza w salonie kosmetycznym, na starych kafelkach – Opole', services: ['/ogrzewanie-podlogowe', '/zastosowania'] },
+};
+export const projectUrl = (id: string) => `/realizacje/${projectPages[id].slug}`;

@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Gallery from '../components/Gallery.astro';
 import CTA from '../components/CTA.astro';
-import { projects, site } from '../data/site';
+import { projects, projectUrl, site } from '../data/site';
 ---
 <Base
   breadcrumbs={[['Realizacje', '/realizacje']]}
@@ -12,17 +12,16 @@ import { projects, site } from '../data/site';
   <div class="page-hero"><div class="wrap">
     <span class="kicker">Realizacje</span>
     <h1>Nasze realizacje</h1>
-    <p>Wybrane instalacje wykonane w domach na terenie województwa opolskiego. Kliknij zdjęcie, aby je powiększyć.</p>
+    <p>Instalacje w domach, mieszkaniach i lokalach w województwie opolskim. Przy każdej realizacji podajemy liczbę stref, sposób sterowania i szacowany roczny koszt ogrzewania.</p>
   </div></div>
   {projects.map((p, i) => (
     <section class={`block ${i % 2 ? 'alt' : ''}`} id={p.id}>
       <div class="wrap">
-        <h2 class="h-md">{p.place}</h2>
+        <h2 class="h-md"><a href={projectUrl(p.id)}>{p.place}</a></h2>
         <div class="proj-meta"><span>{p.type}</span><span>Folia grzewcza na podczerwień</span></div>
-        <p class="intro" style="margin-bottom:1.2rem">{p.note}</p>
-        {p.facts && <ul class="checks" style="margin-bottom:1.6rem">{p.facts.map((f) => <li>{f}</li>)}</ul>}
-        {!p.facts && <div style="margin-bottom:1.6rem"></div>}
-        <Gallery ids={p.photos} />
+        <p class="intro" style="margin-bottom:1.6rem">{p.note}</p>
+        <Gallery ids={p.photos.slice(0, 3)} />
+        <div class="btn-row"><a class="btn dark" href={projectUrl(p.id)}>Parametry i wszystkie zdjęcia ({p.photos.length}) →</a></div>
       </div>
     </section>
   ))}
