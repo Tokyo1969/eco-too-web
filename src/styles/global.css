@@ -218,3 +218,15 @@ footer .footer-logo { height: 56px; width: auto; margin-bottom: var(--space-4); 
   body { padding-bottom: 48px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+
+/* Poradnik – artykuły */
+.article { max-width: var(--container-narrow); }
+.article h2 { margin: var(--space-7) 0 var(--space-4); }
+.article h3 { margin: var(--space-6) 0 var(--space-3); }
+.article p, .article ul, .article ol { margin: 0 0 var(--space-4); }
+.article ul, .article ol { padding-left: 1.3em; }
+.article li { margin-bottom: var(--space-2); }
+.article .answer { font-size: 18px; line-height: 30px; border-left: 3px solid var(--accent); padding-left: var(--space-5); margin-bottom: var(--space-6); }
+.article .meta { color: var(--ink-muted); font-size: 14px; margin-bottom: var(--space-5); }
+.article .tbl { margin: var(--space-4) 0 var(--space-5); }
+.article .sources { font-size: 14px; color: var(--ink-muted); }

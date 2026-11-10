@@ -1,0 +1,53 @@
+---
+import Article from '../../components/Article.astro';
+import { projectUrl, pln, exampleCost } from '../../data/site';
+const rows: [string, string, string, string, string, string][] = [
+  ['kosnego', 'Opole, poddasze (ul. Kośnego)', 'ok. 18 m²', '2', '140 W/m²', 'ok. 800–1000 zł'],
+  ['kosmetyczny', 'Opole, salon kosmetyczny', 'ok. 24 m²', '1', '140 W/m²', 'ok. 1–1,3 tys. zł'],
+  ['dobrzen', 'Dobrzeń Wielki, parter domu', 'ok. 42 m²', '2', '140 W/m²', 'ok. 2–3,5 tys. zł'],
+  ['ochodze', 'Ochodze, poddasze w dawnej stodole', 'ok. 58 m²', '3', '140 W/m²', 'ok. 2–3,5 tys. zł'],
+  ['drogoszow', 'Drogoszów, prawie 100-letni dom', 'ok. 65 m²', '6', '140 W/m² (podłoga), 240 W/m² (sufit łazienki)', 'ok. 3,5–5 tys. zł'],
+  ['pustkow', 'Pustków k. Ozimka, dom ekologiczny', 'ok. 80 m²', '6', 'folia + maty pod płytkami', 'ok. 3,5–5 tys. zł'],
+  ['kosorowice', 'Kosorowice, dom parterowy', 'ok. 80 m²', '5', '240 W/m² (ściany)', 'ok. 4–5,5 tys. zł'],
+  ['budkowice', 'Stare Budkowice, dom', 'ok. 180 m²', '13', 'podłoga i ściany', 'ok. 6–9 tys. zł'],
+];
+const faq: [string, string][] = [
+  ['Ile prądu zużywa folia grzewcza na m²?', 'Folia podłogowa, którą montujemy, ma moc 120–140 W/m². To moc chwilowa, a nie zużycie: termostat włącza folię tylko wtedy, gdy temperatura spada poniżej ustawionej, więc przez większość czasu folia nie grzeje. Roczne zużycie zależy od ocieplenia budynku i ustawionej temperatury.'],
+  ['Ile kosztuje ogrzewanie domu 100 m² folią grzewczą rocznie?', 'W domach, w których montowaliśmy folię, średni roczny koszt ogrzewania domu ok. 100 m² wynosi około 6–8 tys. zł. W dobrze ocieplonym domu z fotowoltaiką lub tańszą taryfą może być mniej, w słabo ocieplonym więcej.'],
+  ['Ile kosztuje ogrzewanie folią miesięcznie?', 'Przy rocznym koszcie 6–8 tys. zł dla domu 100 m² średnio wychodzi ok. 500–670 zł miesięcznie w skali roku. W praktyce rachunki są wyższe w grudniu–lutym i bliskie zera latem.'],
+  ['Czy folia grzewcza zużywa dużo prądu?', 'Folia zamienia całą pobraną energię w ciepło, ale nie wytwarza go więcej, niż pobiera. Pompa ciepła z 1 kWh prądu daje kilka kWh ciepła, dlatego w dużym, słabo ocieplonym domu folia będzie droższa w eksploatacji. W dobrze ocieplonym domu różnica w rachunkach jest mniejsza niż różnica w koszcie instalacji.'],
+];
+---
+<Article
+  slug="ile-pradu-zuzywa-folia-grzewcza"
+  description="Folia grzewcza ma moc 120–140 W/m². Roczny koszt ogrzewania domu 100 m² folią to ok. 6–8 tys. zł. Dane z 8 realizacji ECO-TOO w województwie opolskim."
+  image="/img/pustkow-5-1600.webp"
+  faq={faq}
+  cta={{ title: 'Policzymy koszt dla Twojego domu', text: 'Podaj metraż, liczbę pomieszczeń i informację o ociepleniu. Oszacujemy koszt instalacji i roczne zużycie.' }}
+>
+  <p class="answer"><strong>Krótko:</strong> folia grzewcza, którą montujemy pod podłogą, ma moc 120–140 W/m². Średni roczny koszt ogrzewania domu ok. 100 m² folią to w naszych realizacjach około <strong>6–8 tys. zł</strong>. Najwięcej zależy od ocieplenia budynku, ustawionej temperatury i ceny prądu.</p>
+
+  <h2>Moc folii to nie to samo co zużycie prądu</h2>
+  <p>Folia podłogowa ma zwykle moc 120–140 W/m². Na suficie lub ścianie, gdy powierzchni grzejnej jest mało, stosujemy folię o mocy do 240 W/m². Folią pokrywa się ok. 80% podłogi, bo nie kładzie się jej pod stałą zabudową.</p>
+  <p>Przykład: w domu 100 m² folia o mocy 130 W/m² na 80 m² daje ok. 10 kW mocy grzewczej. Tyle pobiera tylko wtedy, gdy wszystkie strefy grzeją naraz. Termostat w każdym pokoju włącza folię, gdy temperatura spada poniżej ustawionej, i wyłącza po jej osiągnięciu. Dlatego rachunek liczy się z zapotrzebowania budynku na ciepło, a nie z mocy folii:</p>
+  <p class="note"><strong>roczny koszt ≈ zapotrzebowanie budynku na ciepło (kWh) × cena prądu (zł/kWh)</strong><br />Przy cenie ok. 1 zł/kWh (przyjętej dla przykładu, sprawdź swoją taryfę) roczny koszt 7 tys. zł oznacza ok. 7 000 kWh zużytej energii.</p>
+
+  <h2>Ile kosztuje ogrzewanie folią? Dane z naszych realizacji</h2>
+  <p>Poniżej szacowane roczne koszty ogrzewania w budynkach, w których montowaliśmy folię grzewczą. To szacunki dla konkretnych budynków. Rzeczywisty koszt zależy od izolacji, temperatury, sposobu użytkowania i taryfy.</p>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Realizacja</th><th scope="col">Powierzchnia</th><th scope="col">Strefy</th><th scope="col">Folia</th><th scope="col">Koszt ogrzewania rocznie</th></tr></thead>
+    <tbody>{rows.map(([id, n, m2, s, f, k]) => <tr><th scope="row"><a href={projectUrl(id)}>{n}</a></th><td>{m2}</td><td>{s}</td><td>{f}</td><td><strong>{k}</strong></td></tr>)}</tbody>
+  </table></div>
+  <p>Dla domu ok. 100 m² średni koszt w naszych realizacjach to ok. 6–8 tys. zł rocznie, czyli ok. 60–80 zł za m² na rok.</p>
+
+  <h2>Od czego zależy rachunek za ogrzewanie folią?</h2>
+  <ul>
+    <li><strong>Ocieplenie.</strong> W domu po termomodernizacji (nowe okna, docieplone ściany i dach) potrzeba wielokrotnie mniej energii niż w nieocieplonym. To największy czynnik.</li>
+    <li><strong>Temperatura i strefy.</strong> Osobny termostat w każdym pokoju pozwala trzymać sypialnię chłodniej, łazienkę cieplej, a nieużywany pokój na temperaturze minimalnej.</li>
+    <li><strong>Fotowoltaika.</strong> Folia może grzać prądem z własnych paneli. Im większa część zużycia przypada na godziny produkcji, tym niższy rachunek.</li>
+    <li><strong>Taryfa.</strong> Przy taryfie dwustrefowej i odpowiednim sterowaniu część grzania można przesunąć na tańsze godziny.</li>
+  </ul>
+
+  <h2>Ile kosztuje sama instalacja?</h2>
+  <p>Według naszego <a href="/kalkulator">kalkulatora</a> folia ze sterownikami dla domu 100 m² i 5 pomieszczeń kosztuje orientacyjnie ok. {pln(exampleCost)}. Nie trzeba kotła, komina, kotłowni ani instalacji wodnej. Więcej przykładów jest na stronie <a href="/koszty-ogrzewania-elektrycznego">koszty ogrzewania elektrycznego</a>.</p>
+</Article>

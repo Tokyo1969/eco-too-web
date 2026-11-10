@@ -206,3 +206,12 @@ export const projectPages: Record<string, { slug: string; h1: string; services: 
   kosmetyczny: { slug: 'opole-salon-kosmetyczny', h1: 'Folia grzewcza w salonie kosmetycznym, na starych kafelkach – Opole', services: ['/ogrzewanie-podlogowe', '/zastosowania'] },
 };
 export const projectUrl = (id: string) => `/realizacje/${projectPages[id].slug}`;
+
+// Poradnik – artykuły pod pytania klientów (i modele AI). `updated` w formacie RRRR-MM-DD.
+export const articles = [
+  { slug: 'ile-pradu-zuzywa-folia-grzewcza', title: 'Ile prądu zużywa folia grzewcza i ile kosztuje ogrzewanie domu? Dane z realizacji', lead: 'Moc folii, roczne koszty ogrzewania domów w Opolskiem i od czego zależy rachunek.', published: '2026-11-10', updated: '2026-11-10' },
+  { slug: 'folia-grzewcza-czy-pompa-ciepla', title: 'Folia grzewcza czy pompa ciepła? Porównanie dla domu jednorodzinnego', lead: 'Koszt instalacji, rachunki, serwis i ciepła woda – kiedy wybrać folię, a kiedy pompę ciepła.', published: '2026-11-10', updated: '2026-11-10' },
+  { slug: 'folia-grzewcza-zamiast-pieca-opolskie', title: 'Folia grzewcza zamiast pieca na węgiel w Opolskiem – uchwała antysmogowa i „Czyste Powietrze”', lead: 'Do kiedy trzeba wymienić stary kocioł w województwie opolskim i co zmienia się w dotacjach od 2027 roku.', published: '2026-11-10', updated: '2026-11-10' },
+  { slug: 'ogrzewanie-folia-w-starym-domu', title: 'Ogrzewanie folią grzewczą w starym domu – kiedy ma sens?', lead: 'Co sprawdzić przed montażem w starszym budynku. Przykłady z Drogoszowa i Ochodzego.', published: '2026-11-10', updated: '2026-11-10' },
+] as const;
+export const articleUrl = (slug: string) => `/poradnik/${slug}`;

@@ -1,0 +1,50 @@
+---
+import Article from '../../components/Article.astro';
+import { projectUrl, articleUrl } from '../../data/site';
+const faq: [string, string][] = [
+  ['Do kiedy trzeba wymienić kopciucha w województwie opolskim?', 'Według opolskiej uchwały antysmogowej kotły bezklasowe trzeba wymienić do końca 2029 roku, a kotły klasy 3 i 4 do końca 2031 roku. Kotły klasy 5 można używać bez terminu.'],
+  ['Czy folia grzewcza spełnia wymagania uchwały antysmogowej?', 'Tak. Uchwała dotyczy urządzeń spalających paliwa stałe. Folia grzewcza nic nie spala i nie potrzebuje komina, więc wymagania uchwały jej nie dotyczą.'],
+  ['Czy na folię grzewczą można dostać dotację z „Czystego Powietrza”?', 'Ogrzewanie elektryczne inne niż pompa ciepła (w tym folie i maty grzewcze) jest w programie tylko w okresie przejściowym do końca 2026 roku. Od 2027 roku z ogrzewania elektrycznego program ma wspierać już tylko pompy ciepła. Aktualne warunki trzeba sprawdzić w gminie lub w WFOŚiGW w Opolu przed złożeniem wniosku.'],
+];
+---
+<Article
+  slug="folia-grzewcza-zamiast-pieca-opolskie"
+  description="Kotły bezklasowe w Opolskiem trzeba wymienić do końca 2029 r., klasy 3 i 4 do końca 2031 r. Folia grzewcza jako zamiennik pieca i zmiany w „Czystym Powietrzu” od 2027 r."
+  image="/img/kosorowice-1-1600.webp"
+  faq={faq}
+  cta={{ title: 'Chcesz pozbyć się pieca?', text: 'Opisz budynek. Ocenimy, czy folia grzewcza wystarczy jako ogrzewanie główne, i przygotujemy wycenę.' }}
+>
+  <p class="answer"><strong>Krótko:</strong> w województwie opolskim kotły bezklasowe („kopciuchy”) trzeba wymienić do końca 2029 roku, a kotły klasy 3 i 4 do końca 2031 roku. Folia grzewcza to jeden ze sposobów, żeby zlikwidować piec bez budowy nowej kotłowni. Kto chce na to dotację z „Czystego Powietrza”, musi się spieszyć: ogrzewanie elektryczne inne niż pompa ciepła jest w programie tylko do końca 2026 roku.</p>
+
+  <h2>Uchwała antysmogowa w województwie opolskim – terminy</h2>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Urządzenie</th><th scope="col">Do kiedy można używać</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Kocioł bezklasowy („kopciuch”)</th><td><strong>do końca 2029 r.</strong></td></tr>
+      <tr><th scope="row">Kocioł klasy 3 lub 4</th><td><strong>do końca 2031 r.</strong></td></tr>
+      <tr><th scope="row">Kominek niespełniający wymagań ekoprojektu</th><td>do końca 2035 r.</td></tr>
+      <tr><th scope="row">Kocioł klasy 5</th><td>bez terminu</td></tr>
+    </tbody>
+  </table></div>
+  <p>Klasę kotła znajdziesz na tabliczce znamionowej lub w dokumentacji. Jeśli jej tam nie ma, kocioł najpewniej jest bezklasowy.</p>
+
+  <h2>Folia grzewcza zamiast pieca – co to oznacza w praktyce</h2>
+  <p>Uchwała ogranicza urządzenia, które spalają paliwa stałe. Folia grzewcza zamienia prąd w ciepło bez spalania, więc nie podlega tym ograniczeniom. Po montażu folii:</p>
+  <ul>
+    <li>piec, komin i skład opału przestają być potrzebne,</li>
+    <li>nie ma dokładania do pieca, czyszczenia ani przeglądów kominiarskich kotła,</li>
+    <li>każdy pokój ma własny termostat, a przy termostatach z WiFi można nim sterować z telefonu,</li>
+    <li>montaż trwa zwykle jeden dzień i nie wymaga kucia pod rury.</li>
+  </ul>
+  <p>Folia sprawdzi się jako ogrzewanie główne w budynku ocieplonym. W domu bez ocieplenia najpierw warto zrobić termomodernizację, inaczej rachunki za prąd będą wysokie. Koszty zużycia opisaliśmy w artykule <a href={articleUrl('ile-pradu-zuzywa-folia-grzewcza')}>ile prądu zużywa folia grzewcza</a>.</p>
+
+  <h2>Przykład: Kosorowice – stary piec na węgiel zastąpiony folią</h2>
+  <p>W <a href={projectUrl('kosorowice')}>domu parterowym w Kosorowicach</a> (ok. 80 m² części mieszkalnej, gm. Tarnów Opolski) inwestor zlikwidował stary piec na węgiel w ramach programu „Czyste Powietrze”. Folię zamontowaliśmy w 2024 roku na ścianach dwóch pokoi, salonu i przedpokoju, pod płytą gipsowo-kartonową, a w łazience na suficie. Ścian do dyspozycji było niewiele, więc dobraliśmy folię o mocy 240 W/m² i temperaturze grzania 54°C. Dom ma 5 stref grzewczych, a szacowany roczny koszt ogrzewania to ok. 4–5,5 tys. zł.</p>
+
+  <h2>„Czyste Powietrze” a ogrzewanie elektryczne – zmiana od 2027 roku</h2>
+  <p>Od 20 lipca 2026 roku obowiązują zmienione zasady programu „Czyste Powietrze”. Ogrzewanie elektryczne inne niż pompy ciepła, czyli m.in. folie i maty grzewcze, kotły elektryczne i grzejniki elektryczne, jest w programie tylko w okresie przejściowym do końca 2026 roku. Po tym terminie program z rozwiązań elektrycznych ma wspierać już tylko pompy ciepła.</p>
+  <p class="note">Jeśli chcesz wymienić piec na folię grzewczą z dotacją, sprawdź warunki i termin złożenia wniosku jeszcze w 2026 roku: w punkcie „Czyste Powietrze” w swojej gminie lub w Wojewódzkim Funduszu Ochrony Środowiska i Gospodarki Wodnej w Opolu. Wymianę pieca bez dotacji można zrobić w dowolnym momencie.</p>
+  <p>Jeśli dotacja jest dla Ciebie ważniejsza niż niski koszt instalacji, porównaj folię z pompą ciepła: <a href={articleUrl('folia-grzewcza-czy-pompa-ciepla')}>folia grzewcza czy pompa ciepła</a>.</p>
+
+  <p class="sources">Źródła: terminy uchwały antysmogowej województwa opolskiego – muratordom.pl, „Uchwały antysmogowe w Polsce”; zmiany w „Czystym Powietrzu” – komunikat NFOŚiGW z 20 lipca 2026 r. i czystepowietrze.gov.pl. Stan na listopad 2026 r.</p>
+</Article>

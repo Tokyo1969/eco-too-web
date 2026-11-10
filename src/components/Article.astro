@@ -1,0 +1,65 @@
+---
+// Wspólny szablon artykułu poradnika: nagłówek, data, autor, treść (slot), FAQ, powiązane artykuły, CTA, schema Article + FAQPage.
+import Base from '../layouts/Base.astro';
+import CTA from './CTA.astro';
+import { site, articles, articleUrl } from '../data/site';
+
+const { slug, description, faq = [], image = '/img/drogoszow-1-1600.webp', cta = {} } = Astro.props;
+const a = articles.find((x) => x.slug === slug)!;
+const url = `${site.url}${articleUrl(slug)}`;
+const fmt = (d: string) => new Date(d).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+const related = articles.filter((x) => x.slug !== slug);
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: a.title,
+    description,
+    url,
+    mainEntityOfPage: url,
+    inLanguage: 'pl-PL',
+    datePublished: a.published,
+    dateModified: a.updated,
+    image: `${site.url}${image}`,
+    author: { '@id': `${site.url}/#business` },
+    publisher: { '@id': `${site.url}/#business` },
+    about: { '@type': 'Thing', name: 'Ogrzewanie folią grzewczą na podczerwień' },
+    spatialCoverage: { '@type': 'AdministrativeArea', name: 'Województwo opolskie' },
+  },
+  ...(faq.length
+    ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, ans]: [string, string]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: ans } })) }]
+    : []),
+];
+---
+<Base
+  breadcrumbs={[['Poradnik', '/poradnik'], [a.title, articleUrl(slug)]]}
+  title={`${a.title} | ECO-TOO`}
+  description={description}
+  ogImage={image}
+  schema={schema}
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Poradnik ECO-TOO</span>
+    <h1>{a.title}</h1>
+    <p>{a.lead}</p>
+  </div></div>
+  <section class="block"><div class="wrap">
+    <article class="article">
+      <p class="meta">Autor: ekipa {site.name} (montaż folii grzewczych w Opolu i województwie opolskim od 7 lat) · Aktualizacja: <time datetime={a.updated}>{fmt(a.updated)}</time></p>
+      <slot />
+      {faq.length > 0 && (
+        <>
+          <h2>Najczęstsze pytania</h2>
+          {faq.map(([q, ans]: [string, string]) => <details><summary>{q}</summary><p>{ans}</p></details>)}
+        </>
+      )}
+    </article>
+  </div></section>
+  <section class="block alt"><div class="wrap">
+    <h2>Czytaj dalej</h2>
+    <div class="grid g3" style="margin-top:var(--space-5)">
+      {related.map((r) => <a class="card link" href={articleUrl(r.slug)}><h3>{r.title}</h3><p>{r.lead}</p><span class="more">Czytaj →</span></a>)}
+    </div>
+  </div></section>
+  <CTA {...cta} />
+</Base>

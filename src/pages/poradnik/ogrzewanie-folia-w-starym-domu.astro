@@ -1,0 +1,44 @@
+---
+import Article from '../../components/Article.astro';
+import Img from '../../components/Img.astro';
+import { projectUrl, articleUrl } from '../../data/site';
+const faq: [string, string][] = [
+  ['Czy folię grzewczą można zamontować w starym domu?', 'Tak, pod warunkiem że dom jest ocieplony albo ocieplenie jest w planie remontu. Montowaliśmy folię m.in. w prawie 100-letnim domu w Drogoszowie i na poddaszu dawnej stodoły w Ochodzem – oba budynki przeszły wcześniej gruntowny remont, wymianę okien i ocieplenie.'],
+  ['Czy pod folię trzeba robić nową wylewkę?', 'Zwykle nie. Folię układa się na sucho na równym, suchym i stabilnym podłożu z izolacją. W salonie kosmetycznym w Opolu położyliśmy ją bezpośrednio na starych kafelkach, a na niej panele.'],
+  ['Co zrobić, jeśli w starym domu nie chcę zrywać podłogi?', 'Folię można zamontować na suficie lub na ścianach, pod płytą gipsowo-kartonową. Tak ogrzewamy np. łazienki, w których nie chce się kuć płytek.'],
+];
+---
+<Article
+  slug="ogrzewanie-folia-w-starym-domu"
+  description="Folia grzewcza w starym domu ma sens po ociepleniu i wymianie okien. Co sprawdzić przed montażem i przykłady: 100-letni dom w Drogoszowie, stodoła w Ochodzem."
+  image="/img/drogoszow-1-1600.webp"
+  faq={faq}
+  cta={{ title: 'Remontujesz stary dom?', text: 'Napisz, co obejmuje remont: ocieplenie, okna, podłogi. Doradzimy, gdzie położyć folię i jaką moc dobrać.' }}
+>
+  <p class="answer"><strong>Krótko:</strong> folia grzewcza dobrze sprawdza się w starym domu po remoncie, w którym docieplono ściany i wymieniono okna. Montaż jest suchy, więc nie trzeba kuć pod rury ani robić wylewek. W nieocieplonym budynku folia będzie grzać, ale rachunki za prąd będą wysokie, dlatego zaczynamy od sprawdzenia izolacji.</p>
+
+  <h2>Co sprawdzić przed montażem folii w starym domu</h2>
+  <ol>
+    <li><strong>Ocieplenie i okna.</strong> To od nich zależy, ile energii zużyje dom. Folia jest najbardziej opłacalna w budynku po termomodernizacji.</li>
+    <li><strong>Instalacja elektryczna i moc przyłączeniowa.</strong> Stara instalacja może wymagać nowych obwodów dla folii. Sprawdzamy to przed wyceną.</li>
+    <li><strong>Podłoże.</strong> Musi być równe, suche i stabilne. Stare deski albo nierówna posadzka wymagają wyrównania.</li>
+    <li><strong>Wysokość warstw.</strong> Folia ma ułamek milimetra, ale pod nią leży izolacja, a na niej podłoga. Przy niskich drzwiach i progach liczymy to przed montażem.</li>
+    <li><strong>Gdzie podłogi nie da się ruszyć.</strong> Wtedy folia może iść na sufit albo na ściany, pod płytę gipsowo-kartonową.</li>
+  </ol>
+
+  <h2>Przykład 1: prawie 100-letni dom w Drogoszowie</h2>
+  <Img id="drogoszow-1" sizes="(min-width: 900px) 640px, 90vw" />
+  <p><a href={projectUrl('drogoszow')}>Dom w Drogoszowie</a> ma ok. 65 m² i prawie 100 lat. Przed montażem przeszedł gruntowny remont, wymianę okien i ocieplenie. Folię o mocy 140 W/m² położyliśmy pod deską barlinecką, a w łazience na suficie folię 240 W/m². Dom ma 6 stref grzewczych (sypialnia, biuro, salon, kuchnia, łazienka, przedpokój), sterowanie ręczne lub przez WiFi. Montaż folii trwał ok. 10 godzin, a szacowany roczny koszt ogrzewania to ok. 3,5–5 tys. zł.</p>
+
+  <h2>Przykład 2: poddasze w dawnej stodole w Ochodzem</h2>
+  <p><a href={projectUrl('ochodze')}>Poddasze w Ochodzem</a> (ok. 58 m²) powstało w dawnej stodole po gruntownym remoncie, wymianie okien i ociepleniu. Folię 140 W/m² zamontowaliśmy pod panelami, razem z ich ułożeniem. Są 3 strefy: sypialnia, salon i korytarz. Cały montaż, z folią paroizolacyjną, podkładami, sterownikami i sprawdzeniem grzania, zajął ok. 7 godzin. Szacowany koszt ogrzewania to ok. 2–3,5 tys. zł rocznie.</p>
+
+  <h2>Dlaczego w starym domu folia, a nie instalacja wodna</h2>
+  <ul>
+    <li>nie trzeba kuć ścian i podłóg pod rury ani czekać tygodniami na wyschnięcie wylewek,</li>
+    <li>nie trzeba wygospodarować miejsca na kotłownię i komin,</li>
+    <li>każde pomieszczenie dostaje osobny termostat,</li>
+    <li>prace można zrobić etapami, pokój po pokoju.</li>
+  </ul>
+  <p>Jeśli w starym domu wciąż pracuje piec na węgiel, przeczytaj też o <a href={articleUrl('folia-grzewcza-zamiast-pieca-opolskie')}>terminach wymiany pieców w Opolskiem i dotacjach</a>.</p>
+</Article>

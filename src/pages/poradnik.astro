@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { articles, articleUrl } from '../data/site';
+---
+<Base
+  breadcrumbs={[['Poradnik', '/poradnik']]}
+  title="Poradnik: ogrzewanie folią grzewczą – koszty, porównania | ECO-TOO"
+  description="Ile prądu zużywa folia grzewcza, folia czy pompa ciepła, wymiana pieca w Opolskiem, folia w starym domu. Odpowiedzi na podstawie naszych realizacji."
+>
+  <div class="page-hero"><div class="wrap">
+    <span class="kicker">Poradnik</span>
+    <h1>Poradnik: ogrzewanie folią grzewczą</h1>
+    <p>Odpowiedzi na pytania, które słyszymy przed montażem. Liczby pochodzą z naszych realizacji w województwie opolskim.</p>
+  </div></div>
+  <section class="block"><div class="wrap grid g2">
+    {articles.map((a) => <a class="card link" href={articleUrl(a.slug)}><h2 class="h-md">{a.title}</h2><p>{a.lead}</p><span class="more">Czytaj →</span></a>)}
+  </div></section>
+  <CTA />
+</Base>

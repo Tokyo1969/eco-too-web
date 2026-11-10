@@ -1,5 +1,5 @@
 // /llms.txt – zwięzły opis firmy dla modeli AI (https://llmstxt.org), generowany z src/data/site.ts
-import { site, nav, areas, services, projects, faq, projectUrl } from '../data/site';
+import { site, nav, areas, services, projects, faq, projectUrl, articles, articleUrl } from '../data/site';
 
 export function GET() {
   const u = (p: string) => `${site.url}${p}`;
@@ -28,6 +28,9 @@ ${nav.map((n) => `- [${n.label}](${u(n.href)})`).join('\n')}
 - [Kalkulator kosztów](${u('/kalkulator')})
 - [Obszar działania](${u('/obszar-dzialania')})
 - [Kontakt i wycena](${u('/kontakt')})
+
+## Poradnik
+${articles.map((a) => `- [${a.title}](${u(articleUrl(a.slug))}): ${a.lead}`).join('\n')}
 
 ## Realizacje
 ${projects.map((p) => `- [${p.place}](${u(projectUrl(p.id))}): ${p.type}. ${p.note}`).join('\n')}

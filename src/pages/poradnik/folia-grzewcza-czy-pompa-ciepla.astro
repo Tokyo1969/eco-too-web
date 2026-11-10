@@ -1,0 +1,67 @@
+---
+import Article from '../../components/Article.astro';
+import { pln, exampleCost, articleUrl } from '../../data/site';
+const rows: [string, string, string][] = [
+  ['Co trzeba zbudować', 'folia, termostaty, przewody – bez rur, kotłowni i komina', 'jednostka zewnętrzna, instalacja wodna, ogrzewanie podłogowe wodne lub grzejniki'],
+  ['Montaż', 'na sucho, zwykle w 1 dzień (4–10 godzin w naszych realizacjach)', 'kilka etapów, często wylewki, które muszą wyschnąć'],
+  ['Koszt instalacji', `niski: dla 100 m² ok. ${pln(exampleCost)} (folia + sterowniki)`, 'wyraźnie wyższy'],
+  ['Ciepło z 1 kWh prądu', '1 kWh', 'zwykle 3–4 kWh'],
+  ['Rachunki za ogrzewanie', 'wyższe; dom 100 m² ok. 6–8 tys. zł/rok w naszych realizacjach', 'niższe przy tym samym zapotrzebowaniu na ciepło'],
+  ['Serwis', 'brak części ruchomych i corocznych przeglądów', 'okresowy serwis urządzenia'],
+  ['Ciepła woda', 'nie podgrzewa – potrzebny osobny podgrzewacz', 'może podgrzewać wodę użytkową'],
+  ['Sterowanie pokojami', 'osobny termostat w każdym pokoju w standardzie', 'możliwe, zwykle za dopłatą'],
+  ['Dotacja „Czyste Powietrze”', 'tylko w okresie przejściowym do końca 2026 r.', 'objęta wsparciem także od 2027 r.'],
+];
+const faq: [string, string][] = [
+  ['Co jest tańsze: folia grzewcza czy pompa ciepła?', 'Folia jest tańsza w instalacji, a pompa ciepła w eksploatacji. W małym, dobrze ocieplonym domu niższy koszt folii często wyrównuje wyższe rachunki przez wiele lat. W dużym, słabo ocieplonym domu pompa ciepła zwykle wychodzi taniej w dłuższym okresie.'],
+  ['Czy folia grzewcza podgrzewa wodę?', 'Nie. Folia grzeje tylko pomieszczenia. Do ciepłej wody potrzebny jest osobny podgrzewacz, np. elektryczny bojler albo pompa ciepła do c.w.u.'],
+  ['Czy można połączyć folię grzewczą z fotowoltaiką?', 'Tak. Folia jest odbiornikiem prądu, więc korzysta z energii z paneli. Zimą produkcja z fotowoltaiki jest jednak niska, dlatego folia z PV najlepiej sprawdza się w dobrze ocieplonym domu.'],
+];
+---
+<Article
+  slug="folia-grzewcza-czy-pompa-ciepla"
+  description="Folia grzewcza jest tańsza w instalacji, pompa ciepła w eksploatacji. Porównanie kosztów, rachunków, serwisu i dotacji – kiedy wybrać folię, a kiedy pompę ciepła."
+  image="/img/drogoszow-4-1600.webp"
+  faq={faq}
+  cta={{ title: 'Nie wiesz, co wybrać?', text: 'Opisz dom: metraż, ocieplenie, czy masz fotowoltaikę. Powiemy wprost, czy w Twoim przypadku lepsza będzie folia, czy pompa ciepła.' }}
+>
+  <p class="answer"><strong>Krótko:</strong> folia grzewcza jest wyraźnie tańsza i szybsza w montażu, nie wymaga serwisu ani kotłowni. Pompa ciepła z 1 kWh prądu daje 3–4 kWh ciepła, więc rachunki są niższe. Folia ma przewagę w małych i dobrze ocieplonych domach, mieszkaniach, przy remontach i z fotowoltaiką. W dużym, słabo ocieplonym domu lepsza zwykle będzie pompa ciepła.</p>
+
+  <h2>Porównanie: folia grzewcza a pompa ciepła</h2>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col"></th><th scope="col">Folia grzewcza</th><th scope="col">Pompa ciepła</th></tr></thead>
+    <tbody>{rows.map(([k, f, p]) => <tr><th scope="row">{k}</th><td class="hl">{f}</td><td>{p}</td></tr>)}</tbody>
+  </table></div>
+
+  <h2>Dlaczego pompa ciepła ma niższe rachunki</h2>
+  <p>Folia zamienia prąd w ciepło 1 do 1. Pompa ciepła pobiera ciepło z powietrza lub gruntu i z 1 kWh prądu daje zwykle 3–4 kWh ciepła. Przy tym samym zapotrzebowaniu budynku na ciepło pompa zużyje więc kilka razy mniej prądu.</p>
+  <p>Przykład z wyliczenia serwisu Murator dla domu jednorodzinnego: roczny rachunek za ogrzewanie wyszedł ok. 5 tys. zł z folią i ok. 1,5 tys. zł z pompą ciepła. Instalacja z pompą ciepła (z ogrzewaniem i ciepłą wodą) kosztowała tam 50–76 tys. zł, a z folią 31–41 tys. zł.</p>
+
+  <h2>Dlaczego folia może się opłacać mimo wyższych rachunków</h2>
+  <p>Różnica w koszcie instalacji spłaca się z niższych rachunków przez wiele lat. Im mniejsze zapotrzebowanie domu na ciepło, tym mniejsza roczna różnica w rachunkach i tym dłużej trwa zwrot droższej pompy. Do tego folia:</p>
+  <ul>
+    <li>nie ma części ruchomych, więc nie ma corocznego serwisu (dajemy 30 lat gwarancji na folię grzewczą),</li>
+    <li>montuje się na sucho, bez kucia i wylewek, co ma znaczenie przy remoncie,</li>
+    <li>nie zajmuje miejsca: nie ma jednostki zewnętrznej, zasobnika ani kotłowni,</li>
+    <li>daje osobny termostat w każdym pokoju bez dopłat.</li>
+  </ul>
+
+  <h2>Kiedy wybrać folię, a kiedy pompę ciepła</h2>
+  <h3>Folia grzewcza</h3>
+  <ul>
+    <li>dom dobrze ocieplony, o niskim zapotrzebowaniu na ciepło,</li>
+    <li>dom z fotowoltaiką albo korzystną taryfą,</li>
+    <li>mieszkanie, poddasze, pojedyncze pomieszczenia,</li>
+    <li>remont, w którym nie da się lub nie opłaca się robić instalacji wodnej,</li>
+    <li>domek letniskowy lub obiekt używany okresowo.</li>
+  </ul>
+  <h3>Pompa ciepła</h3>
+  <ul>
+    <li>duży dom o wysokim zapotrzebowaniu na ciepło,</li>
+    <li>nowy dom, w którym i tak powstaje wodne ogrzewanie podłogowe,</li>
+    <li>gdy zależy Ci na dotacji z „Czystego Powietrza” w 2027 roku i później (szczegóły w artykule <a href={articleUrl('folia-grzewcza-zamiast-pieca-opolskie')}>o uchwale antysmogowej i dotacjach</a>).</li>
+  </ul>
+  <p>Porównanie z kotłem gazowym i na pellet jest na stronie <a href="/ogrzewanie-alternatywne">ogrzewanie alternatywne</a>.</p>
+
+  <p class="sources">Źródła: wyliczenie kosztów instalacji i rachunków – muratordom.pl, „Pompa ciepła czy folia grzewcza? Co się bardziej opłaca?”; sprawność pompy ciepła 3–4 kWh z 1 kWh – globenergia.pl. Koszty folii – kalkulator i realizacje ECO-TOO.</p>
+</Article>
